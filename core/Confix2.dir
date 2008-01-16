@@ -1,0 +1,13 @@
+# -*- python -*-
+
+h = [
+    'test_case.h',
+    'test_result.h',
+    'test_result_fwd.h',
+    ]
+
+cxx = [
+    'test_case.cc',
+    ]
+
+LIBRARY(members=[H(filename=f, install=['jf', 'unittest']) for f in h] + [CXX(filename=f) for f in cxx])
