@@ -29,13 +29,13 @@ namespace unittest {
 
 class TestCase {
 public:
-    TestCase(const std::string& name) : name_(name), result_(NULL) {}
+    TestCase(const std::string& name) : name_(name) {}
     virtual ~TestCase() {}
 
     virtual void run() = 0;
 
 public:
-#   define JFUNIT_ASSERT(condition) do_assert((condition), #condition, __FILE__, __LINE__);
+#   define JFUNIT_ASSERT(condition) do_cond_fail((condition), #condition, __FILE__, __LINE__);
 #   define JFUNIT_FAIL() JFUNIT_ASSERT(false)
     void do_cond_fail(bool condition, const std::string& condition_str,
                       const std::string& filename, int line);
@@ -43,7 +43,6 @@ public:
 
 private:
     std::string name_;
-    TestResult* result_;
 };
 
 }

@@ -27,6 +27,10 @@ class TestResult
 {
 public:
     virtual ~TestResult() {}
+
+    virtual void add_success() = 0;
+    virtual void add_failure() = 0;
+    virtual void add_error() = 0;
 };
 
 }

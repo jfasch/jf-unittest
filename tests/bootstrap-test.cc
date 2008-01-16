@@ -18,6 +18,7 @@
 // USA
 
 #include <jf/unittest/test_case.h>
+#include <jf/unittest/test_result.h>
 
 using namespace jf::unittest;
 
@@ -39,7 +40,7 @@ public:
     MyFailureTest() : TestCase("MyFailureTest") {}
     virtual void run()
     {
-        JFUNIT_FAIL(false);
+        JFUNIT_FAIL();
     }
 };
 
@@ -56,15 +57,31 @@ public:
 class MyTestResult : public TestResult
 {
 public:
-    MyTestResult() : num_ok_(0), num_failures_(0), num_errors_(0) {}
-    int num_ok() const { return num_ok_; }
-    int num_failures() const { return num_failures_; }
-    int num_errors() const { return num_errors_; }
+    MyTestResult() : num_success_(0), num_failure_(0), num_error_(0) {}
+
+    virtual void add_success() { num_success_++; }
+    virtual void add_failure() { num_failure_++; }
+    virtual void add_error() { num_error_++; }
+
+    int num_success() const { return num_success_; }
+    int num_failure() const { return num_failure_; }
+    int num_error() const { return num_error_; }
 private:
-    int num_ok_;
-    int num_failures_;
-    int num_errors_;
+    int num_success_;
+    int num_failure_;
+    int num_error_;
 };
+
+class MySuiteTest : public TestCase
+{
+public:
+    MySuiteTest() : TestCase("MySuiteTest") {}
+    virtual void run()
+    {
+        jjj;
+    }
+};
+
 
 }
 
@@ -74,33 +91,33 @@ int main()
         MyOkTest t;
         MyTestResult r;
         t.run_internal(&r);
-        if (r.num_ok() != 1)
+        if (r.num_success() != 1)
             return 1;
-        if (r.num_failures() != 0)
+        if (r.num_failure() != 0)
             return 1;
-        if (r.num_errors() != 0)
+        if (r.num_error() != 0)
             return 1;
     }
     {
         MyFailureTest t;
         MyTestResult r;
-        t.run_internal();
-        if (r.num_ok() != 0)
+        t.run_internal(&r);
+        if (r.num_success() != 0)
             return 1;
-        if (r.num_failures() != 1)
+        if (r.num_failure() != 1)
             return 1;
-        if (r.num_errors() != 0)
+        if (r.num_error() != 0)
             return 1;
     }
     {
         MyErrorTest t;
         MyTestResult r;
-        t.run_internal();
-        if (r.num_ok() != 0)
+        t.run_internal(&r);
+        if (r.num_success() != 0)
             return 1;
-        if (r.num_failures() != 0)
+        if (r.num_failure() != 0)
             return 1;
-        if (r.num_errors() != 1)
+        if (r.num_error() != 1)
             return 1;
     }
     return 0;

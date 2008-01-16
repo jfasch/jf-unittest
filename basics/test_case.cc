@@ -19,6 +19,25 @@
 
 #include "test_case.h"
 
+#include "test_result.h"
+
+namespace {
+
+class Failure
+{
+public:
+    Failure(const std::string& condition_str, const std::string& filename, int line)
+    : condition_str_(condition_str),
+      filename_(filename),
+      line_(line) {}
+private:
+    std::string condition_str_;
+    std::string filename_;
+    int line_;
+};
+
+}
+
 namespace jf {
 namespace unittest {
 
@@ -28,16 +47,27 @@ void TestCase::do_cond_fail(
     const std::string& filename,
     int line)
 {
-
+    if (!condition)
+        throw Failure(condition_str, filename, line);
 }
 
 void TestCase::run_internal(
-    TestResult* r)
+    TestResult* result)
 {
-
+    try {
+        run();
+        result->add_success();
+    }
+    catch (const Failure& f) {
+        result->add_failure();
+    }
+    catch (const std::exception&) {
+        result->add_error();
+    }
+    catch (...) {
+        result->add_error();
+    }
 }
-
-};
 
 }
 }
