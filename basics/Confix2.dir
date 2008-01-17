@@ -4,10 +4,12 @@ h = [
     'test_case.h',
     'test_result.h',
     'test_result_fwd.h',
+    'test_suite.h',
     ]
 
-cxx = [
+cc = [
     'test_case.cc',
+    'test_suite.cc',
     ]
 
-LIBRARY(members=[H(filename=f, install=['jf', 'unittest']) for f in h] + [CXX(filename=f) for f in cxx])
+LIBRARY(members=[H(filename=f, install=['jf', 'unittest']) for f in h] + [CXX(filename=f) for f in cc])

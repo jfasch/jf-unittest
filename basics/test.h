@@ -17,28 +17,30 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 // USA
 
-#ifndef HAVE_JF_UNITTEST_TEST_CASE_H
-#define HAVE_JF_UNITTEST_TEST_CASE_H
+#ifndef HAVE_JF_UNITTEST_TEST_H
+#define HAVE_JF_UNITTEST_TEST_H
 
-#include "test.h"
+#include "test_result_fwd.h"
+
+#include <string>
 
 namespace jf {
 namespace unittest {
 
-class TestCase : public Test {
+class Test
+{
 public:
-    TestCase(const std::string& name) : Test(name) {}
-    virtual ~TestCase() {}
+    Test(const std::string& name) : name_(name) {}
+    virtual ~Test() {}
 
-    virtual void run() = 0;
+    virtual void run_internal(TestResult*) = 0;
 
-public:
-    virtual void run_internal(TestResult*);
+private:
+    std::string name_;
 
-#   define JFUNIT_ASSERT(condition) do_cond_fail((condition), #condition, __FILE__, __LINE__);
-#   define JFUNIT_FAIL() JFUNIT_ASSERT(false)
-    void do_cond_fail(bool condition, const std::string& condition_str,
-                      const std::string& filename, int line);
+private:
+    Test(const Test&);
+    Test& operator=(const Test&);
 };
 
 }

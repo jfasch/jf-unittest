@@ -41,16 +41,6 @@ private:
 namespace jf {
 namespace unittest {
 
-void TestCase::do_cond_fail(
-    bool condition,
-    const std::string& condition_str,
-    const std::string& filename,
-    int line)
-{
-    if (!condition)
-        throw Failure(condition_str, filename, line);
-}
-
 void TestCase::run_internal(
     TestResult* result)
 {
@@ -67,6 +57,16 @@ void TestCase::run_internal(
     catch (...) {
         result->add_error();
     }
+}
+
+void TestCase::do_cond_fail(
+    bool condition,
+    const std::string& condition_str,
+    const std::string& filename,
+    int line)
+{
+    if (!condition)
+        throw Failure(condition_str, filename, line);
 }
 
 }

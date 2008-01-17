@@ -78,10 +78,18 @@ public:
     MySuiteTest() : TestCase("MySuiteTest") {}
     virtual void run()
     {
-        jjj;
+        
     }
+private:
+    class MyTestSuite : public TestSuite
+    {
+    public:
+        MyTestSuite() : TestSuite("MyTestSuite")
+        {
+            add_test(new MyOkTest);
+        }
+    };
 };
-
 
 }
 
@@ -118,6 +126,17 @@ int main()
         if (r.num_failure() != 0)
             return 1;
         if (r.num_error() != 1)
+            return 1;
+    }
+    {
+        MySuiteTest t;
+        MyTestResult r;
+        t.run_internal(&r);
+        if (r.num_success() != 1)
+            return 1;
+        if (r.num_failure() != 0)
+            return 1;
+        if (r.num_error() != 0)
             return 1;
     }
     return 0;

@@ -17,31 +17,28 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 // USA
 
-#ifndef HAVE_JF_UNITTEST_TEST_CASE_H
-#define HAVE_JF_UNITTEST_TEST_CASE_H
-
-#include "test.h"
+#include "test_suite.h"
 
 namespace jf {
 namespace unittest {
 
-class TestCase : public Test {
-public:
-    TestCase(const std::string& name) : Test(name) {}
-    virtual ~TestCase() {}
+TestSuite::~TestSuite()
+{
+    for (int i=0; i<tests_.size(); i++)
+        delete tests_[i];
+}
 
-    virtual void run() = 0;
+void TestSuite::add_test(Test* t)
+{
+    assert(t);
+    tests_.push_back(t);
+}
 
-public:
-    virtual void run_internal(TestResult*);
-
-#   define JFUNIT_ASSERT(condition) do_cond_fail((condition), #condition, __FILE__, __LINE__);
-#   define JFUNIT_FAIL() JFUNIT_ASSERT(false)
-    void do_cond_fail(bool condition, const std::string& condition_str,
-                      const std::string& filename, int line);
-};
+void TestSuite::run_internal(TestResult* result)
+{
+    for (int i=0; i<tests_.size(); i++)
+        tests_[i]->run_internal(result);
+}
 
 }
 }
-
-#endif
