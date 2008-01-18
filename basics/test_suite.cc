@@ -19,13 +19,15 @@
 
 #include "test_suite.h"
 
+#include <cassert>
+
 namespace jf {
 namespace unittest {
 
 TestSuite::~TestSuite()
 {
-    for (int i=0; i<tests_.size(); i++)
-        delete tests_[i];
+    for (Tests::const_iterator i = tests_.begin(); i != tests_.end(); ++i)
+        delete *i;
 }
 
 void TestSuite::add_test(Test* t)
@@ -36,8 +38,8 @@ void TestSuite::add_test(Test* t)
 
 void TestSuite::run_internal(TestResult* result)
 {
-    for (int i=0; i<tests_.size(); i++)
-        tests_[i]->run_internal(result);
+    for (Tests::const_iterator i = tests_.begin(); i != tests_.end(); ++i)
+        (*i)->run_internal(result);
 }
 
 }

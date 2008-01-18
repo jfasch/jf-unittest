@@ -38,7 +38,8 @@ public:
     virtual void run_internal(TestResult*);
 
 private:
-    std::vector<Test*> tests_;
+    typedef std::vector<Test*> Tests;
+    Tests tests_;
 };
 
 }

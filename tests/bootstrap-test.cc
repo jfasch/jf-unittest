@@ -18,46 +18,49 @@
 // USA
 
 #include <jf/unittest/test_case.h>
+#include <jf/unittest/test_suite.h>
 #include <jf/unittest/test_result.h>
+
+#include <iostream>
 
 using namespace jf::unittest;
 
 namespace
 {
 
-class MyOkTest : public TestCase
+class OkTest : public TestCase
 {
 public:
-    MyOkTest() : TestCase("MyOkTest") {}
+    OkTest() : TestCase("OkTest") {}
     virtual void run()
     {
     }
 };
 
-class MyFailureTest : public TestCase
+class FailureTest : public TestCase
 {
 public:
-    MyFailureTest() : TestCase("MyFailureTest") {}
+    FailureTest() : TestCase("FailureTest") {}
     virtual void run()
     {
         JFUNIT_FAIL();
     }
 };
 
-class MyErrorTest : public TestCase
+class ErrorTest : public TestCase
 {
 public:
-    MyErrorTest() : TestCase("MyErrorTest") {}
+    ErrorTest() : TestCase("ErrorTest") {}
     virtual void run()
     {
         throw 1;
     }
 };
 
-class MyTestResult : public TestResult
+class BootstrapTestResult : public TestResult
 {
 public:
-    MyTestResult() : num_success_(0), num_failure_(0), num_error_(0) {}
+    BootstrapTestResult() : num_success_(0), num_failure_(0), num_error_(0) {}
 
     virtual void add_success() { num_success_++; }
     virtual void add_failure() { num_failure_++; }
@@ -72,72 +75,76 @@ private:
     int num_error_;
 };
 
-class MySuiteTest : public TestCase
+class SuiteTest : public TestCase
 {
 public:
-    MySuiteTest() : TestCase("MySuiteTest") {}
+    SuiteTest() : TestCase("SuiteTest") {}
     virtual void run()
     {
-        
+        TestTestSuite s;
+        BootstrapTestResult r;
+        s.run_internal(&r);
+        JFUNIT_ASSERT(r.num_success() == 2);
+        JFUNIT_ASSERT(r.num_failure() == 2);
+        JFUNIT_ASSERT(r.num_error() == 3);
     }
 private:
-    class MyTestSuite : public TestSuite
+    class TestTestSuite : public TestSuite
     {
     public:
-        MyTestSuite() : TestSuite("MyTestSuite")
+        TestTestSuite() : TestSuite("TestTestSuite")
         {
-            add_test(new MyOkTest);
+            add_test(new OkTest);
+            add_test(new OkTest);
+            add_test(new FailureTest);
+            add_test(new FailureTest);
+            add_test(new ErrorTest);
+            add_test(new ErrorTest);
+            add_test(new ErrorTest);
         }
     };
 };
 
 }
 
+#define BOOTSTRAP_ASSERT(condition) \
+     if (!(condition)) { \
+         std::cerr << "FAILED: " << #condition << \
+             '(' << __FILE__<< ':' << __LINE__ << ')' << std::endl; \
+         ::exit(1); \
+     }
+
 int main()
 {
     {
-        MyOkTest t;
-        MyTestResult r;
+        OkTest t;
+        BootstrapTestResult r;
         t.run_internal(&r);
-        if (r.num_success() != 1)
-            return 1;
-        if (r.num_failure() != 0)
-            return 1;
-        if (r.num_error() != 0)
-            return 1;
+        BOOTSTRAP_ASSERT(r.num_success() == 1);
+        BOOTSTRAP_ASSERT(r.num_failure() == 0);
+        BOOTSTRAP_ASSERT(r.num_error() == 0);
     }
     {
-        MyFailureTest t;
-        MyTestResult r;
+        FailureTest t;
+        BootstrapTestResult r;
         t.run_internal(&r);
-        if (r.num_success() != 0)
-            return 1;
-        if (r.num_failure() != 1)
-            return 1;
-        if (r.num_error() != 0)
-            return 1;
+        BOOTSTRAP_ASSERT(r.num_success() == 0);
+        BOOTSTRAP_ASSERT(r.num_failure() == 1);
+        BOOTSTRAP_ASSERT(r.num_error() == 0);
     }
     {
-        MyErrorTest t;
-        MyTestResult r;
+        ErrorTest t;
+        BootstrapTestResult r;
         t.run_internal(&r);
-        if (r.num_success() != 0)
-            return 1;
-        if (r.num_failure() != 0)
-            return 1;
-        if (r.num_error() != 1)
-            return 1;
+        BOOTSTRAP_ASSERT(r.num_success() == 0);
+        BOOTSTRAP_ASSERT(r.num_failure() == 0);
+        BOOTSTRAP_ASSERT(r.num_error() == 1);
     }
     {
-        MySuiteTest t;
-        MyTestResult r;
+        SuiteTest t;
+        BootstrapTestResult r;
         t.run_internal(&r);
-        if (r.num_success() != 1)
-            return 1;
-        if (r.num_failure() != 0)
-            return 1;
-        if (r.num_error() != 0)
-            return 1;
+        BOOTSTRAP_ASSERT(r.num_success() == 1);
     }
     return 0;
 }
