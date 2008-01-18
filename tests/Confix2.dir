@@ -1,5 +1,5 @@
 # -*- python -*-
 
-EXECUTABLE(center=CXX('bootstrap-test.cc'),
-           exename='bootstrap-test',
+EXECUTABLE(center=CXX('bootstrap.cc'),
+           exename='bootstrap',
            what=EXECUTABLE_CHECK)
