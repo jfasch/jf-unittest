@@ -1,0 +1,12 @@
+# -*- python -*-
+
+h = [
+    'basic_suite.h',
+    'setup_teardown.h',
+    ]
+
+cc = [
+    'basic_suite.cc',
+    ]
+
+LIBRARY(members=[H(filename=f, install=['jf', 'unittest', 'tests']) for f in h] + [CXX(filename=f) for f in cc])

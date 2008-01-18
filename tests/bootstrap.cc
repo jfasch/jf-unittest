@@ -109,8 +109,8 @@ private:
 
 #define BOOTSTRAP_ASSERT(condition) \
      if (!(condition)) { \
-         std::cerr << "FAILED: " << #condition << \
-             '(' << __FILE__<< ':' << __LINE__ << ')' << std::endl; \
+         std::cerr << "JF BOOTSTRAP FAILED: \"" << #condition << \
+             "\" (" << __FILE__<< ':' << __LINE__ << ')' << std::endl; \
          ::exit(1); \
      }
 
@@ -146,5 +146,6 @@ int main()
         t.run_internal(&r);
         BOOTSTRAP_ASSERT(r.num_success() == 1);
     }
+
     return 0;
 }

@@ -1,5 +1,20 @@
 # -*- python -*-
 
+# Working on a unittest framework without having a unittest framework
+# requires a little extra effort - how do we test that the framework
+# works? Automake supports some basic notion of testing, and we use it
+# to execute our "bootstrap" program, before we move on to more
+# sophisticated tests. (Reminds me of what I saw when I had a view
+# into the "Das U-Boot" bootloader.)
+
 EXECUTABLE(center=CXX('bootstrap.cc'),
            exename='bootstrap',
+           what=EXECUTABLE_CHECK)
+
+# Now that we know that it works basically, we go on to more advanced
+# tests. we can verify that setup that setup and teardown works, for
+# example. We still have no fancy output generators however.
+
+EXECUTABLE(center=CXX('stage1.cc'),
+           exename='stage1',
            what=EXECUTABLE_CHECK)
