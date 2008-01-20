@@ -34,14 +34,16 @@ void SimpleTestResult::add_success(const TestCase*)
 void SimpleTestResult::add_failure(const TestCase* tc, const Failure& f)
 {
     num_failure_++;
-    std::cerr << "FAILURE: " << tc->name() << ": " << f.failed_condition()
-              << " (" << f.filename() << ':' << f.line() << ')' << std::endl;
+    if (ostream_)
+        std::cerr << "FAILURE: " << tc->name() << ": " << f.failed_condition()
+                  << " (" << f.filename() << ':' << f.line() << ')' << std::endl;
 }
 
 void SimpleTestResult::add_error(const TestCase* tc, const std::string& message)
 {
     num_error_++;
-    std::cerr << "ERROR:   " << tc->name() << ": " << message << std::endl;
+    if (ostream_)
+        std::cerr << "ERROR:   " << tc->name() << ": " << message << std::endl;
 }
     
 }

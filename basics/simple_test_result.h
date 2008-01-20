@@ -22,13 +22,19 @@
 
 #include "test_result.h"
 
+#include <iostream>
+
 namespace jf {
 namespace unittest {
 
 class SimpleTestResult : public TestResult
 {
 public:
-    SimpleTestResult() : num_success_(0), num_failure_(0), num_error_(0) {}
+    SimpleTestResult(std::ostream* ostream = NULL)
+    : ostream_(ostream),
+      num_success_(0),
+      num_failure_(0),
+      num_error_(0) {}
 
     bool ok() const { return num_failure_ + num_error_ == 0; }
     int num_success() const { return num_success_; }
@@ -40,6 +46,7 @@ public:
     virtual void add_error(const TestCase*, const std::string&);
     
 private:
+    std::ostream* ostream_;
     int num_success_;
     int num_failure_;
     int num_error_;

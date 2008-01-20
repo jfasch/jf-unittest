@@ -20,7 +20,7 @@
 #include "setup_teardown.h"
 
 #include <jf/unittest/test_case.h>
-#include <jf/unittest/test_result.h>
+#include <jf/unittest/simple_test_result.h>
 
 namespace {
 
@@ -46,22 +46,6 @@ private:
     bool teardown_called_;
 };
 
-class MyTestResult : public jf::unittest::TestResult
-{
-public:
-    MyTestResult() : num_success_(0), num_failure_(0), num_error_(0) {}
-    int num_success() const { return num_success_; }
-    int num_failure() const { return num_failure_; }
-    int num_error() const { return num_error_; }
-    virtual void add_success(const jf::unittest::TestCase*) { num_success_++; }
-    virtual void add_failure(const jf::unittest::TestCase*, const jf::unittest::Failure&) { num_failure_++; }
-    virtual void add_error(const jf::unittest::TestCase*, const std::string&) { num_error_++; }
-private:
-    int num_success_;
-    int num_failure_;
-    int num_error_;
-};
-
 }
 
 namespace jf {
@@ -75,7 +59,7 @@ public:
     virtual void run()
     {
         SuccessTest test;
-        MyTestResult result;
+        jf::unittest::SimpleTestResult result;
         test.run_internal(&result);
         JFUNIT_ASSERT(test.setup_called());
         JFUNIT_ASSERT(test.run_called());
@@ -95,7 +79,7 @@ public:
     virtual void run()
     {
         SetupFailureTest test;
-        MyTestResult result;
+        jf::unittest::SimpleTestResult result;
         test.run_internal(&result);
         JFUNIT_ASSERT(test.setup_called());
         JFUNIT_ASSERT(!test.run_called());
@@ -123,7 +107,7 @@ public:
     virtual void run()
     {
         SetupErrorTest test;
-        MyTestResult result;
+        jf::unittest::SimpleTestResult result;
         test.run_internal(&result);
         JFUNIT_ASSERT(test.setup_called());
         JFUNIT_ASSERT(!test.run_called());
@@ -151,7 +135,7 @@ public:
     virtual void run()
     {
         RunFailureTest test;
-        MyTestResult result;
+        jf::unittest::SimpleTestResult result;
         test.run_internal(&result);
         JFUNIT_ASSERT(test.setup_called());
         JFUNIT_ASSERT(test.run_called());
@@ -179,7 +163,7 @@ public:
     virtual void run()
     {
         RunErrorTest test;
-        MyTestResult result;
+        jf::unittest::SimpleTestResult result;
         test.run_internal(&result);
         JFUNIT_ASSERT(test.setup_called());
         JFUNIT_ASSERT(test.run_called());
@@ -207,7 +191,7 @@ public:
     virtual void run()
     {
         TeardownFailureTest test;
-        MyTestResult result;
+        jf::unittest::SimpleTestResult result;
         test.run_internal(&result);
         JFUNIT_ASSERT(test.setup_called());
         JFUNIT_ASSERT(test.run_called());
@@ -235,7 +219,7 @@ public:
     virtual void run()
     {
         TeardownErrorTest test;
-        MyTestResult result;
+        jf::unittest::SimpleTestResult result;
         test.run_internal(&result);
         JFUNIT_ASSERT(test.setup_called());
         JFUNIT_ASSERT(test.run_called());

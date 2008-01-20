@@ -23,7 +23,7 @@
 int main()
 {
     jf::unittest::tests::BasicSuite suite;
-    jf::unittest::SimpleTestResult result;
+    jf::unittest::SimpleTestResult result(&std::cerr);
 
     suite.run_internal(&result);
 
