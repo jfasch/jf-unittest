@@ -20,15 +20,75 @@
 #ifndef HAVE_JF_UNITTEST_TREE_TEST_RESULT_H
 #define HAVE_JF_UNITTEST_TREE_TEST_RESULT_H
 
+#include <jf/unittest/test_result.h>
+
+#include <stack>
+#include <vector>
+
 namespace jf {
 namespace unittest {
 
-class TreeTestResult
+class TreeTestResult : public jf::unittest::TestResult
 {
 public:
-    virtual void add_success(const TestCase*) = 0;
-    virtual void add_failure(const TestCase*, const Failure&) = 0;
-    virtual void add_error(const TestCase*, const std::string& message) = 0;
+    TreeTestResult(std::ostream& ostream);
+
+    virtual void start_suite(const TestSuite*);
+    virtual void stop_suite(const TestSuite*);
+    virtual void start_test(const TestCase*);
+    virtual void stop_test(const TestCase*);
+    virtual void add_success(const TestCase*);
+    virtual void add_failure(const TestCase*, const Failure&);
+    virtual void add_error(const TestCase*, const std::string& message);
+
+    void print_summary() const;
+    bool ok() const { return num_success_ == num_tests_; }
+
+private:
+    typedef std::stack<const TestSuite*> SuiteStack;
+
+    class Report {
+    public:
+        Report(const TestCase* c, const Failure& f)
+        : testcase_(c),
+          type_(T_FAILURE),
+          failure_(f) {}
+        Report(const TestCase* c, const std::string& m)
+        : testcase_(c),
+          type_(T_ERROR),
+          failure_(std::string(), std::string(), 0),
+          message_(m) {}
+        void print(std::ostream&);
+    private:
+        enum Type {
+          T_FAILURE,
+          T_ERROR
+        };
+        const TestCase* testcase_;
+        Type type_;
+        Failure failure_;
+        std::string message_;
+    };
+    typedef std::vector<Report> Reports;
+    
+
+private:
+    std::ostream& ostream_;
+
+    SuiteStack suite_stack_;
+
+    Failure cur_failure;
+    const Failure* p_cur_failure;
+    std::string cur_error;
+    const std::string* p_cur_error;
+
+    Reports reports_;
+
+    int num_suites_;
+    int num_tests_;
+    int num_success_;
+    int num_failure_;
+    int num_error_;
 };
 
 }
