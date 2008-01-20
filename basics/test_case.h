@@ -37,10 +37,18 @@ public:
 public:
     virtual void run_internal(TestResult*);
 
-#   define JFUNIT_ASSERT(condition) do_cond_fail((condition), #condition, __FILE__, __LINE__);
+#   define JFUNIT_OBJECT_ASSERT(testcase, condition) \
+        do { \
+            testcase->do_cond_fail((condition), #condition, __FILE__, __LINE__); \
+        } while (false)
+#   define JFUNIT_OBJECT_FAIL(testcase) JFUNIT_OBJECT_ASSERT(testcase, false)
+#   define JFUNIT_ASSERT(condition) JFUNIT_OBJECT_ASSERT(this, condition)
 #   define JFUNIT_FAIL() JFUNIT_ASSERT(false)
-    void do_cond_fail(bool condition, const std::string& condition_str,
-                      const std::string& filename, int line);
+
+    void do_cond_fail(bool condition,
+                      const std::string& condition_str,
+                      const std::string& filename,
+                      int line);
 };
 
 }

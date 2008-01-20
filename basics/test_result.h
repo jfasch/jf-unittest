@@ -22,6 +22,7 @@
 
 #include "failure.h"
 #include "test_case_fwd.h"
+#include "test_suite_fwd.h"
 
 namespace jf {
 namespace unittest {
@@ -31,6 +32,10 @@ class TestResult
 public:
     virtual ~TestResult() {}
 
+    virtual void start_suite(const TestSuite*) = 0;
+    virtual void stop_suite(const TestSuite*) = 0;
+    virtual void start_test(const TestCase*) = 0;
+    virtual void stop_test(const TestCase*) = 0;
     virtual void add_success(const TestCase*) = 0;
     virtual void add_failure(const TestCase*, const Failure&) = 0;
     virtual void add_error(const TestCase*, const std::string& message) = 0;

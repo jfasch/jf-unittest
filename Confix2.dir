@@ -1,5 +1,6 @@
 # -*- python -*-
 
 DIRECTORY(['basics'])
+DIRECTORY(['results'])
 DIRECTORY(['runners'])
 DIRECTORY(['tests'])

@@ -30,15 +30,19 @@ namespace unittest {
 class TestSuite : public Test
 {
 public:
+    typedef std::vector<Test*> Tests;
+    
+public:
     TestSuite(const std::string& name) : Test(name) {}
     virtual ~TestSuite();
+
     void add_test(Test*);
+    const Tests& tests() const { return tests_; }
 
 public:
     virtual void run_internal(TestResult*);
 
 private:
-    typedef std::vector<Test*> Tests;
     Tests tests_;
 };
 

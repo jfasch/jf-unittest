@@ -59,59 +59,63 @@ namespace unittest {
 void TestCase::run_internal(
     TestResult* result)
 {
+    result->start_test(this);
+    
+    bool setup_ok = false;
     try {
         this->setup();
+        setup_ok = true;
     }
     catch (const FailureException& e) {
         std::string msg("setup: ");
         add_failure_description(msg, e.failure());
         result->add_error(this, msg);
-        return;
     }
     catch (const std::exception& e) {
         std::string msg("setup: ");
         msg += e.what();
         result->add_error(this, msg);
-        return;
     }
     catch (...) {
         result->add_error(this, "setup: \"...\" caught");
-        return;
     }
 
-    try {
-        this->run();
-        result->add_success(this);
-    }
-    catch (const FailureException& f) {
-        result->add_failure(this, f.failure());
-    }
-    catch (const std::exception& e) {
-        result->add_error(this, e.what());
-    }
-    catch (...) {
-        result->add_error(this, "\"...\" caught");
+    // only if setup went ok go on to execute the test code and
+    // teardown
+    if (setup_ok) {
+        try {
+            this->run();
+            result->add_success(this);
+        }
+        catch (const FailureException& f) {
+            result->add_failure(this, f.failure());
+        }
+        catch (const std::exception& e) {
+            result->add_error(this, e.what());
+        }
+        catch (...) {
+            result->add_error(this, "\"...\" caught");
+        }
+
+        try {
+            this->teardown();
+        }
+        catch (const FailureException& e) {
+            std::string msg("teardown: ");
+            add_failure_description(msg, e.failure());
+            result->add_error(this, msg);
+        }
+        catch (const std::exception& e) {
+            std::string msg("teardown: ");
+            msg += e.what();
+            result->add_error(this, msg);
+        }
+        catch (...) {
+            result->add_error(this, "teardown: \"...\" caught");
+        }
     }
 
-    try {
-        this->teardown();
-    }
-    catch (const FailureException& e) {
-        std::string msg("teardown: ");
-        add_failure_description(msg, e.failure());
-        result->add_error(this, msg);
-        return;
-    }
-    catch (const std::exception& e) {
-        std::string msg("teardown: ");
-        msg += e.what();
-        result->add_error(this, msg);
-        return;
-    }
-    catch (...) {
-        result->add_error(this, "teardown: \"...\" caught");
-        return;
-    }
+    result->stop_test(this);
 }
 
 void TestCase::do_cond_fail(

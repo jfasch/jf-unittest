@@ -3,11 +3,13 @@
 h = [
     'basic_suite.h',
     'setup_teardown.h',
+    'start_stop.h',
     ]
 
 cc = [
     'basic_suite.cc',
     'setup_teardown.cc',
+    'start_stop.cc',
     ]
 
 LIBRARY(members=[H(filename=f, install=['jf', 'unittest', 'tests']) for f in h] + [CXX(filename=f) for f in cc])

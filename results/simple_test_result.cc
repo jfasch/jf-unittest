@@ -17,22 +17,34 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 // USA
 
-#include "basic_suite.h"
+#include "simple_test_result.h"
 
-#include "setup_teardown.h"
-#include "start_stop.h"
+#include <jf/unittest/test_case.h>
+
+#include <iostream>
 
 namespace jf {
 namespace unittest {
-namespace tests {
 
-BasicSuite::BasicSuite()
-: TestSuite("jf::unittest::tests::BasicSuite")
+void SimpleTestResult::add_success(const TestCase*)
 {
-    add_test(new SetupTeardownSuite);
-    add_test(new StartStopSuite);
+    num_success_++;
 }
 
+void SimpleTestResult::add_failure(const TestCase* tc, const Failure& f)
+{
+    num_failure_++;
+    if (ostream_)
+        std::cerr << "FAILURE: " << tc->name() << ": " << f.failed_condition()
+                  << " (" << f.filename() << ':' << f.line() << ')' << std::endl;
 }
+
+void SimpleTestResult::add_error(const TestCase* tc, const std::string& message)
+{
+    num_error_++;
+    if (ostream_)
+        std::cerr << "ERROR:   " << tc->name() << ": " << message << std::endl;
+}
+    
 }
 }

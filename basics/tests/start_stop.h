@@ -17,22 +17,23 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 // USA
 
-#include "basic_suite.h"
+#ifndef HAVE_JF_UNITTEST_TESTS_START_STOP_H
+#define HAVE_JF_UNITTEST_TESTS_START_STOP_H
 
-#include "setup_teardown.h"
-#include "start_stop.h"
+#include <jf/unittest/test_suite.h>
 
 namespace jf {
 namespace unittest {
 namespace tests {
 
-BasicSuite::BasicSuite()
-: TestSuite("jf::unittest::tests::BasicSuite")
+class StartStopSuite : public jf::unittest::TestSuite
 {
-    add_test(new SetupTeardownSuite);
-    add_test(new StartStopSuite);
-}
+public:
+    StartStopSuite();
+};
 
 }
 }
 }
+
+#endif
