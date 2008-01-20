@@ -26,6 +26,6 @@ int main()
     jf::unittest::SimpleTestResult result;
 
     suite.run_internal(&result);
-    
+
     return result.ok()? 0: 1;
 }
