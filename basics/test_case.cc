@@ -20,21 +20,36 @@
 #include "test_case.h"
 
 #include "test_result.h"
+#include "failure.h"
+
+#include <cassert>
 
 namespace {
 
-class Failure
+class FailureException : public std::exception
 {
 public:
-    Failure(const std::string& condition_str, const std::string& filename, int line)
-    : condition_str_(condition_str),
-      filename_(filename),
-      line_(line) {}
+    FailureException(const jf::unittest::Failure& failure) : failure_(failure) {}
+    const jf::unittest::Failure& failure() const { return failure_; }
+    /** Inherited from std::exception. Overloaded fatally since nobody
+        should get a chance to call it. */
+    virtual const char* what() { assert(false); }
+
 private:
-    std::string condition_str_;
-    std::string filename_;
-    int line_;
+    jf::unittest::Failure failure_;
 };
+
+static void add_failure_description(std::string& msg, const jf::unittest::Failure& f)
+{
+    msg += f.failed_condition();
+    msg += " (";
+    msg += f.filename();
+    msg += ':';
+    char tmp[16];
+    sprintf(tmp, "%d", f.line());
+    msg += tmp;
+    msg += ')';
+}
 
 }
 
@@ -45,17 +60,57 @@ void TestCase::run_internal(
     TestResult* result)
 {
     try {
-        run();
-        result->add_success();
+        this->setup();
     }
-    catch (const Failure& f) {
-        result->add_failure();
+    catch (const FailureException& e) {
+        std::string msg("setup: ");
+        add_failure_description(msg, e.failure());
+        result->add_error(this, msg);
+        return;
     }
-    catch (const std::exception&) {
-        result->add_error();
+    catch (const std::exception& e) {
+        std::string msg("setup: ");
+        msg += e.what();
+        result->add_error(this, msg);
+        return;
     }
     catch (...) {
-        result->add_error();
+        result->add_error(this, "setup: \"...\" caught");
+        return;
+    }
+
+    try {
+        this->run();
+        result->add_success(this);
+    }
+    catch (const FailureException& f) {
+        result->add_failure(this, f.failure());
+    }
+    catch (const std::exception& e) {
+        result->add_error(this, e.what());
+    }
+    catch (...) {
+        result->add_error(this, "\"...\" caught");
+    }
+
+    try {
+        this->teardown();
+    }
+    catch (const FailureException& e) {
+        std::string msg("teardown: ");
+        add_failure_description(msg, e.failure());
+        result->add_error(this, msg);
+        return;
+    }
+    catch (const std::exception& e) {
+        std::string msg("teardown: ");
+        msg += e.what();
+        result->add_error(this, msg);
+        return;
+    }
+    catch (...) {
+        result->add_error(this, "teardown: \"...\" caught");
+        return;
     }
 }
 
@@ -66,7 +121,7 @@ void TestCase::do_cond_fail(
     int line)
 {
     if (!condition)
-        throw Failure(condition_str, filename, line);
+        throw FailureException(Failure(condition_str, filename, line));
 }
 
 }

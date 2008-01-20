@@ -17,32 +17,30 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 // USA
 
-#ifndef HAVE_JF_UNITTEST_TEST_H
-#define HAVE_JF_UNITTEST_TEST_H
-
-#include "test_result_fwd.h"
+#ifndef HAVE_JF_UNITTEST_FAILURE_H
+#define HAVE_JF_UNITTEST_FAILURE_H
 
 #include <string>
 
 namespace jf {
 namespace unittest {
 
-class Test
+class Failure
 {
 public:
-    Test(const std::string& name) : name_(name) {}
-    virtual ~Test() {}
+    Failure(const std::string& failed_condition, const std::string& filename, int line)
+    : failed_condition_(failed_condition),
+      filename_(filename),
+      line_(line) {}
 
-    const std::string& name() const { return name_; }
-
-    virtual void run_internal(TestResult*) = 0;
+    const std::string& failed_condition() const { return failed_condition_; }
+    const std::string& filename() const { return filename_; }
+    int line() const { return line_; }
 
 private:
-    std::string name_;
-
-private:
-    Test(const Test&);
-    Test& operator=(const Test&);
+    std::string failed_condition_;
+    std::string filename_;
+    int line_;
 };
 
 }

@@ -30,7 +30,9 @@ public:
     TestCase(const std::string& name) : Test(name) {}
     virtual ~TestCase() {}
 
+    virtual void setup() {}
     virtual void run() = 0;
+    virtual void teardown() {}
 
 public:
     virtual void run_internal(TestResult*);

@@ -17,22 +17,23 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 // USA
 
-#include <jf/unittest/test_case.h>
+#ifndef HAVE_JF_UNITTEST_TESTS_SETUP_TEARDOWN_H
+#define HAVE_JF_UNITTEST_TESTS_SETUP_TEARDOWN_H
+
+#include <jf/unittest/test_suite.h>
 
 namespace jf {
 namespace unittest {
 namespace tests {
 
-class SetupTeardownTest : public jf::unittest::TestCase
+class SetupTeardownSuite : public jf::unittest::TestSuite
 {
 public:
-    SetupTeardownTest() : jf::unittest::TestCase("jf::unittest::SetupTeardownTest") {}
-    virtual void run()
-    {
-        JFUNIT_FAIL();
-    }
+    SetupTeardownSuite();
 };
 
 }
 }
 }
+
+#endif

@@ -20,6 +20,9 @@
 #ifndef HAVE_JF_UNITTEST_TEST_RESULT_H
 #define HAVE_JF_UNITTEST_TEST_RESULT_H
 
+#include "failure.h"
+#include "test_case_fwd.h"
+
 namespace jf {
 namespace unittest {
 
@@ -28,9 +31,9 @@ class TestResult
 public:
     virtual ~TestResult() {}
 
-    virtual void add_success() = 0;
-    virtual void add_failure() = 0;
-    virtual void add_error() = 0;
+    virtual void add_success(const TestCase*) = 0;
+    virtual void add_failure(const TestCase*, const Failure&) = 0;
+    virtual void add_error(const TestCase*, const std::string& message) = 0;
 };
 
 }

@@ -62,9 +62,9 @@ class BootstrapTestResult : public TestResult
 public:
     BootstrapTestResult() : num_success_(0), num_failure_(0), num_error_(0) {}
 
-    virtual void add_success() { num_success_++; }
-    virtual void add_failure() { num_failure_++; }
-    virtual void add_error() { num_error_++; }
+    virtual void add_success(const TestCase*) { num_success_++; }
+    virtual void add_failure(const TestCase*, const Failure&) { num_failure_++; }
+    virtual void add_error(const TestCase*, const std::string&) { num_error_++; }
 
     int num_success() const { return num_success_; }
     int num_failure() const { return num_failure_; }

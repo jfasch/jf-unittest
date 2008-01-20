@@ -31,10 +31,13 @@ public:
     SimpleTestResult() : num_success_(0), num_failure_(0), num_error_(0) {}
 
     bool ok() const { return num_failure_ + num_error_ == 0; }
+    int num_success() const { return num_success_; }
+    int num_failure() const { return num_failure_; }
+    int num_error() const { return num_error_; }
 
-    virtual void add_success() { num_success_++; }
-    virtual void add_failure() { num_failure_++; }
-    virtual void add_error() { num_error_++; }
+    virtual void add_success(const TestCase*);
+    virtual void add_failure(const TestCase*, const Failure&);
+    virtual void add_error(const TestCase*, const std::string&);
     
 private:
     int num_success_;

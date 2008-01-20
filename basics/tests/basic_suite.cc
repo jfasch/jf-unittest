@@ -28,7 +28,7 @@ namespace tests {
 BasicSuite::BasicSuite()
 : TestSuite("jf::unittest::tests::BasicSuite")
 {
-    add_test(new SetupTeardownTest);
+    add_test(new SetupTeardownSuite);
 }
 
 }

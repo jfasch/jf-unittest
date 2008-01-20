@@ -17,33 +17,13 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 // USA
 
-#ifndef HAVE_JF_UNITTEST_TEST_H
-#define HAVE_JF_UNITTEST_TEST_H
-
-#include "test_result_fwd.h"
-
-#include <string>
+#ifndef HAVE_JF_UNITTEST_TEST_CASE_FWD_H
+#define HAVE_JF_UNITTEST_TEST_CASE_FWD_H
 
 namespace jf {
 namespace unittest {
 
-class Test
-{
-public:
-    Test(const std::string& name) : name_(name) {}
-    virtual ~Test() {}
-
-    const std::string& name() const { return name_; }
-
-    virtual void run_internal(TestResult*) = 0;
-
-private:
-    std::string name_;
-
-private:
-    Test(const Test&);
-    Test& operator=(const Test&);
-};
+class TestCase;
 
 }
 }

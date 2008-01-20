@@ -7,14 +7,14 @@
 # sophisticated tests. (Reminds me of what I saw when I had a view
 # into the "Das U-Boot" bootloader.)
 
-EXECUTABLE(center=CXX('bootstrap.cc'),
-           exename='bootstrap',
+EXECUTABLE(center=CXX('stage1.cc'),
+           exename='stage1',
            what=EXECUTABLE_CHECK)
 
 # Now that we know that it works basically, we go on to more advanced
-# tests. we can verify that setup that setup and teardown works, for
-# example. We still have no fancy output generators however.
+# tests. we can verify that setup/teardown works, for example. We
+# still have no fancy output generators however.
 
-EXECUTABLE(center=CXX('stage1.cc'),
-           exename='stage1',
+EXECUTABLE(center=CXX('stage2.cc'),
+           exename='stage2',
            what=EXECUTABLE_CHECK)
