@@ -48,7 +48,7 @@ static std::ostream& operator<<(std::ostream& o, const indent& i)
 namespace jf {
 namespace unittest {
 
-void TreeTestResult::Report::print(std::ostream& o)
+void TreeTestResult::Report::print(std::ostream& o) const
 {
     switch (type_) {
         case T_FAILURE: {
@@ -134,11 +134,11 @@ void TreeTestResult::add_error(const TestCase*, const std::string& message)
 void TreeTestResult::print_summary() const
 {
     ostream_ << "------------------------\n";
+    ostream_ << "#Success:  " << num_success_ << '\n';
+    ostream_ << "#Failures: " << num_failure_ << '\n';
+    ostream_ << "#Errors:   " << num_error_ << '\n';
     ostream_ << "#Tests:    " << num_tests_ << '\n';
     ostream_ << "#Suites:   " << num_suites_ << '\n';
-    ostream_ << "#Success:  " << num_success_ << endl;
-    ostream_ << "#Failures: " << num_failure_ << endl;
-    ostream_ << "#Errors:   " << num_error_ << endl;
     ostream_ << "------------------------\n";
 
     if (!ok()) {
@@ -146,7 +146,7 @@ void TreeTestResult::print_summary() const
         ostream_ << "------------------------\n";
         for (Reports::const_iterator i = reports_.begin();
              i != reports_.end();
-             ++i) 
+             ++i)
             i->print(ostream_);
     }
 }

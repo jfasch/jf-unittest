@@ -20,7 +20,7 @@
 #ifndef HAVE_JF_UNITTEST_SIMPLE_TEST_RESULT_H
 #define HAVE_JF_UNITTEST_SIMPLE_TEST_RESULT_H
 
-#include <jf/unittest/test_result.h>
+#include "test_result.h"
 
 #include <iostream>
 

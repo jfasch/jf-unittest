@@ -17,34 +17,15 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 // USA
 
-#include "simple_test_result.h"
-
-#include "test_case.h"
-
-#include <iostream>
+#ifndef HAVE_JF_UNITTEST_TEST_FWD_H
+#define HAVE_JF_UNITTEST_TEST_FWD_H
 
 namespace jf {
 namespace unittest {
 
-void SimpleTestResult::add_success(const TestCase*)
-{
-    num_success_++;
+class Test;
+
+}
 }
 
-void SimpleTestResult::add_failure(const TestCase* tc, const Failure& f)
-{
-    num_failure_++;
-    if (ostream_)
-        std::cerr << "FAILURE: " << tc->name() << ": " << f.failed_condition()
-                  << " (" << f.filename() << ':' << f.line() << ')' << std::endl;
-}
-
-void SimpleTestResult::add_error(const TestCase* tc, const std::string& message)
-{
-    num_error_++;
-    if (ostream_)
-        std::cerr << "ERROR:   " << tc->name() << ": " << message << std::endl;
-}
-    
-}
-}
+#endif

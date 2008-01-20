@@ -1,13 +1,13 @@
 # -*- python -*-
 
 h = [
-    'basic_suite.h',
+    'stage2_suite.h',
     'setup_teardown.h',
     'start_stop.h',
     ]
 
 cc = [
-    'basic_suite.cc',
+    'stage2_suite.cc',
     'setup_teardown.cc',
     'start_stop.cc',
     ]

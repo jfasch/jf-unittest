@@ -17,34 +17,21 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 // USA
 
-#include "simple_test_result.h"
+#ifndef HAVE_JF_UNITTEST_TREE_TEST_RUNNER_H
+#define HAVE_JF_UNITTEST_TREE_TEST_RUNNER_H
 
-#include "test_case.h"
-
-#include <iostream>
+#include <jf/unittest/test_fwd.h>
 
 namespace jf {
 namespace unittest {
 
-void SimpleTestResult::add_success(const TestCase*)
+class TreeTestRunner
 {
-    num_success_++;
+public:
+    bool run(Test*);
+};
+
+}
 }
 
-void SimpleTestResult::add_failure(const TestCase* tc, const Failure& f)
-{
-    num_failure_++;
-    if (ostream_)
-        std::cerr << "FAILURE: " << tc->name() << ": " << f.failed_condition()
-                  << " (" << f.filename() << ':' << f.line() << ')' << std::endl;
-}
-
-void SimpleTestResult::add_error(const TestCase* tc, const std::string& message)
-{
-    num_error_++;
-    if (ostream_)
-        std::cerr << "ERROR:   " << tc->name() << ": " << message << std::endl;
-}
-    
-}
-}
+#endif

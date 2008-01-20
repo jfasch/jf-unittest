@@ -58,7 +58,7 @@ private:
           type_(T_ERROR),
           failure_(std::string(), std::string(), 0),
           message_(m) {}
-        void print(std::ostream&);
+        void print(std::ostream&) const;
     private:
         enum Type {
           T_FAILURE,

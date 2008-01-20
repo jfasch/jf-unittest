@@ -17,12 +17,12 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 // USA
 
-#include <jf/unittest/tests/basic_suite.h>
+#include <jf/unittest/tests/stage2_suite.h>
 #include <jf/unittest/simple_test_result.h>
 
 int main()
 {
-    jf::unittest::tests::BasicSuite suite;
+    jf::unittest::tests::Stage2Suite suite;
     jf::unittest::SimpleTestResult result(&std::cerr);
 
     suite.run_internal(&result);

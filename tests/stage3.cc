@@ -17,22 +17,14 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 // USA
 
-#include "basic_suite.h"
+#include <jf/unittest/tests/stage2_suite.h>
+#include <jf/unittest/tree_test_runner.h>
 
-#include "setup_teardown.h"
-#include "start_stop.h"
-
-namespace jf {
-namespace unittest {
-namespace tests {
-
-BasicSuite::BasicSuite()
-: TestSuite("jf::unittest::tests::BasicSuite")
+int main()
 {
-    add_test(new SetupTeardownSuite);
-    add_test(new StartStopSuite);
-}
+    // we do not have any other tests that the bootstrap stuff.
+    jf::unittest::tests::Stage2Suite suite;
 
-}
-}
+    jf::unittest::TreeTestRunner runner;
+    return runner.run(&suite)? 0: 1;
 }

@@ -1,0 +1,13 @@
+# -*- python -*-
+
+h = [
+    'tree_test_result.h',
+    'tree_test_runner.h',
+    ]
+
+cc = [
+    'tree_test_result.cc',
+    'tree_test_runner.cc',
+    ]
+
+LIBRARY(members=[H(filename=f, install=['jf', 'unittest']) for f in h] + [CXX(filename=f) for f in cc])

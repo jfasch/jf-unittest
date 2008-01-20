@@ -1,5 +1,8 @@
 # -*- python -*-
 
+# STAGE 1
+# -------
+
 # Working on a unittest framework without having a unittest framework
 # requires a little extra effort - how do we test that the framework
 # works? Automake supports some basic notion of testing, and we use it
@@ -11,12 +14,27 @@ EXECUTABLE(center=CXX('stage1.cc'),
            exename='stage1',
            what=EXECUTABLE_CHECK)
 
+# STAGE 2
+# -------
+
 # Now that we know that it works basically, we go on to more advanced
 # tests. we can verify that setup/teardown works, for example. We
 # still have no fancy output generators however.
+
+# Note that the tests that are executed here must not use
+# setup/teardown, and that there are no TestResult implementations
+# used that use the enter/leave calls.
 
 EXECUTABLE(center=CXX('stage2.cc'),
            exename='stage2',
            what=EXECUTABLE_CHECK)
 
-# 
+# STAGE 3
+# -------
+
+# Here we have fully tested the test framework, so we are free to test
+# everything we want.
+
+EXECUTABLE(center=CXX('stage3.cc'),
+           exename='stage3',
+           what=EXECUTABLE_CHECK)

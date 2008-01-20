@@ -5,6 +5,7 @@ DIRECTORY(['tests'])
 h = [
     'failure.h',
     'test.h',
+    'test_fwd.h',
     'test_case.h',
     'test_case_fwd.h',
     'test_result.h',
