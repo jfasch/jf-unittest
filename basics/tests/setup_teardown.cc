@@ -212,7 +212,7 @@ public:
         JFUNIT_ASSERT(test.setup_called());
         JFUNIT_ASSERT(test.run_called());
         JFUNIT_ASSERT(test.teardown_called());
-        JFUNIT_ASSERT(result.num_success() == 0);
+        JFUNIT_ASSERT(result.num_success() == 1);
         JFUNIT_ASSERT(result.num_failure() == 0);
         JFUNIT_ASSERT(result.num_error() == 1);
     }
@@ -240,7 +240,7 @@ public:
         JFUNIT_ASSERT(test.setup_called());
         JFUNIT_ASSERT(test.run_called());
         JFUNIT_ASSERT(test.teardown_called());
-        JFUNIT_ASSERT(result.num_success() == 0);
+        JFUNIT_ASSERT(result.num_success() == 1);
         JFUNIT_ASSERT(result.num_failure() == 0);
         JFUNIT_ASSERT(result.num_error() == 1);
     }
