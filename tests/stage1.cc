@@ -62,10 +62,10 @@ class BootstrapTestResult : public TestResult
 public:
     BootstrapTestResult() : num_success_(0), num_failure_(0), num_error_(0) {}
 
-    virtual void start_suite(const TestSuite*) {}
-    virtual void stop_suite(const TestSuite*) {}
-    virtual void start_test(const TestCase*) {}
-    virtual void stop_test(const TestCase*) {}
+    virtual void enter_suite(const TestSuite*) {}
+    virtual void leave_suite(const TestSuite*) {}
+    virtual void enter_test(const TestCase*) {}
+    virtual void leave_test(const TestCase*) {}
     virtual void add_success(const TestCase*) { num_success_++; }
     virtual void add_failure(const TestCase*, const Failure&) { num_failure_++; }
     virtual void add_error(const TestCase*, const std::string&) { num_error_++; }

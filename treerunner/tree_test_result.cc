@@ -76,26 +76,26 @@ TreeTestResult::TreeTestResult(std::ostream& ostream)
   num_failure_(0),
   num_error_(0) {}
 
-void TreeTestResult::start_suite(const TestSuite* s)
+void TreeTestResult::enter_suite(const TestSuite* s)
 {
     num_suites_++;
     ostream_ << indent(suite_stack_.size()) << "+ " << s->name() << '\n';
     suite_stack_.push(s);
 }
 
-void TreeTestResult::stop_suite(const TestSuite* s)
+void TreeTestResult::leave_suite(const TestSuite* s)
 {
     assert(suite_stack_.size() != 0);
     suite_stack_.pop();
 }
 
-void TreeTestResult::start_test(const TestCase* c)
+void TreeTestResult::enter_test(const TestCase* c)
 {
     num_tests_++;
     ostream_ << indent(suite_stack_.size()) << "- " << c->name() << "...";
 }
 
-void TreeTestResult::stop_test(const TestCase* c)
+void TreeTestResult::leave_test(const TestCase* c)
 {
     if (p_cur_error) {
         num_error_++;

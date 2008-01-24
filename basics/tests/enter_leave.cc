@@ -17,7 +17,7 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 // USA
 
-#include "start_stop.h"
+#include "enter_leave.h"
 
 #include <jf/unittest/test_case.h>
 #include <jf/unittest/test_suite.h>
@@ -86,17 +86,17 @@ class MyTestResult : public jf::unittest::TestResult
 public:
     MyTestResult(jf::unittest::TestCase* caller)
     : caller_(caller),
-      num_suites_started_(0),
-      num_suites_stopped_(0),
-      num_tests_started_(0),
-      num_tests_stopped_(0) {}
+      num_suites_entered_(0),
+      num_suites_left_(0),
+      num_tests_entered_(0),
+      num_tests_left_(0) {}
 
-    int num_suites_started() const { return num_suites_started_; }
-    int num_suites_stopped() const { return num_suites_stopped_; }
-    int num_tests_started() const { return num_tests_started_; }
-    int num_tests_stopped() const { return num_tests_stopped_; }
+    int num_suites_entered() const { return num_suites_entered_; }
+    int num_suites_left() const { return num_suites_left_; }
+    int num_tests_entered() const { return num_tests_entered_; }
+    int num_tests_left() const { return num_tests_left_; }
 
-    virtual void start_suite(const jf::unittest::TestSuite* s)
+    virtual void enter_suite(const jf::unittest::TestSuite* s)
     {
         for (jf::unittest::TestSuite::Tests::const_iterator i = s->tests().begin();
              i != s->tests().end();
@@ -114,10 +114,10 @@ public:
                     break;
             }
         }
-        num_suites_started_++;
+        num_suites_entered_++;
     }
 
-    virtual void stop_suite(const jf::unittest::TestSuite* s)
+    virtual void leave_suite(const jf::unittest::TestSuite* s)
     {
         for (jf::unittest::TestSuite::Tests::const_iterator i = s->tests().begin();
              i != s->tests().end();
@@ -135,10 +135,10 @@ public:
                     break;
             }
         }
-        num_suites_stopped_++;
+        num_suites_left_++;
     }
 
-    virtual void start_test(const jf::unittest::TestCase* t)
+    virtual void enter_test(const jf::unittest::TestCase* t)
     {
         const MyTestCase* mt = dynamic_cast<const MyTestCase*>(t);
         assert(mt);
@@ -152,10 +152,10 @@ public:
                 JFUNIT_OBJECT_FAIL(caller_);
                 break;
         }
-        num_tests_started_++;
+        num_tests_entered_++;
     }
 
-    virtual void stop_test(const jf::unittest::TestCase* t)
+    virtual void leave_test(const jf::unittest::TestCase* t)
     {
         const MyTestCase* mt = dynamic_cast<const MyTestCase*>(t);
         assert(mt);
@@ -169,7 +169,7 @@ public:
             case MyTestCase::S_DONE:
                 break;
         }
-        num_tests_stopped_++;
+        num_tests_left_++;
     }
 
     virtual void add_success(const jf::unittest::TestCase*) {}
@@ -178,10 +178,10 @@ public:
 
 private:
     jf::unittest::TestCase* caller_;
-    int num_suites_started_;
-    int num_suites_stopped_;
-    int num_tests_started_;
-    int num_tests_stopped_;
+    int num_suites_entered_;
+    int num_suites_left_;
+    int num_tests_entered_;
+    int num_tests_left_;
 };
 
 }
@@ -190,42 +190,42 @@ namespace jf {
 namespace unittest {
 namespace tests {
 
-class TestStartStop : public jf::unittest::TestCase
+class TestEnterLeave : public jf::unittest::TestCase
 {
 public:
-    TestStartStop() : jf::unittest::TestCase("jf::unittest::TestStartStop") {}
+    TestEnterLeave() : jf::unittest::TestCase("jf::unittest::TestEnterLeave") {}
     virtual void run()
     {
         MyTestResult result(this);
         MyTestCase test(this);
         test.run_internal(&result);
-        JFUNIT_ASSERT(result.num_tests_started() == 1);
-        JFUNIT_ASSERT(result.num_tests_stopped() == 1);
+        JFUNIT_ASSERT(result.num_tests_entered() == 1);
+        JFUNIT_ASSERT(result.num_tests_left() == 1);
     }
 };
 
-class SuiteStartStop : public jf::unittest::TestCase
+class SuiteEnterLeave : public jf::unittest::TestCase
 {
 public:
-    SuiteStartStop() : jf::unittest::TestCase("jf::unittest::SuiteStartStop") {}
+    SuiteEnterLeave() : jf::unittest::TestCase("jf::unittest::SuiteEnterLeave") {}
     virtual void run()
     {
         MyTestResult result(this);
         jf::unittest::TestSuite suite(/*name=*/"");
         suite.add_test(new MyTestCase(this));
         suite.run_internal(&result);
-        JFUNIT_ASSERT(result.num_suites_started() == 1);
-        JFUNIT_ASSERT(result.num_suites_stopped() == 1);
-        JFUNIT_ASSERT(result.num_tests_started() == 1);
-        JFUNIT_ASSERT(result.num_tests_stopped() == 1);
+        JFUNIT_ASSERT(result.num_suites_entered() == 1);
+        JFUNIT_ASSERT(result.num_suites_left() == 1);
+        JFUNIT_ASSERT(result.num_tests_entered() == 1);
+        JFUNIT_ASSERT(result.num_tests_left() == 1);
     }
 };
 
-StartStopSuite::StartStopSuite()
-: jf::unittest::TestSuite("jf::unittest::tests::StartStopSuite")
+EnterLeaveSuite::EnterLeaveSuite()
+: jf::unittest::TestSuite("jf::unittest::tests::EnterLeaveSuite")
 {
-    add_test(new TestStartStop);
-    add_test(new SuiteStartStop);
+    add_test(new TestEnterLeave);
+    add_test(new SuiteEnterLeave);
 }
 
 }

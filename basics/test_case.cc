@@ -59,7 +59,7 @@ namespace unittest {
 void TestCase::run_internal(
     TestResult* result)
 {
-    result->start_test(this);
+    result->enter_test(this);
     
     bool setup_ok = false;
     try {
@@ -115,7 +115,7 @@ void TestCase::run_internal(
         }
     }
 
-    result->stop_test(this);
+    result->leave_test(this);
 }
 
 void TestCase::do_cond_fail(

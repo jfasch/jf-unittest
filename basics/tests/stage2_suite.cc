@@ -20,7 +20,7 @@
 #include "stage2_suite.h"
 
 #include "setup_teardown.h"
-#include "start_stop.h"
+#include "enter_leave.h"
 
 namespace jf {
 namespace unittest {
@@ -30,7 +30,7 @@ Stage2Suite::Stage2Suite()
 : TestSuite("jf::unittest::tests::Stage2Suite")
 {
     add_test(new SetupTeardownSuite);
-    add_test(new StartStopSuite);
+    add_test(new EnterLeaveSuite);
 }
 
 }

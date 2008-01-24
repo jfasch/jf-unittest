@@ -17,8 +17,8 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 // USA
 
-#ifndef HAVE_JF_UNITTEST_TESTS_START_STOP_H
-#define HAVE_JF_UNITTEST_TESTS_START_STOP_H
+#ifndef HAVE_JF_UNITTEST_TESTS_ENTER_LEAVE_H
+#define HAVE_JF_UNITTEST_TESTS_ENTER_LEAVE_H
 
 #include <jf/unittest/test_suite.h>
 
@@ -26,10 +26,10 @@ namespace jf {
 namespace unittest {
 namespace tests {
 
-class StartStopSuite : public jf::unittest::TestSuite
+class EnterLeaveSuite : public jf::unittest::TestSuite
 {
 public:
-    StartStopSuite();
+    EnterLeaveSuite();
 };
 
 }

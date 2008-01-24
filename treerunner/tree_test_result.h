@@ -33,10 +33,10 @@ class TreeTestResult : public jf::unittest::TestResult
 public:
     TreeTestResult(std::ostream& ostream);
 
-    virtual void start_suite(const TestSuite*);
-    virtual void stop_suite(const TestSuite*);
-    virtual void start_test(const TestCase*);
-    virtual void stop_test(const TestCase*);
+    virtual void enter_suite(const TestSuite*);
+    virtual void leave_suite(const TestSuite*);
+    virtual void enter_test(const TestCase*);
+    virtual void leave_test(const TestCase*);
     virtual void add_success(const TestCase*);
     virtual void add_failure(const TestCase*, const Failure&);
     virtual void add_error(const TestCase*, const std::string& message);
