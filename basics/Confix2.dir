@@ -3,6 +3,8 @@
 DIRECTORY(['tests'])
 
 h = [
+    'cleanliness.h',
+    'cleanliness_fwd.h',
     'failure.h',
     'test.h',
     'test_fwd.h',

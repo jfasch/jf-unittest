@@ -40,7 +40,7 @@ public:
     const Tests& tests() const { return tests_; }
 
 public:
-    virtual void run_internal(TestResult*);
+    virtual void run_internal(TestResult*, const CleanlinessCheck*);
 
 private:
     Tests tests_;

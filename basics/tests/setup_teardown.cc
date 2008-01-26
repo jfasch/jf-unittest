@@ -60,7 +60,7 @@ public:
     {
         SuccessTest test;
         jf::unittest::SimpleTestResult result;
-        test.run_internal(&result);
+        test.run_internal(&result, NULL);
         JFUNIT_ASSERT(test.setup_called());
         JFUNIT_ASSERT(test.run_called());
         JFUNIT_ASSERT(test.teardown_called());
@@ -80,7 +80,7 @@ public:
     {
         SetupFailureTest test;
         jf::unittest::SimpleTestResult result;
-        test.run_internal(&result);
+        test.run_internal(&result, NULL);
         JFUNIT_ASSERT(test.setup_called());
         JFUNIT_ASSERT(!test.run_called());
         JFUNIT_ASSERT(!test.teardown_called());
@@ -108,7 +108,7 @@ public:
     {
         SetupErrorTest test;
         jf::unittest::SimpleTestResult result;
-        test.run_internal(&result);
+        test.run_internal(&result, NULL);
         JFUNIT_ASSERT(test.setup_called());
         JFUNIT_ASSERT(!test.run_called());
         JFUNIT_ASSERT(!test.teardown_called());
@@ -136,7 +136,7 @@ public:
     {
         RunFailureTest test;
         jf::unittest::SimpleTestResult result;
-        test.run_internal(&result);
+        test.run_internal(&result, NULL);
         JFUNIT_ASSERT(test.setup_called());
         JFUNIT_ASSERT(test.run_called());
         JFUNIT_ASSERT(test.teardown_called());
@@ -164,7 +164,7 @@ public:
     {
         RunErrorTest test;
         jf::unittest::SimpleTestResult result;
-        test.run_internal(&result);
+        test.run_internal(&result, NULL);
         JFUNIT_ASSERT(test.setup_called());
         JFUNIT_ASSERT(test.run_called());
         JFUNIT_ASSERT(test.teardown_called());
@@ -192,7 +192,7 @@ public:
     {
         TeardownFailureTest test;
         jf::unittest::SimpleTestResult result;
-        test.run_internal(&result);
+        test.run_internal(&result, NULL);
         JFUNIT_ASSERT(test.setup_called());
         JFUNIT_ASSERT(test.run_called());
         JFUNIT_ASSERT(test.teardown_called());
@@ -220,7 +220,7 @@ public:
     {
         TeardownErrorTest test;
         jf::unittest::SimpleTestResult result;
-        test.run_internal(&result);
+        test.run_internal(&result, NULL);
         JFUNIT_ASSERT(test.setup_called());
         JFUNIT_ASSERT(test.run_called());
         JFUNIT_ASSERT(test.teardown_called());

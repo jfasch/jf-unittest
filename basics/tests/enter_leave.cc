@@ -175,6 +175,7 @@ public:
     virtual void add_success(const jf::unittest::TestCase*) {}
     virtual void add_failure(const jf::unittest::TestCase*, const jf::unittest::Failure&) {}
     virtual void add_error(const jf::unittest::TestCase*, const std::string& message) {}
+    virtual void unclean_alarm(const jf::unittest::TestCase*) {}
 
 private:
     jf::unittest::TestCase* caller_;
@@ -198,7 +199,7 @@ public:
     {
         MyTestResult result(this);
         MyTestCase test(this);
-        test.run_internal(&result);
+        test.run_internal(&result, NULL);
         JFUNIT_ASSERT(result.num_tests_entered() == 1);
         JFUNIT_ASSERT(result.num_tests_left() == 1);
     }
@@ -213,7 +214,7 @@ public:
         MyTestResult result(this);
         jf::unittest::TestSuite suite(/*name=*/"");
         suite.add_test(new MyTestCase(this));
-        suite.run_internal(&result);
+        suite.run_internal(&result, NULL);
         JFUNIT_ASSERT(result.num_suites_entered() == 1);
         JFUNIT_ASSERT(result.num_suites_left() == 1);
         JFUNIT_ASSERT(result.num_tests_entered() == 1);

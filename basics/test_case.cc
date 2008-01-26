@@ -21,6 +21,7 @@
 
 #include "test_result.h"
 #include "failure.h"
+#include "cleanliness.h"
 
 #include <cassert>
 
@@ -56,8 +57,7 @@ static void add_failure_description(std::string& msg, const jf::unittest::Failur
 namespace jf {
 namespace unittest {
 
-void TestCase::run_internal(
-    TestResult* result)
+void TestCase::run_internal(TestResult* result, const CleanlinessCheck* cleanliness_check)
 {
     result->enter_test(this);
     
@@ -116,6 +116,9 @@ void TestCase::run_internal(
     }
 
     result->leave_test(this);
+
+    if (cleanliness_check && !cleanliness_check->environment_is_clean())
+        result->unclean_alarm(this);
 }
 
 void TestCase::do_cond_fail(

@@ -21,6 +21,7 @@
 
 #include "setup_teardown.h"
 #include "enter_leave.h"
+#include "cleanliness_check.h"
 
 namespace jf {
 namespace unittest {
@@ -31,6 +32,7 @@ Stage2Suite::Stage2Suite()
 {
     add_test(new SetupTeardownSuite);
     add_test(new EnterLeaveSuite);
+    add_test(new CleanlinessCheckSuite);
 }
 
 }

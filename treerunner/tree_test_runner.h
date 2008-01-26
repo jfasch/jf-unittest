@@ -21,6 +21,7 @@
 #define HAVE_JF_UNITTEST_TREE_TEST_RUNNER_H
 
 #include <jf/unittest/test_fwd.h>
+#include <jf/unittest/cleanliness_fwd.h>
 
 namespace jf {
 namespace unittest {
@@ -28,7 +29,7 @@ namespace unittest {
 class TreeTestRunner
 {
 public:
-    bool run(Test*);
+    bool run(Test*, CleanlinessCheck* = 0);
 };
 
 }

@@ -21,6 +21,7 @@
 #define HAVE_JF_UNITTEST_TEST_H
 
 #include "test_result_fwd.h"
+#include "cleanliness_fwd.h"
 
 #include <string>
 
@@ -35,7 +36,7 @@ public:
 
     const std::string& name() const { return name_; }
 
-    virtual void run_internal(TestResult*) = 0;
+    virtual void run_internal(TestResult*, const CleanlinessCheck*) = 0;
 
 private:
     std::string name_;

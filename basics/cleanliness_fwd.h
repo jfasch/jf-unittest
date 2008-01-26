@@ -17,15 +17,15 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 // USA
 
-#include <jf/unittest/tests/stage2_suite.h>
-#include <jf/unittest/simple_test_result.h>
+#ifndef HAVE_JF_UNITTEST_CLEANLINESS_FWD_H
+#define HAVE_JF_UNITTEST_CLEANLINESS_FWD_H
 
-int main()
-{
-    jf::unittest::tests::Stage2Suite suite;
-    jf::unittest::SimpleTestResult result(&std::cerr);
+namespace jf {
+namespace unittest {
 
-    suite.run_internal(&result, NULL);
+class CleanlinessCheck;
 
-    return result.ok()? 0: 1;
 }
+}
+
+#endif

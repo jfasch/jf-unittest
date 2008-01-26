@@ -70,15 +70,16 @@ TreeTestResult::TreeTestResult(std::ostream& ostream)
   cur_failure(std::string(), std::string(), 0),
   p_cur_failure(NULL),
   p_cur_error(NULL),
-  num_suites_(0),
-  num_tests_(0),
+  num_suites_entered_(0),
+  num_tests_run_(0),
   num_success_(0),
   num_failure_(0),
-  num_error_(0) {}
+  num_error_(0),
+  unclean_test_(NULL) {}
 
 void TreeTestResult::enter_suite(const TestSuite* s)
 {
-    num_suites_++;
+    num_suites_entered_++;
     ostream_ << indent(suite_stack_.size()) << "+ " << s->name() << '\n';
     suite_stack_.push(s);
 }
@@ -91,7 +92,7 @@ void TreeTestResult::leave_suite(const TestSuite* s)
 
 void TreeTestResult::enter_test(const TestCase* c)
 {
-    num_tests_++;
+    num_tests_run_++;
     ostream_ << indent(suite_stack_.size()) << "- " << c->name() << "...";
 }
 
@@ -131,14 +132,27 @@ void TreeTestResult::add_error(const TestCase*, const std::string& message)
     p_cur_error = &cur_error;
 }
 
+void TreeTestResult::unclean_alarm(const TestCase* t)
+{
+    unclean_test_ = t;
+}
+
+
 void TreeTestResult::print_summary() const
 {
     ostream_ << "------------------------\n";
-    ostream_ << "#Success:  " << num_success_ << '\n';
-    ostream_ << "#Failures: " << num_failure_ << '\n';
-    ostream_ << "#Errors:   " << num_error_ << '\n';
-    ostream_ << "#Tests:    " << num_tests_ << '\n';
-    ostream_ << "#Suites:   " << num_suites_ << '\n';
+
+    if (unclean_test_) {
+        ostream_ << "ALARM: environment has not been cleared\n";
+        ostream_ << "       " << unclean_test_->name() << '\n';
+        ostream_ << "------------------------\n";
+    }
+    
+    ostream_ << "#Success:          " << num_success_ << '\n';
+    ostream_ << "#Failures:         " << num_failure_ << '\n';
+    ostream_ << "#Errors:           " << num_error_ << '\n';
+    ostream_ << "#Tests run:        " << num_tests_run_ << '\n';
+    ostream_ << "#Suites entered:   " << num_suites_entered_ << '\n';
     ostream_ << "------------------------\n";
 
     if (!ok()) {

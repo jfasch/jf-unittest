@@ -40,9 +40,10 @@ public:
     virtual void add_success(const TestCase*);
     virtual void add_failure(const TestCase*, const Failure&);
     virtual void add_error(const TestCase*, const std::string& message);
+    virtual void unclean_alarm(const TestCase*);
 
     void print_summary() const;
-    bool ok() const { return num_success_ == num_tests_; }
+    bool ok() const { return num_success_ == num_tests_run_; }
 
 private:
     typedef std::stack<const TestSuite*> SuiteStack;
@@ -70,7 +71,6 @@ private:
         std::string message_;
     };
     typedef std::vector<Report> Reports;
-    
 
 private:
     std::ostream& ostream_;
@@ -84,11 +84,14 @@ private:
 
     Reports reports_;
 
-    int num_suites_;
-    int num_tests_;
+    int num_suites_entered_;
+    int num_tests_run_;
     int num_success_;
     int num_failure_;
     int num_error_;
+
+    // the one who made it stop.
+    const TestCase* unclean_test_;
 };
 
 }

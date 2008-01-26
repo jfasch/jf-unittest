@@ -20,6 +20,7 @@
 #include "test_suite.h"
 
 #include "test_result.h"
+#include "cleanliness.h"
 
 #include <cassert>
 
@@ -38,13 +39,16 @@ void TestSuite::add_test(Test* t)
     tests_.push_back(t);
 }
 
-void TestSuite::run_internal(TestResult* result)
+void TestSuite::run_internal(TestResult* result, const CleanlinessCheck* cleanliness_check)
 {
     // not that the test's run_internal() method catches all errors,
     // so it is safe to not wrap the call into try/catch.
     result->enter_suite(this);
-    for (Tests::const_iterator i = tests_.begin(); i != tests_.end(); ++i)
-        (*i)->run_internal(result);
+    for (Tests::const_iterator i = tests_.begin(); i != tests_.end(); ++i) {
+        (*i)->run_internal(result, cleanliness_check);
+        if (cleanliness_check && !cleanliness_check->environment_is_clean())
+            break;
+    }
     result->leave_suite(this);
 }
 

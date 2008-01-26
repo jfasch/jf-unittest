@@ -32,28 +32,35 @@ class SimpleTestResult : public TestResult
 public:
     SimpleTestResult(std::ostream* ostream = NULL)
     : ostream_(ostream),
+      num_tests_run_(0),
       num_success_(0),
       num_failure_(0),
-      num_error_(0) {}
+      num_error_(0),
+      unclean_test_(NULL) {}
 
-    bool ok() const { return num_failure_ + num_error_ == 0; }
+    bool ok() const { return num_failure_ + num_error_ == 0 && !unclean_test_; }
+    bool unclean() const { return unclean_test_ != NULL; }
+    int num_tests_run() const { return num_tests_run_; }
     int num_success() const { return num_success_; }
     int num_failure() const { return num_failure_; }
     int num_error() const { return num_error_; }
 
     virtual void enter_suite(const TestSuite*) {}
     virtual void leave_suite(const TestSuite*) {}
-    virtual void enter_test(const TestCase*) {}
+    virtual void enter_test(const TestCase*) { num_tests_run_++; }
     virtual void leave_test(const TestCase*) {}
     virtual void add_success(const TestCase*);
     virtual void add_failure(const TestCase*, const Failure&);
     virtual void add_error(const TestCase*, const std::string&);
+    virtual void unclean_alarm(const TestCase* t) { unclean_test_ = t; }
     
 private:
     std::ostream* ostream_;
+    int num_tests_run_;
     int num_success_;
     int num_failure_;
     int num_error_;
+    const TestCase* unclean_test_;
 };
 
 }

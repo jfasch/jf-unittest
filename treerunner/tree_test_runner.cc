@@ -28,10 +28,10 @@
 namespace jf {
 namespace unittest {
 
-bool TreeTestRunner::run(Test* test)
+bool TreeTestRunner::run(Test* test, CleanlinessCheck* cleanliness_check)
 {
     TreeTestResult result(std::cerr);
-    test->run_internal(&result);
+    test->run_internal(&result, cleanliness_check);
     result.print_summary();
     return result.ok();
 }
