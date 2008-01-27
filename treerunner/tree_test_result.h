@@ -90,7 +90,7 @@ private:
     int num_failure_;
     int num_error_;
 
-    // the one who made it stop.
+    // the one who made the environmental-cleanliness-check fail.
     const TestCase* unclean_test_;
 };
 
