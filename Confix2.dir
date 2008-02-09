@@ -1,5 +1,6 @@
 # -*- python -*-
 
+DIRECTORY(['include', 'jf', 'unittest'])
 DIRECTORY(['basics'])
 DIRECTORY(['treerunner'])
 DIRECTORY(['tests'])

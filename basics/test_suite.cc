@@ -17,10 +17,10 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 // USA
 
-#include "test_suite.h"
+#include <jf/unittest/test_suite.h>
 
-#include "test_result.h"
-#include "cleanliness.h"
+#include <jf/unittest/test_result.h>
+#include <jf/unittest/cleanliness.h>
 
 #include <cassert>
 

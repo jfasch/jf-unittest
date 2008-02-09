@@ -17,9 +17,9 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 // USA
 
-#include "simple_test_result.h"
+#include <jf/unittest/simple_test_result.h>
 
-#include "test_case.h"
+#include <jf/unittest/test_case.h>
 
 #include <iostream>
 

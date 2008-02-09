@@ -1,0 +1,34 @@
+# -*- python -*-
+
+# DISCLAIMER: THIS DIRECTORY DEFEATS THE PURPOSE OF ONE OF CONFIX'S
+# MAJOR FEATURES - MAKING HEADER FILES VISIBLE UNDER A DIFFERENT PATH
+# THAN THEY ARE PYHSICALLY LOCATED IN.
+
+# although I don't like the headers not living in the same directory
+# as the C files they accompany, I make compromises for people who
+# like the funky hopping buttons of sappy build tools (Tom G., trying
+# to build this with Visual Studio).
+
+for h in [
+    'cleanliness.h',
+    'cleanliness_fwd.h',
+    'failure.h',
+    'simple_test_result.h',
+    'test.h',
+    'test_case.h',
+    'test_case_fwd.h',
+    'test_fwd.h',
+    'test_result.h',
+    'test_result_fwd.h',
+    'test_suite.h',
+    'test_suite_fwd.h',
+    ]:
+    H(filename=h, install=['jf', 'unittest'], relocate_to=['basics'])
+    pass
+
+for h in [
+    'tree_test_result.h',
+    'tree_test_runner.h',
+    ]:
+    H(filename=h, install=['jf', 'unittest'], relocate_to=['treerunner'])
+    pass

@@ -1,8 +1,8 @@
 # -*- python -*-
 
 h = [
-    'tree_test_result.h',
-    'tree_test_runner.h',
+    # sadly, we have to have our headers in include/jf/unittest. see
+    # there for why.
     ]
 
 cc = [
