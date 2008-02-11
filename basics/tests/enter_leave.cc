@@ -174,7 +174,7 @@ public:
 
     virtual void add_success(const jf::unittest::TestCase*) {}
     virtual void add_failure(const jf::unittest::TestCase*, const jf::unittest::Failure&) {}
-    virtual void add_error(const jf::unittest::TestCase*, const std::string& message) {}
+    virtual void add_error(const jf::unittest::TestCase*, const std::string&) {}
     virtual void unclean_alarm(const jf::unittest::TestCase*) {}
 
 private:

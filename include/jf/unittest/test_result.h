@@ -27,7 +27,7 @@
 namespace jf {
 namespace unittest {
 
-class TestResult
+class JF_UNITTEST_API TestResult
 {
 public:
     virtual ~TestResult() {}

@@ -116,7 +116,7 @@
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
 				AdditionalIncludeDirectories="..\include"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;JFUNITTEST_EXPORTS;_CRT_SECURE_NO_WARNINGS"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;JF_UNITTEST_EXPORTS;_CRT_SECURE_NO_WARNINGS"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				UsePrecompiledHeader="0"
@@ -199,6 +199,10 @@
 						>
 					</File>
 					<File
+						RelativePath="..\basics\tests\cleanliness_check.h"
+						>
+					</File>
+					<File
 						RelativePath="..\basics\tests\Confix2.dir"
 						>
 					</File>
@@ -207,7 +211,15 @@
 						>
 					</File>
 					<File
+						RelativePath="..\basics\tests\enter_leave.h"
+						>
+					</File>
+					<File
 						RelativePath="..\basics\tests\setup_teardown.cc"
+						>
+					</File>
+					<File
+						RelativePath="..\basics\tests\setup_teardown.h"
 						>
 					</File>
 					<File
@@ -230,7 +242,7 @@
 			</Filter>
 		</Filter>
 		<Filter
-			Name="Header Files"
+			Name="Public Header Files"
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
@@ -301,6 +313,14 @@
 			<Filter
 				Name="tests"
 				>
+				<File
+					RelativePath="..\include\jf\unittest\tests\Confix2.dir"
+					>
+				</File>
+				<File
+					RelativePath="..\include\jf\unittest\tests\stage2_suite.h"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<File

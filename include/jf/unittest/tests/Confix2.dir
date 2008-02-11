@@ -1,0 +1,16 @@
+# -*- python -*-
+
+# DISCLAIMER: THIS DIRECTORY DEFEATS THE PURPOSE OF ONE OF CONFIX'S
+# MAJOR FEATURES - MAKING HEADER FILES VISIBLE UNDER A DIFFERENT PATH
+# THAN THEY ARE PYHSICALLY LOCATED IN.
+
+# although I don't like the headers not living in the same directory
+# as the C files they accompany, I make compromises for people who
+# like the funky hopping buttons of sappy build tools (Tom G., trying
+# to build this with Visual Studio).
+
+for h in [
+    'stage2_suite.h',
+    ]:
+    H(filename=h, install=['jf', 'unittest', 'tests'], relocate_to=['basics', 'tests'])
+    pass

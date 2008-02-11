@@ -20,13 +20,14 @@
 #ifndef HAVE_JF_UNITTEST_TREE_TEST_RUNNER_H
 #define HAVE_JF_UNITTEST_TREE_TEST_RUNNER_H
 
+#include <jf/unittest/api.h>
 #include <jf/unittest/test_fwd.h>
 #include <jf/unittest/cleanliness_fwd.h>
 
 namespace jf {
 namespace unittest {
 
-class TreeTestRunner
+class JF_UNITTEST_API TreeTestRunner
 {
 public:
     bool run(Test*, CleanlinessCheck* = 0);

@@ -22,13 +22,14 @@
 
 #include "test_result_fwd.h"
 #include "cleanliness_fwd.h"
+#include "api.h"
 
 #include <string>
 
 namespace jf {
 namespace unittest {
 
-class Test
+class JF_UNITTEST_API Test
 {
 public:
     Test(const std::string& name) : name_(name) {}

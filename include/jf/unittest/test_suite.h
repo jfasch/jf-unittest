@@ -27,7 +27,7 @@
 namespace jf {
 namespace unittest {
 
-class TestSuite : public Test
+class JF_UNITTEST_API TestSuite : public Test
 {
 public:
     typedef std::vector<Test*> Tests;

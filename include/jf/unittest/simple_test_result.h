@@ -27,7 +27,7 @@
 namespace jf {
 namespace unittest {
 
-class SimpleTestResult : public TestResult
+class JF_UNITTEST_API SimpleTestResult : public TestResult
 {
 public:
     SimpleTestResult(std::ostream* ostream = NULL)

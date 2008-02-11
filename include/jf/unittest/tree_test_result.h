@@ -28,7 +28,7 @@
 namespace jf {
 namespace unittest {
 
-class TreeTestResult : public jf::unittest::TestResult
+class JF_UNITTEST_API TreeTestResult : public jf::unittest::TestResult
 {
 public:
     TreeTestResult(std::ostream& ostream);
@@ -92,6 +92,9 @@ private:
 
     // the one who made the environmental-cleanliness-check fail.
     const TestCase* unclean_test_;
+
+    TreeTestResult(const TreeTestResult&);
+    TreeTestResult& operator=(const TreeTestResult&);
 };
 
 }

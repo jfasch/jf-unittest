@@ -1,7 +1,6 @@
 # -*- python -*-
 
 h = [
-    'stage2_suite.h',
     'setup_teardown.h',
     'enter_leave.h',
     'cleanliness_check.h',

@@ -17,35 +17,22 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 // USA
 
-#ifndef HAVE_JF_UNITTEST_FAILURE_H
-#define HAVE_JF_UNITTEST_FAILURE_H
+#ifndef HAVE_JF_UNITTEST_TESTS_STAGE2_SUITE_H
+#define HAVE_JF_UNITTEST_TESTS_STAGE2_SUITE_H
 
-#include <string>
-
-#include <jf/unittest/api.h>
+#include <jf/unittest/test_suite.h>
 
 namespace jf {
 namespace unittest {
+namespace tests {
 
-class JF_UNITTEST_API Failure
+class JF_UNITTEST_API Stage2Suite : public TestSuite
 {
 public:
-    Failure(const std::string& failed_condition, const std::string& filename, int line)
-    : failed_condition_(failed_condition),
-      filename_(filename),
-      line_(line) {}
-
-    const std::string& failed_condition() const { return failed_condition_; }
-    const std::string& filename() const { return filename_; }
-    int line() const { return line_; }
-
-private:
-    std::string failed_condition_;
-    std::string filename_;
-    int line_;
+    Stage2Suite();
 };
 
 }
 }
-
+}
 #endif

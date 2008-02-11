@@ -34,7 +34,7 @@ public:
     const jf::unittest::Failure& failure() const { return failure_; }
     /** Inherited from std::exception. Overloaded fatally since nobody
         should get a chance to call it. */
-    virtual const char* what() { assert(false); }
+    virtual const char* what() { assert(false); return 0;}
 
 private:
     jf::unittest::Failure failure_;

@@ -20,10 +20,12 @@
 #ifndef HAVE_JF_UNITTEST_CLEANLINESS_H
 #define HAVE_JF_UNITTEST_CLEANLINESS_H
 
+#include <jf/unittest/api.h>
+
 namespace jf {
 namespace unittest {
 
-class CleanlinessCheck {
+class JF_UNITTEST_API CleanlinessCheck {
 public:
     virtual ~CleanlinessCheck() {}
     virtual bool environment_is_clean() const = 0;

@@ -17,7 +17,7 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 // USA
 
-#include "stage2_suite.h"
+#include <jf/unittest/tests/stage2_suite.h>
 
 #include "setup_teardown.h"
 #include "enter_leave.h"

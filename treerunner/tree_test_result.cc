@@ -84,7 +84,7 @@ void TreeTestResult::enter_suite(const TestSuite* s)
     suite_stack_.push(s);
 }
 
-void TreeTestResult::leave_suite(const TestSuite* s)
+void TreeTestResult::leave_suite(const TestSuite* /*s*/)
 {
     assert(suite_stack_.size() != 0);
     suite_stack_.pop();
