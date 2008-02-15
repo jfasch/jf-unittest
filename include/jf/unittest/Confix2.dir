@@ -10,6 +10,7 @@
 # to build this with Visual Studio).
 
 for h in [
+    'api.h',
     'cleanliness.h',
     'cleanliness_fwd.h',
     'failure.h',

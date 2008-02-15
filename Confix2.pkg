@@ -3,10 +3,6 @@
 PACKAGE_NAME('jf-unittest')
 PACKAGE_VERSION('0.0.1')
 
-from libconfix.core.hierarchy.explicit_setup import ExplicitDirectorySetup
-from libconfix.plugins.c.setups.explicit_setup import ExplicitCSetup
+from libconfix.setups.explicit_setup import ExplicitSetup
 
-SETUPS([
-    ExplicitDirectorySetup(),
-    ExplicitCSetup(use_libtool=True),
-    ])
+SETUPS([ExplicitSetup(use_libtool=True)])

@@ -1,12 +1,14 @@
 # -*- python -*-
 
 h = [
+    'assert_suite.h',
     'setup_teardown.h',
     'enter_leave.h',
     'cleanliness_check.h',
     ]
 
 cc = [
+    'assert_suite.cc',
     'stage2_suite.cc',
     'setup_teardown.cc',
     'enter_leave.cc',

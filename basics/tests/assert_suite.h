@@ -17,26 +17,23 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 // USA
 
-#include <jf/unittest/tests/stage2_suite.h>
+#ifndef HAVE_JF_UNITTEST_TESTS_ASSERT_SUITE_H
+#define HAVE_JF_UNITTEST_TESTS_ASSERT_SUITE_H
 
-#include "setup_teardown.h"
-#include "enter_leave.h"
-#include "cleanliness_check.h"
-#include "assert_suite.h"
+#include <jf/unittest/test_suite.h>
 
 namespace jf {
 namespace unittest {
 namespace tests {
 
-Stage2Suite::Stage2Suite()
-: TestSuite("jf::unittest::tests::Stage2Suite")
+class AssertSuite : public jf::unittest::TestSuite
 {
-    add_test(new SetupTeardownSuite);
-    add_test(new EnterLeaveSuite);
-    add_test(new CleanlinessCheckSuite);
-    add_test(new AssertSuite);
-}
+public:
+    AssertSuite();
+};
 
 }
 }
 }
+
+#endif

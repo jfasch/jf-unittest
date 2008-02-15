@@ -44,7 +44,17 @@ public:
 #   define JFUNIT_OBJECT_FAIL(testcase) JFUNIT_OBJECT_ASSERT(testcase, false)
 #   define JFUNIT_ASSERT(condition) JFUNIT_OBJECT_ASSERT(this, condition)
 #   define JFUNIT_FAIL() JFUNIT_ASSERT(false)
-
+#   define JFUNIT_ASSERT_THROWS(Exception, expr) \
+    do { \
+        try { \
+            expr; \
+            JFUNIT_FAIL(); \
+        } \
+        catch (const Exception&) {} \
+        catch (...) { \
+            JFUNIT_FAIL(); \
+        } \
+    } while (0);
     void do_cond_fail(bool condition,
                       const std::string& condition_str,
                       const std::string& filename,
