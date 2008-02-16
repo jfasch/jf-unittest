@@ -25,7 +25,8 @@
 namespace jf {
 namespace unittest {
 
-class JF_UNITTEST_API TestCase : public Test {
+class JF_UNITTEST_API TestCase : public Test
+{
 public:
     TestCase(const std::string& name) : Test(name) {}
     virtual ~TestCase() {}
