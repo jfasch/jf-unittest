@@ -17,12 +17,15 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 // USA
 
+// CONFIX:REQUIRE_H('jf/unittest/tests/stage2_suite.h', REQUIRED)
+// CONFIX:REQUIRE_H('jf/unittest/tree_test_runner.h', REQUIRED)
+
 #include <jf/unittest/tests/stage2_suite.h>
 #include <jf/unittest/tree_test_runner.h>
 
 int main()
 {
-    // we do not have any other tests that the bootstrap stuff.
+    // we do not have any other tests than the bootstrap stuff.
     jf::unittest::tests::Stage2Suite suite;
 
     jf::unittest::TreeTestRunner runner;

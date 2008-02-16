@@ -25,6 +25,7 @@
 namespace {
 
 class TestException {};
+class UnknownException {};
 
 void throw_testexception()
 {
@@ -33,23 +34,36 @@ void throw_testexception()
 
 void no_throw_testexception() {}
 
-class TestExceptionPositive : public jf::unittest::TestCase
+// throw the exception we require.
+class ThrowTest : public jf::unittest::TestCase
 {
 public:
-    TestExceptionPositive() : jf::unittest::TestCase("") {}
+    ThrowTest() : jf::unittest::TestCase("") {}
     virtual void run()
     {
         JFUNIT_ASSERT_THROWS(TestException, throw_testexception());
     }
 };
 
-class TestExceptionNegative : public jf::unittest::TestCase
+// don't throw an exception though one is required.
+class NoThrowTest : public jf::unittest::TestCase
 {
 public:
-    TestExceptionNegative() : jf::unittest::TestCase("") {}
+    NoThrowTest() : jf::unittest::TestCase("") {}
     virtual void run()
     {
         JFUNIT_ASSERT_THROWS(TestException, no_throw_testexception());
+    }
+};
+
+// throw a different exception than the one that we require.
+class WrongThrowTest : public jf::unittest::TestCase
+{
+public:
+    WrongThrowTest() : jf::unittest::TestCase("") {}
+    virtual void run()
+    {
+        JFUNIT_ASSERT_THROWS(UnknownException, throw_testexception());
     }
 };
 
@@ -66,15 +80,21 @@ public:
     virtual void run()
     {
         {
-            TestExceptionPositive pos;
+            ThrowTest t;
             SimpleTestResult result;
-            pos.run_internal(&result, NULL);
+            t.run_internal(&result, NULL);
             JFUNIT_ASSERT(result.ok());
         }
         {
-            TestExceptionNegative neg;
+            NoThrowTest t;
             SimpleTestResult result;
-            neg.run_internal(&result, NULL);
+            t.run_internal(&result, NULL);
+            JFUNIT_ASSERT(result.num_failure() == 1);
+        }
+        {
+            WrongThrowTest t;
+            SimpleTestResult result;
+            t.run_internal(&result, NULL);
             JFUNIT_ASSERT(result.num_failure() == 1);
         }
     }
