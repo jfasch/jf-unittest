@@ -33,3 +33,5 @@ for h in [
     ]:
     H(filename=h, install=['jf', 'unittest'], relocate_to=['treerunner'])
     pass
+
+DIRECTORY(['tests'])
