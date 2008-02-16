@@ -54,7 +54,7 @@ public:
         catch (...) { \
             JFUNIT_FAIL(); \
         } \
-    } while (0);
+    } while (false)
     void do_cond_fail(bool condition,
                       const std::string& condition_str,
                       const std::string& filename,
