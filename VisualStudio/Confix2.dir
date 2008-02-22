@@ -17,15 +17,8 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 # USA
 
-
-h = [
-    # sadly, we have to have our headers in include/jf/unittest. see
-    # there for why.
-    ]
-
-cc = [
-    'tree_test_result.cc',
-    'tree_test_runner.cc',
-    ]
-
-LIBRARY(members=[H(filename=f, install=['jf', 'unittest']) for f in h] + [CXX(filename=f) for f in cc])
+ADD_EXTRA_DIST('JfUnitTest.sln')
+ADD_EXTRA_DIST('JfUnitTest.vcproj')
+ADD_EXTRA_DIST('JfUnitTestStage1.vcproj')
+ADD_EXTRA_DIST('JfUnitTestStage2.vcproj')
+ADD_EXTRA_DIST('JfUnitTestStage3.vcproj')
