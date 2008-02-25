@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9,00"
+	Version="8,00"
 	Name="JfUnitTestStage3"
 	ProjectGUID="{8A489301-32EC-430C-80AE-1723AD971CB9}"
 	RootNamespace="JfUnitTestStage3"

@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9,00"
+	Version="8,00"
 	Name="JfUnitTest"
 	ProjectGUID="{240AF5B9-128B-4C06-AE16-36BB8A85AE4D}"
 	RootNamespace="JfUnitTest"
 	Keyword="Win32Proj"
-	TargetFrameworkVersion="196613"
 	>
 	<Platforms>
 		<Platform
@@ -85,6 +84,9 @@
 				Name="VCAppVerifierTool"
 			/>
 			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
 				Name="VCPostBuildEventTool"
 			/>
 		</Configuration>
@@ -160,6 +162,9 @@
 				Name="VCAppVerifierTool"
 			/>
 			<Tool
+				Name="VCWebDeploymentTool"
+			/>
+			<Tool
 				Name="VCPostBuildEventTool"
 			/>
 		</Configuration>
@@ -194,6 +199,14 @@
 				<Filter
 					Name="tests"
 					>
+					<File
+						RelativePath="..\basics\tests\assert_suite.cc"
+						>
+					</File>
+					<File
+						RelativePath="..\basics\tests\assert_suite.h"
+						>
+					</File>
 					<File
 						RelativePath="..\basics\tests\cleanliness_check.cc"
 						>
