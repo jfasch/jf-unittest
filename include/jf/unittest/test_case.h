@@ -28,7 +28,7 @@ namespace unittest {
 class JF_UNITTEST_API TestCase : public Test
 {
 public:
-    TestCase(const std::string& name) : Test(name) {}
+    TestCase(const std::string& name) : Test(name), result_(0) {}
     virtual ~TestCase() {}
 
     virtual void setup() {}
@@ -60,6 +60,8 @@ public:
                       const std::string& condition_str,
                       const std::string& filename,
                       int line);
+private:
+    TestResult* result_;
 };
 
 }

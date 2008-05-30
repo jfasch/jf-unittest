@@ -40,6 +40,7 @@ public:
     virtual void add_success(const TestCase*);
     virtual void add_failure(const TestCase*, const Failure&);
     virtual void add_error(const TestCase*, const std::string& message);
+    virtual void add_assertion(const TestCase*);
     virtual void unclean_alarm(const TestCase*);
 
     void print_summary() const;
@@ -89,6 +90,7 @@ private:
     int num_success_;
     int num_failure_;
     int num_error_;
+    int num_assertion_;
 
     // the one who made the environmental-cleanliness-check fail.
     const TestCase* unclean_test_;

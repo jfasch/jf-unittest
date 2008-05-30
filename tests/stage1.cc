@@ -69,6 +69,7 @@ public:
     virtual void add_success(const TestCase*) { num_success_++; }
     virtual void add_failure(const TestCase*, const Failure&) { num_failure_++; }
     virtual void add_error(const TestCase*, const std::string&) { num_error_++; }
+    virtual void add_assertion(const TestCase*) {}
     virtual void unclean_alarm(const TestCase*) {}
 
     int num_success() const { return num_success_; }

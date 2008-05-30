@@ -59,6 +59,7 @@ namespace unittest {
 
 void TestCase::run_internal(TestResult* result, const CleanlinessCheck* cleanliness_check)
 {
+    result_ = result;
     result->enter_test(this);
     
     bool setup_ok = false;
@@ -119,6 +120,8 @@ void TestCase::run_internal(TestResult* result, const CleanlinessCheck* cleanlin
 
     if (cleanliness_check && !cleanliness_check->environment_is_clean())
         result->unclean_alarm(this);
+
+    result_ = 0;
 }
 
 void TestCase::do_cond_fail(
@@ -127,6 +130,9 @@ void TestCase::do_cond_fail(
     const std::string& filename,
     int line)
 {
+    if (result_)
+        result_->add_assertion(this);
+
     if (!condition)
         throw FailureException(Failure(condition_str, filename, line));
 }

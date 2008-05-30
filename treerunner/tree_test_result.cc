@@ -75,6 +75,7 @@ TreeTestResult::TreeTestResult(std::ostream& ostream)
   num_success_(0),
   num_failure_(0),
   num_error_(0),
+  num_assertion_(0),
   unclean_test_(NULL) {}
 
 void TreeTestResult::enter_suite(const TestSuite* s)
@@ -153,6 +154,7 @@ void TreeTestResult::print_summary() const
     ostream_ << "#Errors:           " << num_error_ << '\n';
     ostream_ << "#Tests run:        " << num_tests_run_ << '\n';
     ostream_ << "#Suites entered:   " << num_suites_entered_ << '\n';
+    ostream_ << "#Asserts entered:  " << num_assertion_ << '\n';
     ostream_ << "------------------------\n";
 
     if (!ok()) {
@@ -163,6 +165,11 @@ void TreeTestResult::print_summary() const
              ++i)
             i->print(ostream_);
     }
+}
+
+void TreeTestResult::add_assertion( const TestCase* )
+{
+    num_assertion_++;
 }
 
 }

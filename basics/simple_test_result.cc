@@ -45,6 +45,11 @@ void SimpleTestResult::add_error(const TestCase* tc, const std::string& message)
     if (ostream_)
         std::cerr << "ERROR:   " << tc->name() << ": " << message << std::endl;
 }
-    
+
+void SimpleTestResult::add_assertion(const TestCase*)
+{
+    num_assertion_++;
+}
+
 }
 }
