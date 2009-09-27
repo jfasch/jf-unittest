@@ -20,7 +20,12 @@
 PACKAGE_NAME('jf-unittest')
 PACKAGE_VERSION('1.0.2')
 
-from libconfix.setups.explicit_setup import ExplicitSetup
+from libconfix.setups.boilerplate import Boilerplate
+from libconfix.setups.c import C
+from libconfix.setups.automake import Automake
+from libconfix.setups.cmake import CMake
 
-## SETUPS([ExplicitSetup(use_libtool=True)])
-SETUPS([ExplicitSetup(use_libtool=False)])
+SETUPS([Boilerplate(),
+        C(),
+        Automake(use_libtool=False, library_dependencies=True),
+        CMake(library_dependencies=True)])
