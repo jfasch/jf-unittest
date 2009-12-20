@@ -25,7 +25,7 @@ from libconfix.setups.c import C
 from libconfix.setups.automake import Automake
 from libconfix.setups.cmake import CMake
 
-SETUPS([Boilerplate(),
-        C(),
-        Automake(use_libtool=False, library_dependencies=True),
-        CMake(library_dependencies=True)])
+SETUP([Boilerplate(),
+       C(),
+       Automake(use_libtool=False, library_dependencies=True),
+       CMake(library_dependencies=True)])
