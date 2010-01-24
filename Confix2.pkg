@@ -18,7 +18,7 @@
 # USA
 
 PACKAGE_NAME('jf-unittest')
-PACKAGE_VERSION('1.1.0')
+PACKAGE_VERSION('1.2.0')
 
 from libconfix.setups.boilerplate import Boilerplate
 from libconfix.setups.c import C
