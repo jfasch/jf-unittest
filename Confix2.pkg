@@ -1,6 +1,6 @@
 # -*- python -*-
 
-# Copyright (C) 2008 Joerg Faschingbauer
+# Copyright (C) 2008-2010 Joerg Faschingbauer
 
 # This library is free software; you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as
@@ -18,7 +18,7 @@
 # USA
 
 PACKAGE_NAME('jf-unittest')
-PACKAGE_VERSION('1.0.2')
+PACKAGE_VERSION('1.1.0')
 
 from libconfix.setups.boilerplate import Boilerplate
 from libconfix.setups.c import C

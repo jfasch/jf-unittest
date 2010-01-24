@@ -1,6 +1,6 @@
 // -*- C++ -*-
 
-// Copyright (C) 2008 Joerg Faschingbauer
+// Copyright (C) 2008-2010 Joerg Faschingbauer
 
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public License
@@ -22,6 +22,7 @@
 #include <jf/unittest/test_result.h>
 
 #include <iostream>
+#include <cstdlib>
 
 using namespace jf::unittest;
 
@@ -117,7 +118,7 @@ private:
      if (!(condition)) { \
          std::cerr << "JF BOOTSTRAP FAILED: \"" << #condition << \
              "\" (" << __FILE__<< ':' << __LINE__ << ')' << std::endl; \
-         ::exit(1); \
+         std::exit(1); \
      }
 
 int main()
