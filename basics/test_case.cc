@@ -24,6 +24,7 @@
 #include <jf/unittest/cleanliness.h>
 
 #include <cassert>
+#include <cstdio>
 
 namespace {
 
@@ -47,7 +48,7 @@ static void add_failure_description(std::string& msg, const jf::unittest::Failur
     msg += f.filename();
     msg += ':';
     char tmp[16];
-    sprintf(tmp, "%d", f.line());
+    std::sprintf(tmp, "%d", f.line());
     msg += tmp;
     msg += ')';
 }
