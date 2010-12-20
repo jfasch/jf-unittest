@@ -82,19 +82,19 @@ public:
         {
             ThrowTest t;
             SimpleTestResult result;
-            t.run_internal(&result, NULL);
+            t.run_internal(&result);
             JFUNIT_ASSERT(result.ok());
         }
         {
             NoThrowTest t;
             SimpleTestResult result;
-            t.run_internal(&result, NULL);
+            t.run_internal(&result);
             JFUNIT_ASSERT(result.num_failure() == 1);
         }
         {
             WrongThrowTest t;
             SimpleTestResult result;
-            t.run_internal(&result, NULL);
+            t.run_internal(&result);
             JFUNIT_ASSERT(result.num_failure() == 1);
         }
     }

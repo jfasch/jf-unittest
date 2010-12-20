@@ -20,7 +20,6 @@
 #include <jf/unittest/test_suite.h>
 
 #include <jf/unittest/test_result.h>
-#include <jf/unittest/cleanliness.h>
 
 #include <cassert>
 
@@ -39,16 +38,13 @@ void TestSuite::add_test(Test* t)
     tests_.push_back(t);
 }
 
-void TestSuite::run_internal(TestResult* result, const CleanlinessCheck* cleanliness_check)
+void TestSuite::run_internal(TestResult* result)
 {
     // note that the test's run_internal() method catches all errors,
     // so it is safe to not wrap the call into try/catch.
     result->enter_suite(this);
-    for (Tests::const_iterator i = tests_.begin(); i != tests_.end(); ++i) {
-        (*i)->run_internal(result, cleanliness_check);
-        if (cleanliness_check && !cleanliness_check->environment_is_clean())
-            break;
-    }
+    for (Tests::const_iterator i = tests_.begin(); i != tests_.end(); ++i)
+        (*i)->run_internal(result);
     result->leave_suite(this);
 }
 

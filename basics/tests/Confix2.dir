@@ -21,7 +21,6 @@ h = [
     'assert_suite.h',
     'setup_teardown.h',
     'enter_leave.h',
-    'cleanliness_check.h',
     ]
 
 cc = [
@@ -29,7 +28,6 @@ cc = [
     'stage2_suite.cc',
     'setup_teardown.cc',
     'enter_leave.cc',
-    'cleanliness_check.cc',
     ]
 
 LIBRARY(members=[H(filename=f, install=['jf', 'unittest', 'tests']) for f in h] + [CXX(filename=f) for f in cc])

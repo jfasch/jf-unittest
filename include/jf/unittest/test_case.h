@@ -36,7 +36,7 @@ public:
     virtual void teardown() {}
 
 public:
-    virtual void run_internal(TestResult*, const CleanlinessCheck*);
+    virtual void run_internal(TestResult*);
 
 #   define JFUNIT_OBJECT_ASSERT(testcase, condition) \
         do { \

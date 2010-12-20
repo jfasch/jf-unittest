@@ -90,7 +90,7 @@ public:
     {
         TestTestSuite s;
         BootstrapTestResult r;
-        s.run_internal(&r, NULL);
+        s.run_internal(&r);
         JFUNIT_ASSERT(r.num_success() == 2);
         JFUNIT_ASSERT(r.num_failure() == 2);
         JFUNIT_ASSERT(r.num_error() == 3);
@@ -126,7 +126,7 @@ int main()
     {
         OkTest t;
         BootstrapTestResult r;
-        t.run_internal(&r, NULL);
+        t.run_internal(&r);
         BOOTSTRAP_ASSERT(r.num_success() == 1);
         BOOTSTRAP_ASSERT(r.num_failure() == 0);
         BOOTSTRAP_ASSERT(r.num_error() == 0);
@@ -134,7 +134,7 @@ int main()
     {
         FailureTest t;
         BootstrapTestResult r;
-        t.run_internal(&r, NULL);
+        t.run_internal(&r);
         BOOTSTRAP_ASSERT(r.num_success() == 0);
         BOOTSTRAP_ASSERT(r.num_failure() == 1);
         BOOTSTRAP_ASSERT(r.num_error() == 0);
@@ -142,7 +142,7 @@ int main()
     {
         ErrorTest t;
         BootstrapTestResult r;
-        t.run_internal(&r, NULL);
+        t.run_internal(&r);
         BOOTSTRAP_ASSERT(r.num_success() == 0);
         BOOTSTRAP_ASSERT(r.num_failure() == 0);
         BOOTSTRAP_ASSERT(r.num_error() == 1);
@@ -150,7 +150,7 @@ int main()
     {
         SuiteTest t;
         BootstrapTestResult r;
-        t.run_internal(&r, NULL);
+        t.run_internal(&r);
         BOOTSTRAP_ASSERT(r.num_success() == 1);
     }
 
