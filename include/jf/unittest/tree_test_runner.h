@@ -22,7 +22,6 @@
 
 #include <jf/unittest/api.h>
 #include <jf/unittest/test_fwd.h>
-#include <jf/unittest/cleanliness_fwd.h>
 
 namespace jf {
 namespace unittest {
@@ -30,7 +29,7 @@ namespace unittest {
 class JF_UNITTEST_API TreeTestRunner
 {
 public:
-    bool run(Test*, CleanlinessCheck* = 0);
+    bool run(Test*);
 };
 
 }

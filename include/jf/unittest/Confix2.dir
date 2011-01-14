@@ -29,8 +29,6 @@
 
 for h in [
     'api.h',
-    'cleanliness.h',
-    'cleanliness_fwd.h',
     'failure.h',
     'simple_test_result.h',
     'test.h',

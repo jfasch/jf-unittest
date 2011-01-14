@@ -36,11 +36,9 @@ public:
       num_success_(0),
       num_failure_(0),
       num_error_(0),
-      num_assertion_(0),
-      unclean_test_(NULL) {}
+      num_assertion_(0) {}
 
-    bool ok() const { return num_failure_ + num_error_ == 0 && !unclean_test_; }
-    bool unclean() const { return unclean_test_ != NULL; }
+    bool ok() const { return num_failure_ + num_error_ == 0; }
     int num_tests_run() const { return num_tests_run_; }
     int num_success() const { return num_success_; }
     int num_failure() const { return num_failure_; }
@@ -54,7 +52,6 @@ public:
     virtual void add_failure(const TestCase*, const Failure&);
     virtual void add_error(const TestCase*, const std::string&);
     virtual void add_assertion(const TestCase*);
-    virtual void unclean_alarm(const TestCase* t) { unclean_test_ = t; }
     
 private:
     std::ostream* ostream_;
@@ -63,7 +60,6 @@ private:
     int num_failure_;
     int num_error_;
     int num_assertion_;
-    const TestCase* unclean_test_;
 };
 
 }

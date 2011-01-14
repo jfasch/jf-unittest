@@ -75,8 +75,7 @@ TreeTestResult::TreeTestResult(std::ostream& ostream)
   num_success_(0),
   num_failure_(0),
   num_error_(0),
-  num_assertion_(0),
-  unclean_test_(NULL) {}
+  num_assertion_(0) {}
 
 void TreeTestResult::enter_suite(const TestSuite* s)
 {
@@ -133,21 +132,9 @@ void TreeTestResult::add_error(const TestCase*, const std::string& message)
     p_cur_error = &cur_error;
 }
 
-void TreeTestResult::unclean_alarm(const TestCase* t)
-{
-    unclean_test_ = t;
-}
-
-
 void TreeTestResult::print_summary() const
 {
     ostream_ << "------------------------\n";
-
-    if (unclean_test_) {
-        ostream_ << "ALARM: environment has not been cleared\n";
-        ostream_ << "       " << unclean_test_->name() << '\n';
-        ostream_ << "------------------------\n";
-    }
     
     ostream_ << "#Success:          " << num_success_ << '\n';
     ostream_ << "#Failures:         " << num_failure_ << '\n';

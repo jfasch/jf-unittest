@@ -25,7 +25,7 @@ int main()
     jf::unittest::tests::Stage2Suite suite;
     jf::unittest::SimpleTestResult result(&std::cerr);
 
-    suite.run_internal(&result, NULL);
+    suite.run_internal(&result);
 
     return result.ok()? 0: 1;
 }
