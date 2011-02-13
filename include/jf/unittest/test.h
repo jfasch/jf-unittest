@@ -1,6 +1,6 @@
 // -*- C++ -*-
 
-// Copyright (C) 2008 Joerg Faschingbauer
+// Copyright (C) 2008-2011 Joerg Faschingbauer
 
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public License
@@ -20,6 +20,7 @@
 #ifndef HAVE_JF_UNITTEST_TEST_H
 #define HAVE_JF_UNITTEST_TEST_H
 
+#include "test_suite_fwd.h"
 #include "test_result_fwd.h"
 #include "api.h"
 
@@ -31,15 +32,25 @@ namespace unittest {
 class JF_UNITTEST_API Test
 {
 public:
-    Test(const std::string& name) : name_(name) {}
+    Test();
+    Test(const std::string& name);
     virtual ~Test() {}
 
     const std::string& name() const { return name_; }
+    const TestSuite* parent() const { return parent_; }
+    const TestSuite* root() const;
+
+    /** @brief Calculate path string towards root */
+    std::string path() const;
 
     virtual void run_internal(TestResult*) = 0;
-
+    
 private:
     std::string name_;
+    const TestSuite* parent_;
+
+    friend class TestSuite;
+    void set_parent_(const TestSuite*);
 
 private:
     Test(const Test&);

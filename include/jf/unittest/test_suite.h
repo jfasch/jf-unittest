@@ -1,6 +1,6 @@
 // -*- C++ -*-
 
-// Copyright (C) 2008 Joerg Faschingbauer
+// Copyright (C) 2008-2011 Joerg Faschingbauer
 
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public License
@@ -33,11 +33,14 @@ public:
     typedef std::vector<Test*> Tests;
     
 public:
+    TestSuite() : Test() {}
     TestSuite(const std::string& name) : Test(name) {}
     virtual ~TestSuite();
 
     void add_test(Test*);
     const Tests& tests() const { return tests_; }
+
+    Test* find(const std::string& path);
 
 public:
     virtual void run_internal(TestResult*);

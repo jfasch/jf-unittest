@@ -27,6 +27,8 @@
 
 namespace {
 
+using namespace jf::unittest;
+
 class indent
 {
 public:
@@ -65,8 +67,9 @@ void TreeTestResult::Report::print(std::ostream& o) const
     o << '\n';
 }
 
-TreeTestResult::TreeTestResult(std::ostream& ostream)
+TreeTestResult::TreeTestResult(std::ostream& ostream, bool print_path)
 : ostream_(ostream),
+  print_path_(print_path),
   cur_failure(std::string(), std::string(), 0),
   p_cur_failure(NULL),
   p_cur_error(NULL),
@@ -80,20 +83,30 @@ TreeTestResult::TreeTestResult(std::ostream& ostream)
 void TreeTestResult::enter_suite(const TestSuite* s)
 {
     num_suites_entered_++;
-    ostream_ << indent(suite_stack_.size()) << "+ " << s->name() << '\n';
-    suite_stack_.push(s);
+    ostream_ << indent(suite_stack_.size()) << "+ ";
+    if (print_path_)
+        ostream_ << s->path();
+    else
+        ostream_ << s->name();
+    ostream_ << '\n';
+    suite_stack_.push_back(s);
 }
 
 void TreeTestResult::leave_suite(const TestSuite* /*s*/)
 {
     assert(suite_stack_.size() != 0);
-    suite_stack_.pop();
+    suite_stack_.pop_back();
 }
 
 void TreeTestResult::enter_test(const TestCase* c)
 {
     num_tests_run_++;
-    ostream_ << indent(suite_stack_.size()) << "- " << c->name() << "...";
+    ostream_ << indent(suite_stack_.size()) << "- ";
+    if (print_path_)
+        ostream_ << c->path();
+    else
+        ostream_ << c->name();
+    ostream_ << " ... ";
 }
 
 void TreeTestResult::leave_test(const TestCase* c)

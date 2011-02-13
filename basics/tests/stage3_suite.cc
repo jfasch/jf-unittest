@@ -1,6 +1,6 @@
 // -*- C++ -*-
 
-// Copyright (C) 2008 Joerg Faschingbauer
+// Copyright (C) 2011 Joerg Faschingbauer
 
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public License
@@ -17,19 +17,23 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 // USA
 
-// CONFIX:REQUIRE_H('jf/unittest/tests/stage2_suite.h', REQUIRED)
-// CONFIX:REQUIRE_H('jf/unittest/tree_test_runner.h', REQUIRED)
-
-#include <jf/unittest/tests/stage2_suite.h>
 #include <jf/unittest/tests/stage3_suite.h>
-#include <jf/unittest/tree_test_runner.h>
 
-int main()
+#include "setup_teardown.h"
+#include "enter_leave.h"
+#include "assert_suite.h"
+#include "find_suite.h"
+
+namespace jf {
+namespace unittest {
+namespace tests {
+
+Stage3Suite::Stage3Suite()
+: TestSuite("jf::unittest::tests::Stage3Suite")
 {
-    jf::unittest::TestSuite suite("Stage3");
-    suite.add_test(new jf::unittest::tests::Stage2Suite);
-    suite.add_test(new jf::unittest::tests::Stage3Suite);
+    add_test(new FindSuite);
+}
 
-    jf::unittest::TreeTestRunner runner;
-    return runner.run(&suite)? 0: 1;
+}
+}
 }

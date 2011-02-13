@@ -25,10 +25,13 @@ h = [
     ]
 
 cc = [
+    'test.cc',
     'test_case.cc',
     'test_suite.cc',
     
     'simple_test_result.cc',
+
+    'find.cc',
     ]
 
 LIBRARY(members=[H(filename=f, install=['jf', 'unittest']) for f in h] + [CXX(filename=f) for f in cc])

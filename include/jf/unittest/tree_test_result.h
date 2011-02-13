@@ -22,7 +22,7 @@
 
 #include <jf/unittest/test_result.h>
 
-#include <stack>
+#include <deque>
 #include <vector>
 
 namespace jf {
@@ -31,7 +31,13 @@ namespace unittest {
 class JF_UNITTEST_API TreeTestResult : public jf::unittest::TestResult
 {
 public:
-    TreeTestResult(std::ostream& ostream);
+    /** @brief Formats fancy tree output
+        @param ostream where to write
+        @param print_path Instead of only the node name, print the
+                          entire path from the root of the tree -
+                          suitable for commandline path arguments.
+    */
+    TreeTestResult(std::ostream& ostream, bool print_path);
 
     virtual void enter_suite(const TestSuite*);
     virtual void leave_suite(const TestSuite*);
@@ -45,9 +51,10 @@ public:
     void print_summary() const;
     bool ok() const { return num_success_ == num_tests_run_; }
 
-private:
-    typedef std::stack<const TestSuite*> SuiteStack;
+public:
+    typedef std::deque<const TestSuite*> SuiteStack;
 
+private:
     class Report {
     public:
         Report(const TestCase* c, const Failure& f)
@@ -74,6 +81,7 @@ private:
 
 private:
     std::ostream& ostream_;
+    bool print_path_;
 
     SuiteStack suite_stack_;
 

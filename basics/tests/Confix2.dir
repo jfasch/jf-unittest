@@ -18,16 +18,27 @@
 # USA
 
 h = [
+    # stage 2
     'assert_suite.h',
     'setup_teardown.h',
     'enter_leave.h',
+    'hierarchy_suite.h',
+
+    # stage 3
+    'find_suite.h',
     ]
 
 cc = [
-    'assert_suite.cc',
+    # stage 2
     'stage2_suite.cc',
+    'assert_suite.cc',
     'setup_teardown.cc',
     'enter_leave.cc',
+    'hierarchy_suite.cc',
+
+    # stage 3
+    'stage3_suite.cc',
+    'find_suite.cc',
     ]
 
 LIBRARY(members=[H(filename=f, install=['jf', 'unittest', 'tests']) for f in h] + [CXX(filename=f) for f in cc])

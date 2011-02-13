@@ -28,9 +28,12 @@
 namespace jf {
 namespace unittest {
 
+TreeTestRunner::TreeTestRunner(bool print_path)
+: print_path_(print_path) {}
+
 bool TreeTestRunner::run(Test* test)
 {
-    TreeTestResult result(std::cerr);
+    TreeTestResult result(std::cerr, print_path_);
     test->run_internal(&result);
     result.print_summary();
     return result.ok();

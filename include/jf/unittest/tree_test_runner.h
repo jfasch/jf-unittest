@@ -29,7 +29,16 @@ namespace unittest {
 class JF_UNITTEST_API TreeTestRunner
 {
 public:
+    /** @brief Formats fancy tree output
+        @param print_path Instead of only the node name, print the
+                          entire path from the root of the tree -
+                          suitable for commandline path arguments.
+    */
+    TreeTestRunner(bool print_path=false);
     bool run(Test*);
+
+private:
+    bool print_path_;
 };
 
 }

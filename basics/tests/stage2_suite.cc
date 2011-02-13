@@ -1,6 +1,6 @@
 // -*- C++ -*-
 
-// Copyright (C) 2008 Joerg Faschingbauer
+// Copyright (C) 2008-2011 Joerg Faschingbauer
 
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public License
@@ -22,6 +22,7 @@
 #include "setup_teardown.h"
 #include "enter_leave.h"
 #include "assert_suite.h"
+#include "hierarchy_suite.h"
 
 namespace jf {
 namespace unittest {
@@ -33,6 +34,7 @@ Stage2Suite::Stage2Suite()
     add_test(new SetupTeardownSuite);
     add_test(new EnterLeaveSuite);
     add_test(new AssertSuite);
+    add_test(new HierarchySuite);
 }
 
 }

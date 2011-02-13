@@ -1,6 +1,6 @@
 // -*- C++ -*-
 
-// Copyright (C) 2008 Joerg Faschingbauer
+// Copyright (C) 2008-2011 Joerg Faschingbauer
 
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public License
@@ -17,44 +17,54 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 // USA
 
+#include <jf/unittest/test.h>
 #include <jf/unittest/test_suite.h>
-
-#include <jf/unittest/test_result.h>
-#include <jf/unittest/find.h>
 
 #include <cassert>
 
 namespace jf {
 namespace unittest {
 
-TestSuite::~TestSuite()
+Test::Test()
+: parent_(NULL) {}
+
+Test::Test(const std::string& name)
+: name_(name),
+  parent_(NULL) {}
+
+const TestSuite* Test::root() const
 {
-    for (Tests::const_iterator i = tests_.begin(); i != tests_.end(); ++i)
-        delete *i;
+    if (parent_ == NULL) {
+        const TestSuite* ret = dynamic_cast<const TestSuite*>(this);
+        assert(ret);
+        return ret;
+    }
+    else
+        return parent_->root();
 }
 
-void TestSuite::add_test(Test* t)
+void Test::set_parent_(const TestSuite* suite)
 {
-    assert(t);
-    tests_.push_back(t);
-    t->set_parent_(this);
+    assert(name_.size()!=0); // cannot have zero length path elements
+    assert(parent_ == NULL);
+
+    parent_ = suite;
 }
 
-Test* TestSuite::find(const std::string& path)
+std::string Test::path() const
 {
-    if (path.size() == 0)
-        return this;
-    return jf::unittest::find(this, path);
-}
-
-void TestSuite::run_internal(TestResult* result)
-{
-    // note that the test's run_internal() method catches all errors,
-    // so it is safe to not wrap the call into try/catch.
-    result->enter_suite(this);
-    for (Tests::const_iterator i = tests_.begin(); i != tests_.end(); ++i)
-        (*i)->run_internal(result);
-    result->leave_suite(this);
+    std::string ret;
+    if (parent_) {
+        ret = parent_->path();
+        if (ret != "/")
+            ret += '/';
+        ret += name_;
+    }
+    else {
+        assert(name_.size()==0);
+        ret = '/';
+    }    
+    return ret;
 }
 
 }

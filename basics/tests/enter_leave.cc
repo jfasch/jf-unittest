@@ -38,7 +38,7 @@ public:
 
 public:
     MyTestCase(TestCase* caller)
-    : jf::unittest::TestCase(""),
+    : jf::unittest::TestCase("MyTestCase"),
       state_(S_INIT),
       caller_(caller) {}
 
