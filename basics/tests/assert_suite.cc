@@ -103,7 +103,7 @@ public:
 AssertSuite::AssertSuite()
 : jf::unittest::TestSuite("jf::unittest::tests::AssertSuite")
 {
-    add_test(new AssertThrowsTest);
+    add_test(std::auto_ptr<Test>(new AssertThrowsTest));
 }
 
 }

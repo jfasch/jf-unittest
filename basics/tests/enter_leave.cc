@@ -214,7 +214,7 @@ public:
     {
         MyTestResult result(this);
         jf::unittest::TestSuite suite(/*name=*/"");
-        suite.add_test(new MyTestCase(this));
+        suite.add_test(std::auto_ptr<Test>(new MyTestCase(this)));
         suite.run_internal(&result);
         JFUNIT_ASSERT(result.num_suites_entered() == 1);
         JFUNIT_ASSERT(result.num_suites_left() == 1);
@@ -226,8 +226,8 @@ public:
 EnterLeaveSuite::EnterLeaveSuite()
 : jf::unittest::TestSuite("jf::unittest::tests::EnterLeaveSuite")
 {
-    add_test(new TestEnterLeave);
-    add_test(new SuiteEnterLeave);
+    add_test(std::auto_ptr<Test>(new TestEnterLeave));
+    add_test(std::auto_ptr<Test>(new SuiteEnterLeave));
 }
 
 }

@@ -101,13 +101,13 @@ private:
     public:
         TestTestSuite() : TestSuite("TestTestSuite")
         {
-            add_test(new OkTest);
-            add_test(new OkTest);
-            add_test(new FailureTest);
-            add_test(new FailureTest);
-            add_test(new ErrorTest);
-            add_test(new ErrorTest);
-            add_test(new ErrorTest);
+            add_test(std::auto_ptr<Test>(new OkTest));
+            add_test(std::auto_ptr<Test>(new OkTest));
+            add_test(std::auto_ptr<Test>(new FailureTest));
+            add_test(std::auto_ptr<Test>(new FailureTest));
+            add_test(std::auto_ptr<Test>(new ErrorTest));
+            add_test(std::auto_ptr<Test>(new ErrorTest));
+            add_test(std::auto_ptr<Test>(new ErrorTest));
         }
     };
 };

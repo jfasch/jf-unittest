@@ -1,6 +1,6 @@
 // -*- C++ -*-
 
-// Copyright (C) 2008 Joerg Faschingbauer
+// Copyright (C) 2008-2011 Joerg Faschingbauer
 
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public License
@@ -33,11 +33,12 @@ TestSuite::~TestSuite()
         delete *i;
 }
 
-void TestSuite::add_test(Test* t)
+void TestSuite::add_test(std::auto_ptr<Test> t)
 {
-    assert(t);
-    tests_.push_back(t);
-    t->set_parent_(this);
+    assert(t.get());
+    Test* tp = t.release();
+    tests_.push_back(tp);
+    tp->set_parent_(this);
 }
 
 Test* TestSuite::find(const std::string& path)

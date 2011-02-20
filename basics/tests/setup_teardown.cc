@@ -243,13 +243,13 @@ private:
 SetupTeardownSuite::SetupTeardownSuite()
 : jf::unittest::TestSuite("jf::unittest::tests::SetupTeardownSuite")
 {
-    add_test(new SetupTeardownSuccess);
-    add_test(new SetupTeardownSetupFailure);
-    add_test(new SetupTeardownSetupError);
-    add_test(new SetupTeardownRunFailure);
-    add_test(new SetupTeardownRunError);
-    add_test(new SetupTeardownTeardownFailure);
-    add_test(new SetupTeardownTeardownError);
+    add_test(std::auto_ptr<Test>(new SetupTeardownSuccess));
+    add_test(std::auto_ptr<Test>(new SetupTeardownSetupFailure));
+    add_test(std::auto_ptr<Test>(new SetupTeardownSetupError));
+    add_test(std::auto_ptr<Test>(new SetupTeardownRunFailure));
+    add_test(std::auto_ptr<Test>(new SetupTeardownRunError));
+    add_test(std::auto_ptr<Test>(new SetupTeardownTeardownFailure));
+    add_test(std::auto_ptr<Test>(new SetupTeardownTeardownError));
 }
 
 }

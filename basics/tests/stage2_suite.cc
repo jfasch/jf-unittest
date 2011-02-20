@@ -31,10 +31,10 @@ namespace tests {
 Stage2Suite::Stage2Suite()
 : TestSuite("jf::unittest::tests::Stage2Suite")
 {
-    add_test(new SetupTeardownSuite);
-    add_test(new EnterLeaveSuite);
-    add_test(new AssertSuite);
-    add_test(new HierarchySuite);
+    add_test(std::auto_ptr<Test>(new SetupTeardownSuite));
+    add_test(std::auto_ptr<Test>(new EnterLeaveSuite));
+    add_test(std::auto_ptr<Test>(new AssertSuite));
+    add_test(std::auto_ptr<Test>(new HierarchySuite));
 }
 
 }

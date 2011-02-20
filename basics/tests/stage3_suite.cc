@@ -31,7 +31,7 @@ namespace tests {
 Stage3Suite::Stage3Suite()
 : TestSuite("jf::unittest::tests::Stage3Suite")
 {
-    add_test(new FindSuite);
+    add_test(std::auto_ptr<Test>(new FindSuite));
 }
 
 }

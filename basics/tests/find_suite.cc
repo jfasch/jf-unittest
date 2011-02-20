@@ -48,7 +48,7 @@ public:
         // "top" -> element named "top" or NULL
         {
             TestSuite root("root");
-            root.add_test(new ATest("top"));
+            root.add_test(std::auto_ptr<Test>(new ATest("top")));
             {
                 Test* test = find(&root, "top");
                 JFUNIT_ASSERT(test);
@@ -70,8 +70,8 @@ public:
         {
             TestSuite root("root");
             TestSuite* node = new TestSuite("node");
-            node->add_test(new ATest("leaf"));
-            root.add_test(node);
+            node->add_test(std::auto_ptr<Test>(new ATest("leaf")));
+            root.add_test(std::auto_ptr<Test>(node));
             {
                 Test* found = find(&root, "node/leaf");
                 JFUNIT_ASSERT(found);
@@ -87,8 +87,8 @@ public:
         {
             TestSuite root("root");
             TestSuite* node = new TestSuite("node");
-            node->add_test(new ATest("leaf"));
-            root.add_test(node);
+            node->add_test(std::auto_ptr<Test>(new ATest("leaf")));
+            root.add_test(std::auto_ptr<Test>(node));
             {
                 Test* found = find(&root, "node/leaf/");
                 JFUNIT_ASSERT(!found);
@@ -102,8 +102,8 @@ public:
         {
             TestSuite root("root");
             TestSuite* node = new TestSuite("node");
-            node->add_test(new TestSuite("suite"));
-            root.add_test(node);
+            node->add_test(std::auto_ptr<Test>(new TestSuite("suite")));
+            root.add_test(std::auto_ptr<Test>(node));
             {
                 Test* found = find(&root, "node/suite/");
                 JFUNIT_ASSERT(found);
@@ -119,11 +119,11 @@ public:
         {
             TestSuite root("root");
             TestCase* root_leaf = new ATest("root-leaf");
-            root.add_test(root_leaf);
+            root.add_test(std::auto_ptr<Test>(root_leaf));
             TestSuite* node = new TestSuite("node");
             TestCase* deep_leaf = new ATest("deep-leaf");
-            node->add_test(deep_leaf);
-            root.add_test(node);
+            node->add_test(std::auto_ptr<Test>(deep_leaf));
+            root.add_test(std::auto_ptr<Test>(node));
 
             JFUNIT_ASSERT(find(node, "/root-leaf") == root_leaf);
             JFUNIT_ASSERT(find(node, "/node/deep-leaf") == deep_leaf);
@@ -140,7 +140,7 @@ namespace tests {
 FindSuite::FindSuite()
 : jf::unittest::TestSuite("jf::unittest::tests::FindSuite")
 {
-    add_test(new PathSearch);
+    add_test(std::auto_ptr<Test>(new PathSearch));
 }
 
 }

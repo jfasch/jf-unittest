@@ -61,8 +61,8 @@ int main(int argc, char** argv)
 
     TestSuite root;
     TestSuite* suite = new TestSuite("suite");
-    suite->add_test(new MyTest("test"));
-    root.add_test(suite);
+    suite->add_test(std::auto_ptr<Test>(new MyTest("test")));
+    root.add_test(std::auto_ptr<Test>(suite));
 
     Test* run_test = suite;
     if (path != NULL) {

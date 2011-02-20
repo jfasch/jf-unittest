@@ -23,6 +23,7 @@
 #include "test.h"
 
 #include <vector>
+#include <memory>
 
 namespace jf {
 namespace unittest {
@@ -37,7 +38,7 @@ public:
     TestSuite(const std::string& name) : Test(name) {}
     virtual ~TestSuite();
 
-    void add_test(Test*);
+    void add_test(std::auto_ptr<Test>);
     const Tests& tests() const { return tests_; }
 
     Test* find(const std::string& path);

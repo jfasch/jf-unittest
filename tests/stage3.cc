@@ -24,12 +24,15 @@
 #include <jf/unittest/tests/stage3_suite.h>
 #include <jf/unittest/tree_test_runner.h>
 
+using namespace jf::unittest;
+using namespace jf::unittest::tests;
+
 int main()
 {
-    jf::unittest::TestSuite suite("Stage3");
-    suite.add_test(new jf::unittest::tests::Stage2Suite);
-    suite.add_test(new jf::unittest::tests::Stage3Suite);
+    TestSuite suite("Stage3");
+    suite.add_test(std::auto_ptr<Test>(new Stage2Suite));
+    suite.add_test(std::auto_ptr<Test>(new Stage3Suite));
 
-    jf::unittest::TreeTestRunner runner;
+    TreeTestRunner runner;
     return runner.run(&suite)? 0: 1;
 }

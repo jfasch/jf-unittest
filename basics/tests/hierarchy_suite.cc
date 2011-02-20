@@ -45,7 +45,7 @@ public:
         {
             TestSuite root;
             Test* test = new ATest("top");
-            root.add_test(test);
+            root.add_test(std::auto_ptr<Test>(test));
             JFUNIT_ASSERT(test->path() == "/top");
         }
 
@@ -60,8 +60,8 @@ public:
             TestSuite root;
             TestSuite* node = new TestSuite("node");
             Test* leaf = new ATest("leaf");
-            node->add_test(leaf);
-            root.add_test(node);
+            node->add_test(std::auto_ptr<Test>(leaf));
+            root.add_test(std::auto_ptr<Test>(node));
             JFUNIT_ASSERT(node->path() == "/node");
             JFUNIT_ASSERT(leaf->path() == "/node/leaf");
         }
@@ -70,8 +70,8 @@ public:
             TestSuite root;
             TestSuite* node = new TestSuite("node");
             Test* suite = new TestSuite("suite");
-            node->add_test(suite);
-            root.add_test(node);
+            node->add_test(std::auto_ptr<Test>(suite));
+            root.add_test(std::auto_ptr<Test>(node));
             JFUNIT_ASSERT(node->path() == "/node");
             JFUNIT_ASSERT(suite->path() == "/node/suite");
         }
@@ -89,7 +89,7 @@ public:
         {
             TestSuite root;
             Test* test = new ATest("top");
-            root.add_test(test);
+            root.add_test(std::auto_ptr<Test>(test));
             JFUNIT_ASSERT(root.find("/top") == test);
             JFUNIT_ASSERT(root.find("top") == test);
             JFUNIT_ASSERT(root.find("") == &root);
@@ -106,8 +106,8 @@ public:
             TestSuite root;
             TestSuite* node = new TestSuite("node");
             Test* leaf = new ATest("leaf");
-            node->add_test(leaf);
-            root.add_test(node);
+            node->add_test(std::auto_ptr<Test>(leaf));
+            root.add_test(std::auto_ptr<Test>(node));
             JFUNIT_ASSERT(node->find("/node") == node);
             JFUNIT_ASSERT(root.find("/node") == node);
             JFUNIT_ASSERT(root.find("/node/leaf") == leaf);
@@ -119,8 +119,8 @@ public:
             TestSuite root;
             TestSuite* node = new TestSuite("node");
             TestSuite* suite = new TestSuite("suite");
-            node->add_test(suite);
-            root.add_test(node);
+            node->add_test(std::auto_ptr<Test>(suite));
+            root.add_test(std::auto_ptr<Test>(node));
             JFUNIT_ASSERT(node->find("/node") == node);
             JFUNIT_ASSERT(suite->find("/node/suite") == suite);
             JFUNIT_ASSERT(root.find("/node") == node);
@@ -141,8 +141,8 @@ namespace tests {
 HierarchySuite::HierarchySuite()
 : jf::unittest::TestSuite("Hierarchy")
 {
-    add_test(new Path);
-    add_test(new Find);
+    add_test(std::auto_ptr<Test>(new Path));
+    add_test(std::auto_ptr<Test>(new Find));
 }
 
 }
