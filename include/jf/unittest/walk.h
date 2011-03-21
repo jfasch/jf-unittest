@@ -17,22 +17,37 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 // USA
 
-#include <jf/unittest/tests/stage3_suite.h>
+#ifndef HAVE_JF_UNITTEST_WALK_H
+#define HAVE_JF_UNITTEST_WALK_H
 
-#include "find_suite.h"
-#include "walk_suite.h"
+#include "test_case_fwd.h"
+#include "test_suite_fwd.h"
 
 namespace jf {
 namespace unittest {
-namespace tests {
 
-Stage3Suite::Stage3Suite()
-: TestSuite("jf::unittest::tests::Stage3Suite")
+class Visitor
 {
-    add_test(std::auto_ptr<Test>(new FindSuite));
-    add_test(std::auto_ptr<Test>(new WalkSuite));
-}
+public:
+    virtual ~Visitor() {}
+
+    virtual void enter_suite(const TestSuite*) = 0;
+    virtual void leave_suite(const TestSuite*) = 0;
+    virtual void enter_test(const TestCase*) = 0;
+    virtual void leave_test(const TestCase*) = 0;
+};
+
+class Runner
+{
+public:
+    virtual ~Runner() {}
+
+    virtual void run_test(TestCase*) = 0;
+};
+
+void walk(const TestSuite*, Visitor*, Runner*);
 
 }
 }
-}
+
+#endif

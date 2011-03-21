@@ -26,6 +26,7 @@ h = [
 
     # stage 3
     'find_suite.h',
+    'walk_suite.h',
     ]
 
 cc = [
@@ -39,6 +40,7 @@ cc = [
     # stage 3
     'stage3_suite.cc',
     'find_suite.cc',
+    'walk_suite.cc',
     ]
 
 LIBRARY(members=[H(filename=f, install=['jf', 'unittest', 'tests']) for f in h] + [CXX(filename=f) for f in cc])

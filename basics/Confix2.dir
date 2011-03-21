@@ -32,6 +32,7 @@ cc = [
     'simple_test_result.cc',
 
     'find.cc',
+    'walk.cc',
     ]
 
 LIBRARY(members=[H(filename=f, install=['jf', 'unittest']) for f in h] + [CXX(filename=f) for f in cc])

@@ -41,6 +41,7 @@ for h in [
     'test_suite_fwd.h',
 
     'find.h',
+    'walk.h',
     ]:
     H(filename=h, install=['jf', 'unittest'], relocate_to=['basics'])
     pass

@@ -17,22 +17,23 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 // USA
 
-#include <jf/unittest/tests/stage3_suite.h>
+#ifndef HAVE_JF_UNITTEST_TESTS_WALK_SUITE_H
+#define HAVE_JF_UNITTEST_TESTS_WALK_SUITE_H
 
-#include "find_suite.h"
-#include "walk_suite.h"
+#include <jf/unittest/test_suite.h>
 
 namespace jf {
 namespace unittest {
 namespace tests {
 
-Stage3Suite::Stage3Suite()
-: TestSuite("jf::unittest::tests::Stage3Suite")
+class WalkSuite : public jf::unittest::TestSuite
 {
-    add_test(std::auto_ptr<Test>(new FindSuite));
-    add_test(std::auto_ptr<Test>(new WalkSuite));
-}
+public:
+    WalkSuite();
+};
 
 }
 }
 }
+
+#endif
