@@ -17,8 +17,11 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 // USA
 
-#ifndef HAVE_JF_UNITTEST_TEST_RESULT_H
-#define HAVE_JF_UNITTEST_TEST_RESULT_H
+#ifndef HAVE_JF_UNITTEST_VISITOR_H
+#define HAVE_JF_UNITTEST_VISITOR_H
+
+#include "test_suite.h"
+#include "test_case.h"
 
 namespace jf {
 namespace unittest {
@@ -26,7 +29,12 @@ namespace unittest {
 class Visitor
 {
 public:
-    
+    virtual ~Visitor() {}
+
+    virtual void enter_suite(const TestSuite*) = 0;
+    virtual void leave_suite(const TestSuite*) = 0;
+    virtual void enter_test(const TestCase*) = 0;
+    virtual void leave_test(const TestCase*) = 0;
 };
 
 }

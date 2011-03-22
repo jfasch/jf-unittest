@@ -17,17 +17,19 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 // USA
 
-#ifndef HAVE_JF_UNITTEST_WALK_H
-#define HAVE_JF_UNITTEST_WALK_H
-
-#include "test_suite.h"
-#include "visitor.h"
-#include "runner.h"
+#ifndef HAVE_JF_UNITTEST_RUNNER_H
+#define HAVE_JF_UNITTEST_RUNNER_H
 
 namespace jf {
 namespace unittest {
 
-void walk(const TestSuite*, Visitor*, Runner*);
+class Runner
+{
+public:
+    virtual ~Runner() {}
+
+    virtual void run_test(TestCase*) = 0;
+};
 
 }
 }
