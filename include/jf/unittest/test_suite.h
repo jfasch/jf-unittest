@@ -20,6 +20,7 @@
 #ifndef HAVE_JF_UNITTEST_TEST_SUITE_H
 #define HAVE_JF_UNITTEST_TEST_SUITE_H
 
+#include "api.h"
 #include "test.h"
 
 #include <vector>

@@ -20,14 +20,15 @@
 #ifndef HAVE_JF_UNITTEST_TEST_H
 #define HAVE_JF_UNITTEST_TEST_H
 
-#include "test_suite_fwd.h"
-#include "test_result_fwd.h"
+#include "test_result.h"
 #include "api.h"
 
 #include <string>
 
 namespace jf {
 namespace unittest {
+
+class TestSuite;
 
 class JF_UNITTEST_API Test
 {

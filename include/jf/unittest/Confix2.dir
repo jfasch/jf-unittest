@@ -33,12 +33,8 @@ for h in [
     'simple_test_result.h',
     'test.h',
     'test_case.h',
-    'test_case_fwd.h',
-    'test_fwd.h',
     'test_result.h',
-    'test_result_fwd.h',
     'test_suite.h',
-    'test_suite_fwd.h',
 
     'find.h',
     'visitor.h',

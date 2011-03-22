@@ -21,11 +21,12 @@
 #define HAVE_JF_UNITTEST_TEST_RESULT_H
 
 #include "failure.h"
-#include "test_case_fwd.h"
-#include "test_suite_fwd.h"
 
 namespace jf {
 namespace unittest {
+
+class TestCase;
+class TestSuite;
 
 class JF_UNITTEST_API TestResult
 {
