@@ -17,19 +17,18 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 // USA
 
-#ifndef HAVE_JF_UNITTEST_WALK_H
-#define HAVE_JF_UNITTEST_WALK_H
+#include <jf/unittest/failure.h>
 
-#include "test_suite.h"
-#include "visitor.h"
-#include "runner.h"
+#include <cassert>
 
 namespace jf {
 namespace unittest {
 
-void walk(const TestSuite*, Visitor*, Runner*);
+const char* FailureException::what()
+{
+    assert(false);
+    return 0;
+}
 
 }
 }
-
-#endif

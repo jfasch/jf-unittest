@@ -44,7 +44,7 @@ public:
     /** @brief Calculate path string towards root */
     std::string path() const;
 
-    virtual void run_internal(TestResult*) = 0;
+// jjj    virtual void run_internal(TestResult_Legacy*) = 0;
     
 private:
     std::string name_;

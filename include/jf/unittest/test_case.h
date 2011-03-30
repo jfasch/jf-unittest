@@ -28,7 +28,7 @@ namespace unittest {
 class JF_UNITTEST_API TestCase : public Test
 {
 public:
-    TestCase(const std::string& name) : Test(name), result_(0) {}
+    TestCase(const std::string& name) : Test(name) /* jjj, result_(0) */ {}
     virtual ~TestCase() {}
 
     virtual void setup() {}
@@ -36,14 +36,20 @@ public:
     virtual void teardown() {}
 
 public:
-    virtual void run_internal(TestResult*);
+// jjj    virtual void run_internal(TestResult_Legacy*);
 
-#   define JFUNIT_OBJECT_ASSERT(testcase, condition) \
-        do { \
-            testcase->do_cond_fail((condition), #condition, __FILE__, __LINE__); \
-        } while (false)
-#   define JFUNIT_OBJECT_FAIL(testcase) JFUNIT_OBJECT_ASSERT(testcase, false)
-#   define JFUNIT_ASSERT(condition) JFUNIT_OBJECT_ASSERT(this, condition)
+// jjj #   define JFUNIT_OBJECT_ASSERT(testcase, condition) \
+// jjj         do { \
+// jjj             testcase->do_cond_fail((condition), #condition, __FILE__, __LINE__); \
+// jjj         } while (false)
+// jjj #   define JFUNIT_OBJECT_FAIL(testcase) JFUNIT_OBJECT_ASSERT(testcase, false)
+// jjj #   define JFUNIT_ASSERT(condition) JFUNIT_OBJECT_ASSERT(this, condition)
+
+#   define JFUNIT_ASSERT(condition)                                     \
+    do {                                                                \
+        if (!condition)                                                 \
+            throw FailureException(Failure(condition_str, filename, line)); \
+    } while (false)
 #   define JFUNIT_FAIL() JFUNIT_ASSERT(false)
 #   define JFUNIT_ASSERT_THROWS(Exception, expr) \
     do { \
@@ -56,12 +62,17 @@ public:
             JFUNIT_FAIL(); \
         } \
     } while (false)
-    void do_cond_fail(bool condition,
-                      const std::string& condition_str,
-                      const std::string& filename,
-                      int line);
-private:
-    TestResult* result_;
+
+// jjj
+// void do_cond_fail(bool condition,
+    //                   const std::string& condition_str,
+    //                   const std::string& filename,
+    //                   int line);
+
+    // jjj
+ 
+// private:
+//     TestResult_Legacy* result_;
 };
 
 }

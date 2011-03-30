@@ -20,9 +20,13 @@
 #include <jf/unittest/test_case.h>
 #include <jf/unittest/test_suite.h>
 #include <jf/unittest/test_result.h>
+#include <jf/unittest/visitor.h>
+#include <jf/unittest/direct_runner.h>
+#include <jf/unittest/walk.h>
 
 #include <iostream>
 #include <cstdlib>
+#include <cassert>
 
 using namespace jf::unittest;
 
@@ -58,10 +62,11 @@ public:
     }
 };
 
-class BootstrapTestResult : public TestResult
+// to be removed soon
+class BootstrapTestResult_Legacy : public TestResult_Legacy
 {
 public:
-    BootstrapTestResult() : num_success_(0), num_failure_(0), num_error_(0) {}
+    BootstrapTestResult_Legacy() : num_success_(0), num_failure_(0), num_error_(0) {}
 
     virtual void enter_suite(const TestSuite*) {}
     virtual void leave_suite(const TestSuite*) {}
@@ -81,18 +86,94 @@ private:
     int num_error_;
 };
 
-class SuiteTest : public TestCase
+class SuiteTest_Legacy : public TestCase
 {
 public:
-    SuiteTest() : TestCase("SuiteTest") {}
+    SuiteTest_Legacy() : TestCase("SuiteTest_Legacy") {}
     virtual void run()
     {
         TestTestSuite s;
-        BootstrapTestResult r;
+        BootstrapTestResult_Legacy r;
         s.run_internal(&r);
         JFUNIT_ASSERT(r.num_success() == 2);
         JFUNIT_ASSERT(r.num_failure() == 2);
         JFUNIT_ASSERT(r.num_error() == 3);
+    }
+private:
+    class TestTestSuite : public TestSuite
+    {
+    public:
+        TestTestSuite() : TestSuite("TestTestSuite")
+        {
+            add_test(std::auto_ptr<Test>(new OkTest));
+            add_test(std::auto_ptr<Test>(new OkTest));
+            add_test(std::auto_ptr<Test>(new FailureTest));
+            add_test(std::auto_ptr<Test>(new FailureTest));
+            add_test(std::auto_ptr<Test>(new ErrorTest));
+            add_test(std::auto_ptr<Test>(new ErrorTest));
+            add_test(std::auto_ptr<Test>(new ErrorTest));
+        }
+    };
+};
+
+class SuiteTest_Walk : public TestCase
+{
+public:
+    SuiteTest_Walk() : TestCase("SuiteTest_Walk") {}
+    virtual void run()
+    {
+        class MyVisitor : public Visitor
+        {
+        public:
+            MyVisitor() : suites_entered_(0),
+                          suites_left_(0),
+                          tests_entered_(0),
+                          tests_left_(0) {}
+            size_t suites_entered() const { return suites_entered_; }
+            size_t suites_left() const { return suites_left_; }
+            size_t tests_entered() const { return tests_entered_; }
+            size_t tests_left() const { return tests_left_; }
+        private:
+            virtual void enter_suite(const TestSuite*) { suites_entered_++; }
+            virtual void leave_suite(const TestSuite*) { suites_left_++; }
+            virtual void enter_test(const TestCase*) { tests_entered_++; }
+            virtual void leave_test(const TestCase*) { tests_left_++; }
+        private:
+            size_t suites_entered_;
+            size_t suites_left_;
+            size_t tests_entered_;
+            size_t tests_left_;
+        };
+
+        class MyResult : public TestResult
+        {
+        public:
+            MyResult() : num_success_(0), num_failure_(0), num_error_(0) {}
+            size_t num_success() const { return num_success_; }
+            size_t num_failure() const { return num_failure_; }
+            size_t num_error() const { return num_error_; }
+        private:
+            virtual void add_success(const TestCase*){ num_success_++; }
+            virtual void add_failure(const TestCase*, const Failure&) { num_failure_++; }
+            virtual void add_error(const TestCase*, const std::string& message) { num_error_++; }
+            virtual void add_assertion(const TestCase*) { assert(false); }
+        private:
+            size_t num_success_;
+            size_t num_failure_;
+            size_t num_error_;            
+        };
+
+
+        TestTestSuite suite;
+        MyVisitor visitor;
+        MyResult result;        
+        DirectRunner runner(&result);
+
+        walk(&suite, &visitor, &runner);
+        
+        JFUNIT_ASSERT(result.num_success() == 2);
+        JFUNIT_ASSERT(result.num_failure() == 2);
+        JFUNIT_ASSERT(result.num_error() == 3);
     }
 private:
     class TestTestSuite : public TestSuite
@@ -124,7 +205,7 @@ int main()
 {
     {
         OkTest t;
-        BootstrapTestResult r;
+        BootstrapTestResult_Legacy r;
         t.run_internal(&r);
         BOOTSTRAP_ASSERT(r.num_success() == 1);
         BOOTSTRAP_ASSERT(r.num_failure() == 0);
@@ -132,7 +213,7 @@ int main()
     }
     {
         FailureTest t;
-        BootstrapTestResult r;
+        BootstrapTestResult_Legacy r;
         t.run_internal(&r);
         BOOTSTRAP_ASSERT(r.num_success() == 0);
         BOOTSTRAP_ASSERT(r.num_failure() == 1);
@@ -140,15 +221,21 @@ int main()
     }
     {
         ErrorTest t;
-        BootstrapTestResult r;
+        BootstrapTestResult_Legacy r;
         t.run_internal(&r);
         BOOTSTRAP_ASSERT(r.num_success() == 0);
         BOOTSTRAP_ASSERT(r.num_failure() == 0);
         BOOTSTRAP_ASSERT(r.num_error() == 1);
     }
     {
-        SuiteTest t;
-        BootstrapTestResult r;
+        SuiteTest_Legacy t;
+        BootstrapTestResult_Legacy r;
+        t.run_internal(&r);
+        BOOTSTRAP_ASSERT(r.num_success() == 1);
+    }
+    {
+        SuiteTest_Walk t;
+        BootstrapTestResult_Legacy r;
         t.run_internal(&r);
         BOOTSTRAP_ASSERT(r.num_success() == 1);
     }

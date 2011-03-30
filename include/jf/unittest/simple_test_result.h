@@ -27,40 +27,42 @@
 namespace jf {
 namespace unittest {
 
-class JF_UNITTEST_API SimpleTestResult : public TestResult
-{
-public:
-    SimpleTestResult(std::ostream* ostream = NULL)
-    : ostream_(ostream),
-      num_tests_run_(0),
-      num_success_(0),
-      num_failure_(0),
-      num_error_(0),
-      num_assertion_(0) {}
+// jjj
 
-    bool ok() const { return num_failure_ + num_error_ == 0; }
-    int num_tests_run() const { return num_tests_run_; }
-    int num_success() const { return num_success_; }
-    int num_failure() const { return num_failure_; }
-    int num_error() const { return num_error_; }
+// class JF_UNITTEST_API SimpleTestResult : public TestResult_Legacy
+// {
+// public:
+//     SimpleTestResult(std::ostream* ostream = NULL)
+//     : ostream_(ostream),
+//       num_tests_run_(0),
+//       num_success_(0),
+//       num_failure_(0),
+//       num_error_(0),
+//       num_assertion_(0) {}
 
-    virtual void enter_suite(const TestSuite*) {}
-    virtual void leave_suite(const TestSuite*) {}
-    virtual void enter_test(const TestCase*) { num_tests_run_++; }
-    virtual void leave_test(const TestCase*) {}
-    virtual void add_success(const TestCase*);
-    virtual void add_failure(const TestCase*, const Failure&);
-    virtual void add_error(const TestCase*, const std::string&);
-    virtual void add_assertion(const TestCase*);
+//     bool ok() const { return num_failure_ + num_error_ == 0; }
+//     int num_tests_run() const { return num_tests_run_; }
+//     int num_success() const { return num_success_; }
+//     int num_failure() const { return num_failure_; }
+//     int num_error() const { return num_error_; }
+
+//     virtual void enter_suite(const TestSuite*) {}
+//     virtual void leave_suite(const TestSuite*) {}
+//     virtual void enter_test(const TestCase*) { num_tests_run_++; }
+//     virtual void leave_test(const TestCase*) {}
+//     virtual void add_success(const TestCase*);
+//     virtual void add_failure(const TestCase*, const Failure&);
+//     virtual void add_error(const TestCase*, const std::string&);
+//     virtual void add_assertion(const TestCase*);
     
-private:
-    std::ostream* ostream_;
-    int num_tests_run_;
-    int num_success_;
-    int num_failure_;
-    int num_error_;
-    int num_assertion_;
-};
+// private:
+//     std::ostream* ostream_;
+//     int num_tests_run_;
+//     int num_success_;
+//     int num_failure_;
+//     int num_error_;
+//     int num_assertion_;
+// };
 
 }
 }

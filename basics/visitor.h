@@ -20,8 +20,8 @@
 #ifndef HAVE_JF_UNITTEST_VISITOR_H
 #define HAVE_JF_UNITTEST_VISITOR_H
 
-#include "test_suite.h"
-#include "test_case.h"
+#include <jf/unittest/test_suite.h>
+#include <jf/unittest/test_case.h>
 
 namespace jf {
 namespace unittest {

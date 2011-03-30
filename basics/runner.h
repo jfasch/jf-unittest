@@ -20,6 +20,8 @@
 #ifndef HAVE_JF_UNITTEST_RUNNER_H
 #define HAVE_JF_UNITTEST_RUNNER_H
 
+#include <jf/unittest/test_case.h>
+
 namespace jf {
 namespace unittest {
 

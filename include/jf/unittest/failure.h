@@ -45,6 +45,20 @@ private:
     int line_;
 };
 
+/** Thrown by tests on failure */
+class FailureException : public std::exception
+{
+public:
+    FailureException(const jf::unittest::Failure& failure) : failure_(failure) {}
+    const jf::unittest::Failure& failure() const { return failure_; }
+    /** Inherited from std::exception. Overloaded fatally since nobody
+        should get a chance to call it. */
+    virtual const char* what();
+
+private:
+    jf::unittest::Failure failure_;
+};
+
 }
 }
 

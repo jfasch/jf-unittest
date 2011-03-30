@@ -1,6 +1,6 @@
 // -*- C++ -*-
 
-// Copyright (C) 2008 Joerg Faschingbauer
+// Copyright (C) 2008-2011 Joerg Faschingbauer
 
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public License
@@ -28,20 +28,31 @@ namespace unittest {
 class TestCase;
 class TestSuite;
 
-class JF_UNITTEST_API TestResult
+class TestResult
 {
 public:
-    virtual ~TestResult() {}
-
-    virtual void enter_suite(const TestSuite*) = 0;
-    virtual void leave_suite(const TestSuite*) = 0;
-    virtual void enter_test(const TestCase*) = 0;
-    virtual void leave_test(const TestCase*) = 0;
     virtual void add_success(const TestCase*) = 0;
     virtual void add_failure(const TestCase*, const Failure&) = 0;
     virtual void add_error(const TestCase*, const std::string& message) = 0;
     virtual void add_assertion(const TestCase*) = 0;
 };
+
+// jjj
+
+// class JF_UNITTEST_API TestResult_Legacy
+// {
+// public:
+//     virtual ~TestResult_Legacy() {}
+
+//     virtual void enter_suite(const TestSuite*) = 0;
+//     virtual void leave_suite(const TestSuite*) = 0;
+//     virtual void enter_test(const TestCase*) = 0;
+//     virtual void leave_test(const TestCase*) = 0;
+//     virtual void add_success(const TestCase*) = 0;
+//     virtual void add_failure(const TestCase*, const Failure&) = 0;
+//     virtual void add_error(const TestCase*, const std::string& message) = 0;
+//     virtual void add_assertion(const TestCase*) = 0;
+// };
 
 }
 }

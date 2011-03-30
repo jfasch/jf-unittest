@@ -27,112 +27,103 @@
 
 namespace {
 
-class FailureException : public std::exception
-{
-public:
-    FailureException(const jf::unittest::Failure& failure) : failure_(failure) {}
-    const jf::unittest::Failure& failure() const { return failure_; }
-    /** Inherited from std::exception. Overloaded fatally since nobody
-        should get a chance to call it. */
-    virtual const char* what() { assert(false); return 0;}
+// jjj
 
-private:
-    jf::unittest::Failure failure_;
-};
-
-static void add_failure_description(std::string& msg, const jf::unittest::Failure& f)
-{
-    msg += f.failed_condition();
-    msg += " (";
-    msg += f.filename();
-    msg += ':';
-    char tmp[16];
-    std::sprintf(tmp, "%d", f.line());
-    msg += tmp;
-    msg += ')';
-}
+// static void add_failure_description(std::string& msg, const jf::unittest::Failure& f)
+// {
+//     msg += f.failed_condition();
+//     msg += " (";
+//     msg += f.filename();
+//     msg += ':';
+//     char tmp[16];
+//     std::sprintf(tmp, "%d", f.line());
+//     msg += tmp;
+//     msg += ')';
+// }
 
 }
 
 namespace jf {
 namespace unittest {
 
-void TestCase::run_internal(TestResult* result)
-{
-    result_ = result;
-    result->enter_test(this);
+// jjj
+
+// void TestCase::run_internal(TestResult_Legacy* result)
+// {
+//     result_ = result;
+//     result->enter_test(this);
     
-    bool setup_ok = false;
-    try {
-        this->setup();
-        setup_ok = true;
-    }
-    catch (const FailureException& e) {
-        std::string msg("setup: ");
-        add_failure_description(msg, e.failure());
-        result->add_error(this, msg);
-    }
-    catch (const std::exception& e) {
-        std::string msg("setup: ");
-        msg += e.what();
-        result->add_error(this, msg);
-    }
-    catch (...) {
-        result->add_error(this, "setup: \"...\" caught");
-    }
+//     bool setup_ok = false;
+//     try {
+//         this->setup();
+//         setup_ok = true;
+//     }
+//     catch (const FailureException& e) {
+//         std::string msg("setup: ");
+//         add_failure_description(msg, e.failure());
+//         result->add_error(this, msg);
+//     }
+//     catch (const std::exception& e) {
+//         std::string msg("setup: ");
+//         msg += e.what();
+//         result->add_error(this, msg);
+//     }
+//     catch (...) {
+//         result->add_error(this, "setup: \"...\" caught");
+//     }
 
-    // only if setup went ok go on to execute the test code and
-    // teardown
-    if (setup_ok) {
-        try {
-            this->run();
-            result->add_success(this);
-        }
-        catch (const FailureException& f) {
-            result->add_failure(this, f.failure());
-        }
-        catch (const std::exception& e) {
-            result->add_error(this, e.what());
-        }
-        catch (...) {
-            result->add_error(this, "\"...\" caught");
-        }
+//     // only if setup went ok go on to execute the test code and
+//     // teardown
+//     if (setup_ok) {
+//         try {
+//             this->run();
+//             result->add_success(this);
+//         }
+//         catch (const FailureException& f) {
+//             result->add_failure(this, f.failure());
+//         }
+//         catch (const std::exception& e) {
+//             result->add_error(this, e.what());
+//         }
+//         catch (...) {
+//             result->add_error(this, "\"...\" caught");
+//         }
 
-        try {
-            this->teardown();
-        }
-        catch (const FailureException& e) {
-            std::string msg("teardown: ");
-            add_failure_description(msg, e.failure());
-            result->add_error(this, msg);
-        }
-        catch (const std::exception& e) {
-            std::string msg("teardown: ");
-            msg += e.what();
-            result->add_error(this, msg);
-        }
-        catch (...) {
-            result->add_error(this, "teardown: \"...\" caught");
-        }
-    }
+//         try {
+//             this->teardown();
+//         }
+//         catch (const FailureException& e) {
+//             std::string msg("teardown: ");
+//             add_failure_description(msg, e.failure());
+//             result->add_error(this, msg);
+//         }
+//         catch (const std::exception& e) {
+//             std::string msg("teardown: ");
+//             msg += e.what();
+//             result->add_error(this, msg);
+//         }
+//         catch (...) {
+//             result->add_error(this, "teardown: \"...\" caught");
+//         }
+//     }
 
-    result->leave_test(this);
+//     result->leave_test(this);
 
-    result_ = 0;
-}
+//     result_ = 0;
+// }
 
-void TestCase::do_cond_fail(
-    bool condition,
-    const std::string& condition_str,
-    const std::string& filename,
-    int line)
-{
-    if (result_)
-        result_->add_assertion(this);
+// void TestCase::do_cond_fail(
+//     bool condition,
+//     const std::string& condition_str,
+//     const std::string& filename,
+//     int line)
+// {
+//     if (result_)
+//         result_->add_assertion(this);
 
-    if (!condition)
-        throw FailureException(Failure(condition_str, filename, line));
-}
+//     if (!condition)
+//         throw FailureException(Failure(condition_str, filename, line));
+// }
 
 }
 }

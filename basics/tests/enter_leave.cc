@@ -81,7 +81,7 @@ private:
     TestCase* caller_;
 };
 
-class MyTestResult : public jf::unittest::TestResult
+class MyTestResult : public jf::unittest::TestResult_Legacy
 {
 public:
     MyTestResult(jf::unittest::TestCase* caller)

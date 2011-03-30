@@ -22,6 +22,12 @@ DIRECTORY(['tests'])
 h = [
     # sadly, we have to have our headers in include/jf/unittest. see
     # there for why.
+
+    # beginning to make exceptions :-)
+    'runner.h',
+    'visitor.h',
+    'walk.h',
+    'direct_runner.h',
     ]
 
 cc = [
@@ -29,8 +35,10 @@ cc = [
     'test_case.cc',
     'test_suite.cc',
     
+    'direct_runner.cc',
     'simple_test_result.cc',
 
+    'failure.cc',
     'find.cc',
     'walk.cc',
     ]

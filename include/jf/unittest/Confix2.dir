@@ -37,9 +37,6 @@ for h in [
     'test_suite.h',
 
     'find.h',
-    'visitor.h',
-    'runner.h',
-    'walk.h',
     ]:
     H(filename=h, install=['jf', 'unittest'], relocate_to=['basics'])
     pass

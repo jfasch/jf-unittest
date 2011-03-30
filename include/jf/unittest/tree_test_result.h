@@ -28,7 +28,7 @@
 namespace jf {
 namespace unittest {
 
-class JF_UNITTEST_API TreeTestResult : public jf::unittest::TestResult
+class JF_UNITTEST_API TreeTestResult : public jf::unittest::TestResult_Legacy
 {
 public:
     /** @brief Formats fancy tree output
