@@ -21,7 +21,6 @@ h = [
     # stage 2
     'assert_suite.h',
     'setup_teardown.h',
-    'enter_leave.h',
     'hierarchy_suite.h',
 
     # stage 3
@@ -34,7 +33,6 @@ cc = [
     'stage2_suite.cc',
     'assert_suite.cc',
     'setup_teardown.cc',
-    'enter_leave.cc',
     'hierarchy_suite.cc',
 
     # stage 3

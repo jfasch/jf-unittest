@@ -1,6 +1,6 @@
 # -*- python -*-
 
-# Copyright (C) 2008-2011 Joerg Faschingbauer
+# Copyright (C) 2008-2012 Joerg Faschingbauer
 
 # This library is free software; you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as
@@ -20,13 +20,16 @@
 DIRECTORY(['tests'])
 
 h = [
-    # sadly, we have to have our headers in include/jf/unittest. see
-    # there for why.
+    'test.h',
+    'test_case.h',
+    'test_suite.h',
 
-    # beginning to make exceptions :-)
+    'failure.h',
     'runner.h',
     'visitor.h',
+    'result.h',
     'walk.h',
+    'find.h',
     'direct_runner.h',
     ]
 
@@ -36,7 +39,6 @@ cc = [
     'test_suite.cc',
     
     'direct_runner.cc',
-    'simple_test_result.cc',
 
     'failure.cc',
     'find.cc',

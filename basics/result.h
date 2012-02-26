@@ -1,6 +1,6 @@
 // -*- C++ -*-
 
-// Copyright (C) 2008-2011 Joerg Faschingbauer
+// Copyright (C) 2008-2012 Joerg Faschingbauer
 
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public License
@@ -17,40 +17,23 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 // USA
 
-#ifndef HAVE_JF_UNITTEST_TEST_SUITE_H
-#define HAVE_JF_UNITTEST_TEST_SUITE_H
+#ifndef HAVE_JF_UNITTEST_RESULT_H
+#define HAVE_JF_UNITTEST_RESULT_H
 
-#include "api.h"
-#include "test.h"
-
-#include <vector>
-#include <memory>
+#include "failure.h"
 
 namespace jf {
 namespace unittest {
 
-class JF_UNITTEST_API TestSuite : public Test
+class TestCase;
+class TestSuite;
+
+class Result
 {
 public:
-    typedef std::vector<Test*> Tests;
-    
-public:
-    TestSuite() : Test() {}
-    TestSuite(const std::string& name) : Test(name) {}
-    virtual ~TestSuite();
-
-    void add_test(std::auto_ptr<Test>);
-    const Tests& tests() const { return tests_; }
-
-    Test* find(const std::string& path);
-
-    // jjj
-    
-// public:
-//     virtual void run_internal(TestResult_Legacy*);
-
-private:
-    Tests tests_;
+    virtual void add_success(const TestCase*) = 0;
+    virtual void add_failure(const TestCase*, const Failure&) = 0;
+    virtual void add_error(const TestCase*, const std::string& message) = 0;
 };
 
 }

@@ -1,6 +1,6 @@
 // -*- C++ -*-
 
-// Copyright (C) 2008-2011 Joerg Faschingbauer
+// Copyright (C) 2008-2012 Joerg Faschingbauer
 
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public License
@@ -18,11 +18,13 @@
 // USA
 
 // CONFIX:REQUIRE_H('jf/unittest/tests/stage2_suite.h', REQUIRED)
-// CONFIX:REQUIRE_H('jf/unittest/tree_test_runner.h', REQUIRED)
+// CONFIX:REQUIRE_H('jf/unittest/tree.h', REQUIRED)
 
 #include <jf/unittest/tests/stage2_suite.h>
 #include <jf/unittest/tests/stage3_suite.h>
-#include <jf/unittest/tree_test_runner.h>
+#include <jf/unittest/tree.h>
+
+#include <iostream>
 
 using namespace jf::unittest;
 using namespace jf::unittest::tests;
@@ -33,6 +35,6 @@ int main()
     suite.add_test(std::auto_ptr<Test>(new Stage2Suite));
     suite.add_test(std::auto_ptr<Test>(new Stage3Suite));
 
-    TreeTestRunner runner;
-    return runner.run(&suite)? 0: 1;
+    TreeWalk tree_walk(std::cout, true);
+    return tree_walk.do_it(suite)? 0: 1;
 }

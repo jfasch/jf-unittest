@@ -1,6 +1,6 @@
 // -*- C++ -*-
 
-// Copyright (C) 2008 Joerg Faschingbauer
+// Copyright (C) 2008-2012 Joerg Faschingbauer
 
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public License
@@ -17,10 +17,10 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 // USA
 
-#include"assert_suite.h"
+#include "assert_suite.h"
 
 #include <jf/unittest/test_case.h>
-#include <jf/unittest/simple_test_result.h>
+#include <jf/unittest/direct_runner.h>
 
 namespace {
 
@@ -67,6 +67,27 @@ public:
     }
 };
 
+class MyTestResult : public jf::unittest::Result
+{
+public:
+    MyTestResult() : num_success_(0), num_failure_(0), num_error_(0) {}
+
+    bool ok() const { return num_success_ > 0 && num_failure_ == 0 && num_error_ == 0; }
+
+    virtual void add_success(const jf::unittest::TestCase*) { num_success_++; }
+    virtual void add_failure(const jf::unittest::TestCase*, const jf::unittest::Failure&) { num_failure_++; }
+    virtual void add_error(const jf::unittest::TestCase*, const std::string& message) { num_error_++; }
+
+    int num_success() const { return num_success_; }
+    int num_failure() const { return num_failure_; }
+    int num_error() const { return num_error_; }
+
+private:
+    int num_success_;
+    int num_failure_;
+    int num_error_;
+};
+
 }
 
 namespace jf {
@@ -81,20 +102,20 @@ public:
     {
         {
             ThrowTest t;
-            SimpleTestResult result;
-            t.run_internal(&result);
+            MyTestResult result;
+            DirectRunner().run_test(&t, &result);
             JFUNIT_ASSERT(result.ok());
         }
         {
             NoThrowTest t;
-            SimpleTestResult result;
-            t.run_internal(&result);
+            MyTestResult result;
+            DirectRunner().run_test(&t, &result);
             JFUNIT_ASSERT(result.num_failure() == 1);
         }
         {
             WrongThrowTest t;
-            SimpleTestResult result;
-            t.run_internal(&result);
+            MyTestResult result;
+            DirectRunner().run_test(&t, &result);
             JFUNIT_ASSERT(result.num_failure() == 1);
         }
     }

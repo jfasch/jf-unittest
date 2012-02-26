@@ -1,6 +1,6 @@
 // -*- C++ -*-
 
-// Copyright (C) 2008 Joerg Faschingbauer
+// Copyright (C) 2008-2012 Joerg Faschingbauer
 
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public License
@@ -17,10 +17,10 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 // USA
 
-#include <jf/unittest/tree_test_result.h>
+#include "tree.h"
 
-#include <jf/unittest/test_case.h>
-#include <jf/unittest/test_suite.h>
+#include <jf/unittest/walk.h>
+#include <jf/unittest/direct_runner.h>
 
 #include <iostream>
 #include <cassert>
@@ -37,10 +37,9 @@ public:
 private:
     int num_;
 };
-static std::ostream& operator<<(std::ostream& o, const indent& i)
+static std::ostream& operator<<(std::ostream& o, const indent& indent)
 {
-    int num = i.num();
-    while (num--)
+    for (int i=0; i<indent.num(); i++)
         o << "  ";
     return o;
 }
@@ -50,7 +49,7 @@ static std::ostream& operator<<(std::ostream& o, const indent& i)
 namespace jf {
 namespace unittest {
 
-void TreeTestResult::Report::print(std::ostream& o) const
+void TreeWalk::Report::print(std::ostream& o) const
 {
     switch (type_) {
         case T_FAILURE: {
@@ -67,7 +66,7 @@ void TreeTestResult::Report::print(std::ostream& o) const
     o << '\n';
 }
 
-TreeTestResult::TreeTestResult(std::ostream& ostream, bool print_path)
+TreeWalk::TreeWalk(std::ostream& ostream, bool print_path)
 : ostream_(ostream),
   print_path_(print_path),
   cur_failure(std::string(), std::string(), 0),
@@ -77,10 +76,23 @@ TreeTestResult::TreeTestResult(std::ostream& ostream, bool print_path)
   num_tests_run_(0),
   num_success_(0),
   num_failure_(0),
-  num_error_(0),
-  num_assertion_(0) {}
+  num_error_(0) {}
 
-void TreeTestResult::enter_suite(const TestSuite* s)
+bool TreeWalk::do_it(Test& test)
+{
+    DirectRunner runner;
+    TestSuite* test_suite = dynamic_cast<TestSuite*>(&test);
+    if (test_suite != NULL)
+        walk(test_suite, this, &runner, this);
+    else {
+        TestCase* test_case = dynamic_cast<TestCase*>(&test);
+        assert(test_case!=NULL);
+        runner.run_test(test_case, this);
+    }
+    return num_tests_run_ == num_success_;
+}
+
+void TreeWalk::enter_suite(const TestSuite* s)
 {
     num_suites_entered_++;
     ostream_ << indent(suite_stack_.size()) << "+ ";
@@ -92,13 +104,13 @@ void TreeTestResult::enter_suite(const TestSuite* s)
     suite_stack_.push_back(s);
 }
 
-void TreeTestResult::leave_suite(const TestSuite* /*s*/)
+void TreeWalk::leave_suite(const TestSuite* /*s*/)
 {
     assert(suite_stack_.size() != 0);
     suite_stack_.pop_back();
 }
 
-void TreeTestResult::enter_test(const TestCase* c)
+void TreeWalk::enter_test(const TestCase* c)
 {
     num_tests_run_++;
     ostream_ << indent(suite_stack_.size()) << "- ";
@@ -109,7 +121,7 @@ void TreeTestResult::enter_test(const TestCase* c)
     ostream_ << " ... ";
 }
 
-void TreeTestResult::leave_test(const TestCase* c)
+void TreeWalk::leave_test(const TestCase* c)
 {
     if (p_cur_error) {
         num_error_++;
@@ -131,21 +143,21 @@ void TreeTestResult::leave_test(const TestCase* c)
     p_cur_error = NULL;
 }
 
-void TreeTestResult::add_success(const TestCase*) {}
+void TreeWalk::add_success(const TestCase*) {}
 
-void TreeTestResult::add_failure(const TestCase*, const Failure& f)
+void TreeWalk::add_failure(const TestCase*, const Failure& f)
 {
     cur_failure = f;
     p_cur_failure = &cur_failure;
 }
 
-void TreeTestResult::add_error(const TestCase*, const std::string& message)
+void TreeWalk::add_error(const TestCase*, const std::string& message)
 {
     cur_error = message;
     p_cur_error = &cur_error;
 }
 
-void TreeTestResult::print_summary() const
+void TreeWalk::print_summary() const
 {
     ostream_ << "------------------------\n";
     
@@ -154,7 +166,6 @@ void TreeTestResult::print_summary() const
     ostream_ << "#Errors:           " << num_error_ << '\n';
     ostream_ << "#Tests run:        " << num_tests_run_ << '\n';
     ostream_ << "#Suites entered:   " << num_suites_entered_ << '\n';
-    ostream_ << "#Asserts entered:  " << num_assertion_ << '\n';
     ostream_ << "------------------------\n";
 
     if (!ok()) {
@@ -165,11 +176,6 @@ void TreeTestResult::print_summary() const
              ++i)
             i->print(ostream_);
     }
-}
-
-void TreeTestResult::add_assertion( const TestCase* )
-{
-    num_assertion_++;
 }
 
 }

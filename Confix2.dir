@@ -1,6 +1,6 @@
 # -*- python -*-
 
-# Copyright (C) 2008 Joerg Faschingbauer
+# Copyright (C) 2008-2012 Joerg Faschingbauer
 
 # This library is free software; you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as
@@ -19,7 +19,7 @@
 
 DIRECTORY(['include', 'jf', 'unittest'])
 DIRECTORY(['basics'])
-DIRECTORY(['treerunner'])
+DIRECTORY(['tree'])
 DIRECTORY(['tests'])
 
 DIRECTORY(['VisualStudio'])

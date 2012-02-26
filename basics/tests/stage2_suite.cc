@@ -20,9 +20,9 @@
 #include <jf/unittest/tests/stage2_suite.h>
 
 #include "setup_teardown.h"
-#include "enter_leave.h"
 #include "assert_suite.h"
 #include "hierarchy_suite.h"
+#include "walk_suite.h"
 
 namespace jf {
 namespace unittest {
@@ -32,9 +32,9 @@ Stage2Suite::Stage2Suite()
 : TestSuite("jf::unittest::tests::Stage2Suite")
 {
     add_test(std::auto_ptr<Test>(new SetupTeardownSuite));
-    add_test(std::auto_ptr<Test>(new EnterLeaveSuite));
     add_test(std::auto_ptr<Test>(new AssertSuite));
     add_test(std::auto_ptr<Test>(new HierarchySuite));
+    add_test(std::auto_ptr<Test>(new WalkSuite));
 }
 
 }

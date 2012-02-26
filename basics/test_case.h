@@ -1,6 +1,6 @@
 // -*- C++ -*-
 
-// Copyright (C) 2008 Joerg Faschingbauer
+// Copyright (C) 2008-2012 Joerg Faschingbauer
 
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public License
@@ -21,34 +21,32 @@
 #define HAVE_JF_UNITTEST_TEST_CASE_H
 
 #include "test.h"
+#include "failure.h"
 
 namespace jf {
 namespace unittest {
 
-class JF_UNITTEST_API TestCase : public Test
+class TestCase : public Test
 {
 public:
-    TestCase(const std::string& name) : Test(name) /* jjj, result_(0) */ {}
+    TestCase(const std::string& name) : Test(name) {}
     virtual ~TestCase() {}
 
+protected:
+    friend class DirectRunner;
+    
+    /** These are **only** called via DirectRunner */
+    //@{
     virtual void setup() {}
     virtual void run() = 0;
     virtual void teardown() {}
+    //@}
 
 public:
-// jjj    virtual void run_internal(TestResult_Legacy*);
-
-// jjj #   define JFUNIT_OBJECT_ASSERT(testcase, condition) \
-// jjj         do { \
-// jjj             testcase->do_cond_fail((condition), #condition, __FILE__, __LINE__); \
-// jjj         } while (false)
-// jjj #   define JFUNIT_OBJECT_FAIL(testcase) JFUNIT_OBJECT_ASSERT(testcase, false)
-// jjj #   define JFUNIT_ASSERT(condition) JFUNIT_OBJECT_ASSERT(this, condition)
-
 #   define JFUNIT_ASSERT(condition)                                     \
     do {                                                                \
-        if (!condition)                                                 \
-            throw FailureException(Failure(condition_str, filename, line)); \
+        if (!(condition))                                               \
+            throw jf::unittest::FailureException(jf::unittest::Failure(#condition, __FILE__, __LINE__)); \
     } while (false)
 #   define JFUNIT_FAIL() JFUNIT_ASSERT(false)
 #   define JFUNIT_ASSERT_THROWS(Exception, expr) \
@@ -62,17 +60,6 @@ public:
             JFUNIT_FAIL(); \
         } \
     } while (false)
-
-// jjj
-// void do_cond_fail(bool condition,
-    //                   const std::string& condition_str,
-    //                   const std::string& filename,
-    //                   int line);
-
-    // jjj
- 
-// private:
-//     TestResult_Legacy* result_;
 };
 
 }

@@ -1,6 +1,6 @@
 // -*- C++ -*-
 
-// Copyright (C) 2008 Joerg Faschingbauer
+// Copyright (C) 2008-2012 Joerg Faschingbauer
 
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public License
@@ -17,10 +17,9 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 // USA
 
-#include <jf/unittest/test_case.h>
+#include "test_case.h"
 
-#include <jf/unittest/test_result.h>
-#include <jf/unittest/failure.h>
+#include "failure.h"
 
 #include <cassert>
 #include <cstdio>

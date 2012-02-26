@@ -1,6 +1,6 @@
 // -*- C++ -*-
 
-// Copyright (C) 2011 Joerg Faschingbauer
+// Copyright (C) 2011-2012 Joerg Faschingbauer
 
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public License
@@ -19,15 +19,15 @@
 
 #include "walk.h"
 
-#include <jf/unittest/test_case.h>
-#include <jf/unittest/test_suite.h>
+#include "test_case.h"
+#include "test_suite.h"
 
 #include <cassert>
 
 namespace jf {
 namespace unittest {
 
-void walk(const TestSuite* suite, Visitor* visitor, Runner* runner)
+void walk(TestSuite* suite, Visitor* visitor, Runner* runner, Result* result)
 {
     if (visitor)
         visitor->enter_suite(suite);
@@ -39,14 +39,14 @@ void walk(const TestSuite* suite, Visitor* visitor, Runner* runner)
             if (visitor)
                 visitor->enter_test(c);
             if (runner)
-                runner->run_test(c);
+                runner->run_test(c, result);
             if (visitor)
                 visitor->leave_test(c);
             continue;
         }
         TestSuite* s = dynamic_cast<TestSuite*>(*i);
         if (s) {
-            walk(s, visitor, runner);
+            walk(s, visitor, runner, result);
             continue;
         }
         assert(!"what's this?");        

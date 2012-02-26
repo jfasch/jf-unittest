@@ -1,6 +1,6 @@
 // -*- C++ -*-
 
-// Copyright (C) 2011 Joerg Faschingbauer
+// Copyright (C) 2011-2012 Joerg Faschingbauer
 
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public License
@@ -20,8 +20,8 @@
 #ifndef HAVE_JF_UNITTEST_VISITOR_H
 #define HAVE_JF_UNITTEST_VISITOR_H
 
-#include <jf/unittest/test_suite.h>
-#include <jf/unittest/test_case.h>
+#include "test_suite.h"
+#include "test_case.h"
 
 namespace jf {
 namespace unittest {

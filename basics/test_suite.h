@@ -1,6 +1,6 @@
 // -*- C++ -*-
 
-// Copyright (C) 2008-2011 Joerg Faschingbauer
+// Copyright (C) 2008-2012 Joerg Faschingbauer
 
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public License
@@ -17,45 +17,39 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 // USA
 
-#ifndef HAVE_JF_UNITTEST_TEST_H
-#define HAVE_JF_UNITTEST_TEST_H
+#ifndef HAVE_JF_UNITTEST_TEST_SUITE_H
+#define HAVE_JF_UNITTEST_TEST_SUITE_H
 
-#include "test_result.h"
-#include "api.h"
+#include "test.h"
 
-#include <string>
+#include <vector>
+#include <memory>
 
 namespace jf {
 namespace unittest {
 
-class TestSuite;
-
-class JF_UNITTEST_API Test
+class TestSuite : public Test
 {
 public:
-    Test();
-    Test(const std::string& name);
-    virtual ~Test() {}
-
-    const std::string& name() const { return name_; }
-    const TestSuite* parent() const { return parent_; }
-    const TestSuite* root() const;
-
-    /** @brief Calculate path string towards root */
-    std::string path() const;
-
-// jjj    virtual void run_internal(TestResult_Legacy*) = 0;
+    typedef std::vector<Test*> Tests;
     
-private:
-    std::string name_;
-    const TestSuite* parent_;
+public:
+    TestSuite() : Test() {}
+    TestSuite(const std::string& name) : Test(name) {}
+    virtual ~TestSuite();
 
-    friend class TestSuite;
-    void set_parent_(const TestSuite*);
+    void add_test(std::auto_ptr<Test>);
+    const Tests& tests() const { return tests_; }
+
+    Test* find(const std::string& path);
+
+    // jjj
+    
+// public:
+//     virtual void run_internal(TestResult_Legacy*);
 
 private:
-    Test(const Test&);
-    Test& operator=(const Test&);
+    Tests tests_;
 };
 
 }

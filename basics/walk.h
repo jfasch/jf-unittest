@@ -1,6 +1,6 @@
 // -*- C++ -*-
 
-// Copyright (C) 2011 Joerg Faschingbauer
+// Copyright (C) 2011-2012 Joerg Faschingbauer
 
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public License
@@ -22,13 +22,14 @@
 
 #include "visitor.h"
 #include "runner.h"
+#include "result.h"
 
-#include <jf/unittest/test_suite.h>
+#include "test_suite.h"
 
 namespace jf {
 namespace unittest {
 
-void walk(const TestSuite*, Visitor*, Runner*);
+void walk(TestSuite*, Visitor*, Runner*, Result*);
 
 }
 }

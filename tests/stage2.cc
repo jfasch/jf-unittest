@@ -1,6 +1,6 @@
 // -*- C++ -*-
 
-// Copyright (C) 2008 Joerg Faschingbauer
+// Copyright (C) 2008-2012 Joerg Faschingbauer
 
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public License
@@ -18,14 +18,38 @@
 // USA
 
 #include <jf/unittest/tests/stage2_suite.h>
-#include <jf/unittest/simple_test_result.h>
+#include <jf/unittest/direct_runner.h>
+#include <jf/unittest/walk.h>
+#include <jf/unittest/result.h>
+
+namespace {
+
+class MyTestResult : public jf::unittest::Result
+{
+public:
+    MyTestResult() : num_success_(0), num_failure_(0), num_error_(0) {}
+
+    bool ok() const { return num_success_ > 0 && num_failure_ == 0 && num_error_ == 0; }
+
+    virtual void add_success(const jf::unittest::TestCase*) { num_success_++; }
+    virtual void add_failure(const jf::unittest::TestCase*, const jf::unittest::Failure&) { num_failure_++; }
+    virtual void add_error(const jf::unittest::TestCase*, const std::string& message) { num_error_++; }
+
+private:
+    int num_success_;
+    int num_failure_;
+    int num_error_;
+};
+
+}
 
 int main()
 {
     jf::unittest::tests::Stage2Suite suite;
-    jf::unittest::SimpleTestResult result(&std::cerr);
+    MyTestResult result;
+    jf::unittest::DirectRunner runner;
 
-    suite.run_internal(&result);
+    walk(&suite, NULL, &runner, &result);
 
     return result.ok()? 0: 1;
 }

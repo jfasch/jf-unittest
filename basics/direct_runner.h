@@ -1,6 +1,6 @@
 // -*- C++ -*-
 
-// Copyright (C) 2011 Joerg Faschingbauer
+// Copyright (C) 2011-2012 Joerg Faschingbauer
 
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public License
@@ -21,6 +21,7 @@
 #define HAVE_JF_UNITTEST_DIRECT_RUNNER_H
 
 #include "runner.h"
+#include "result.h"
 
 namespace jf {
 namespace unittest {
@@ -28,12 +29,7 @@ namespace unittest {
 class DirectRunner : public Runner
 {
 public:
-    DirectRunner(TestResult*);
-
-    virtual void run_test(TestCase*);
-
-private:
-    TestResult* result_;
+    virtual void run_test(TestCase*, Result*);
 };
 
 }

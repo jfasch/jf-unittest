@@ -1,6 +1,6 @@
 # -*- python -*-
 
-# Copyright (C) 2008 Joerg Faschingbauer
+# Copyright (C) 2011-2012 Joerg Faschingbauer
 
 # This library is free software; you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as
@@ -18,16 +18,5 @@
 # USA
 
 
-h = [
-    # sadly, we have to have our headers in include/jf/unittest. see
-    # there for why.
-    ]
-
-cc = [
-    'tree_test_result.cc',
-    'tree_test_runner.cc',
-    ]
-
-LIBRARY(members=[H(filename=f, install=['jf', 'unittest']) for f in h] + [CXX(filename=f) for f in cc])
-
-DIRECTORY(['tests'])
+EXECUTABLE(center=CXX('treetest.cc'),
+           exename='treetest')

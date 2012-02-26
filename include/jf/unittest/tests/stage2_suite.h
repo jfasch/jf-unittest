@@ -26,7 +26,7 @@ namespace jf {
 namespace unittest {
 namespace tests {
 
-class JF_UNITTEST_API Stage2Suite : public TestSuite
+class Stage2Suite : public TestSuite
 {
 public:
     Stage2Suite();

@@ -1,6 +1,6 @@
 // -*- C++ -*-
 
-// Copyright (C) 2011 Joerg Faschingbauer
+// Copyright (C) 2011-2012 Joerg Faschingbauer
 
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public License
@@ -20,7 +20,8 @@
 #ifndef HAVE_JF_UNITTEST_RUNNER_H
 #define HAVE_JF_UNITTEST_RUNNER_H
 
-#include <jf/unittest/test_case.h>
+#include "test_case.h"
+#include "result.h"
 
 namespace jf {
 namespace unittest {
@@ -30,7 +31,7 @@ class Runner
 public:
     virtual ~Runner() {}
 
-    virtual void run_test(TestCase*) = 0;
+    virtual void run_test(TestCase*, Result*) = 0;
 };
 
 }

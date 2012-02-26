@@ -1,6 +1,6 @@
 // -*- C++ -*-
 
-// Copyright (C) 2008 Joerg Faschingbauer
+// Copyright (C) 2008-2012 Joerg Faschingbauer
 
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public License
@@ -22,12 +22,10 @@
 
 #include <string>
 
-#include <jf/unittest/api.h>
-
 namespace jf {
 namespace unittest {
 
-class JF_UNITTEST_API Failure
+class Failure
 {
 public:
     Failure(const std::string& failed_condition, const std::string& filename, int line)

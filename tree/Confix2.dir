@@ -1,6 +1,6 @@
 # -*- python -*-
 
-# Copyright (C) 2011 Joerg Faschingbauer
+# Copyright (C) 2008-2012 Joerg Faschingbauer
 
 # This library is free software; you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as
@@ -18,5 +18,14 @@
 # USA
 
 
-EXECUTABLE(center=CXX('treetest.cc'),
-           exename='treetest')
+h = [
+    'tree.h',
+    ]
+
+cc = [
+    'tree.cc',
+    ]
+
+LIBRARY(members=[H(filename=f, install=['jf', 'unittest']) for f in h] + [CXX(filename=f) for f in cc])
+
+DIRECTORY(['tests'])

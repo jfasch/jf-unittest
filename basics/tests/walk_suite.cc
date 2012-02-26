@@ -1,6 +1,6 @@
 // -*- C++ -*-
 
-// Copyright (C) 2011 Joerg Faschingbauer
+// Copyright (C) 2011-2012 Joerg Faschingbauer
 
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public License
@@ -86,19 +86,6 @@ private:
     Records records_;
 };
 
-class MyRunner : public Runner
-{
-public:
-    typedef std::vector<std::string> stringlist;
-    const stringlist& list() const { return list_; }
-    virtual void run_test(TestCase* c)
-    {
-        list_.push_back(c->name());
-    }
-private:
-    stringlist list_;
-};
-
 class Walk : public TestCase
 {
 public:
@@ -106,6 +93,19 @@ public:
 
     virtual void run()
     {
+        class MyRunner : public Runner
+        {
+        public:
+            typedef std::vector<std::string> stringlist;
+            const stringlist& list() const { return list_; }
+            virtual void run_test(TestCase* c, Result*)
+            {
+                list_.push_back(c->name());
+            }
+        private:
+            stringlist list_;
+        };
+
         TestSuite root("root");
 
         root.add_test(std::auto_ptr<Test>(new ATest("leaf0")));
@@ -127,7 +127,7 @@ public:
 
         MyVisitor visitor;
         MyRunner runner;
-        walk(&root, &visitor, &runner);
+        walk(&root, &visitor, &runner, NULL);
 
         {
             MyVisitor::Records::const_iterator i = visitor.records().begin();
@@ -314,7 +314,7 @@ public:
         node0->add_test(std::auto_ptr<Test>(new ATest("leaf")));
 
         MyVisitor visitor;
-        walk(&root, &visitor, NULL);
+        walk(&root, &visitor, NULL, NULL);
     }
 };
 
@@ -330,7 +330,7 @@ public:
         class MyRunner : public Runner
         {
         public:
-            virtual void run_test(TestCase*) {}
+            virtual void run_test(TestCase*, Result*) {}
         };
         
         TestSuite root("root");
@@ -338,7 +338,7 @@ public:
         node0->add_test(std::auto_ptr<Test>(new ATest("leaf")));
 
         MyRunner runner;
-        walk(&root, NULL, &runner);
+        walk(&root, NULL, &runner, NULL);
     }
 };
 

@@ -1,6 +1,6 @@
  // -*- C++ -*-
 
-// Copyright (C) 2011 Joerg Faschingbauer
+// Copyright (C) 2011-2012 Joerg Faschingbauer
 
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public License
@@ -21,7 +21,9 @@
 
 #include <cstdio>
 
-static void add_failure_description(std::string& msg, const jf::unittest::Failure& f)
+static void add_failure_description(
+    std::string& msg,
+    const jf::unittest::Failure& f)
 {
     msg += f.failed_condition();
     msg += " (";
@@ -36,13 +38,12 @@ static void add_failure_description(std::string& msg, const jf::unittest::Failur
 namespace jf {
 namespace unittest {
 
-DirectRunner::DirectRunner(TestResult* result)
-: result_(result) {}
-
-void DirectRunner::run_test(TestCase* test_case)
+void DirectRunner::run_test(
+    TestCase* test_case,
+    Result* result)
 {
     bool setup_ok = false;
-
+    
     try {
         test_case->setup();
         setup_ok = true;
@@ -50,15 +51,15 @@ void DirectRunner::run_test(TestCase* test_case)
     catch (const FailureException& e) {
         std::string msg("setup: ");
         add_failure_description(msg, e.failure());
-        result_->add_error(test_case, msg);
+        result->add_error(test_case, msg);
     }
     catch (const std::exception& e) {
         std::string msg("setup: ");
         msg += e.what();
-        result_->add_error(test_case, msg);
+        result->add_error(test_case, msg);
     }
     catch (...) {
-        result_->add_error(test_case, "setup: \"...\" caught");
+        result->add_error(test_case, "setup: \"...\" caught");
     }
 
     // only if setup went ok go on to execute the test code and
@@ -66,16 +67,16 @@ void DirectRunner::run_test(TestCase* test_case)
     if (setup_ok) {
         try {
             test_case->run();
-            result_->add_success(test_case);
+            result->add_success(test_case);
         }
         catch (const FailureException& f) {
-            result_->add_failure(test_case, f.failure());
+            result->add_failure(test_case, f.failure());
         }
         catch (const std::exception& e) {
-            result_->add_error(test_case, e.what());
+            result->add_error(test_case, e.what());
         }
         catch (...) {
-            result_->add_error(test_case, "\"...\" caught");
+            result->add_error(test_case, "\"...\" caught");
         }
 
         try {
@@ -84,15 +85,15 @@ void DirectRunner::run_test(TestCase* test_case)
         catch (const FailureException& e) {
             std::string msg("teardown: ");
             add_failure_description(msg, e.failure());
-            result_->add_error(test_case, msg);
+            result->add_error(test_case, msg);
         }
         catch (const std::exception& e) {
             std::string msg("teardown: ");
             msg += e.what();
-            result_->add_error(test_case, msg);
+            result->add_error(test_case, msg);
         }
         catch (...) {
-            result_->add_error(test_case, "teardown: \"...\" caught");
+            result->add_error(test_case, "teardown: \"...\" caught");
         }
     }
 }

@@ -1,6 +1,6 @@
 # -*- python -*-
 
-# Copyright (C) 2008-2011 Joerg Faschingbauer
+# Copyright (C) 2008-2012 Joerg Faschingbauer
 
 # This library is free software; you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as
@@ -28,22 +28,11 @@
 # to build this with Visual Studio).
 
 for h in [
-    'api.h',
-    'failure.h',
-    'simple_test_result.h',
-    'test.h',
-    'test_case.h',
-    'test_result.h',
-    'test_suite.h',
-
-    'find.h',
     ]:
     H(filename=h, install=['jf', 'unittest'], relocate_to=['basics'])
     pass
 
 for h in [
-    'tree_test_result.h',
-    'tree_test_runner.h',
     ]:
     H(filename=h, install=['jf', 'unittest'], relocate_to=['treerunner'])
     pass

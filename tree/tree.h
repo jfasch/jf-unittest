@@ -1,6 +1,6 @@
 // -*- C++ -*-
 
-// Copyright (C) 2008 Joerg Faschingbauer
+// Copyright (C) 2008-2012 Joerg Faschingbauer
 
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public License
@@ -17,10 +17,11 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 // USA
 
-#ifndef HAVE_JF_UNITTEST_TREE_TEST_RESULT_H
-#define HAVE_JF_UNITTEST_TREE_TEST_RESULT_H
+#ifndef HAVE_JF_UNITTEST_TREE_WALK_H
+#define HAVE_JF_UNITTEST_TREE_WALK_H
 
-#include <jf/unittest/test_result.h>
+#include <jf/unittest/result.h>
+#include <jf/unittest/visitor.h>
 
 #include <deque>
 #include <vector>
@@ -28,7 +29,7 @@
 namespace jf {
 namespace unittest {
 
-class JF_UNITTEST_API TreeTestResult : public jf::unittest::TestResult_Legacy
+class TreeWalk : private Result, private Visitor
 {
 public:
     /** @brief Formats fancy tree output
@@ -37,16 +38,25 @@ public:
                           entire path from the root of the tree -
                           suitable for commandline path arguments.
     */
-    TreeTestResult(std::ostream& ostream, bool print_path);
+    TreeWalk(std::ostream& ostream, bool print_path);
 
+    bool do_it(Test&);
+
+private:
+    /** Visitor implementation */
+    //@{
     virtual void enter_suite(const TestSuite*);
     virtual void leave_suite(const TestSuite*);
     virtual void enter_test(const TestCase*);
     virtual void leave_test(const TestCase*);
+    //@}
+
+    /** Result implementation */
+    //@{
     virtual void add_success(const TestCase*);
     virtual void add_failure(const TestCase*, const Failure&);
     virtual void add_error(const TestCase*, const std::string& message);
-    virtual void add_assertion(const TestCase*);
+    //@}
 
     void print_summary() const;
     bool ok() const { return num_success_ == num_tests_run_; }
@@ -97,10 +107,9 @@ private:
     int num_success_;
     int num_failure_;
     int num_error_;
-    int num_assertion_;
 
-    TreeTestResult(const TreeTestResult&);
-    TreeTestResult& operator=(const TreeTestResult&);
+    TreeWalk(const TreeWalk&);
+    TreeWalk& operator=(const TreeWalk&);
 };
 
 }

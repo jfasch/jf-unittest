@@ -1,6 +1,6 @@
 // -*- C++ -*-
 
-// Copyright (C) 2008-2011 Joerg Faschingbauer
+// Copyright (C) 2008-2012 Joerg Faschingbauer
 
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public License
@@ -19,7 +19,7 @@
 
 #include <jf/unittest/test_case.h>
 #include <jf/unittest/test_suite.h>
-#include <jf/unittest/test_result.h>
+#include <jf/unittest/result.h>
 #include <jf/unittest/visitor.h>
 #include <jf/unittest/direct_runner.h>
 #include <jf/unittest/walk.h>
@@ -39,6 +39,7 @@ public:
     OkTest() : TestCase("OkTest") {}
     virtual void run()
     {
+        JFUNIT_ASSERT(true);
     }
 };
 
@@ -62,58 +63,23 @@ public:
     }
 };
 
-// to be removed soon
-class BootstrapTestResult_Legacy : public TestResult_Legacy
+class MyResult : public jf::unittest::Result
 {
 public:
-    BootstrapTestResult_Legacy() : num_success_(0), num_failure_(0), num_error_(0) {}
+    MyResult() : num_success_(0), num_failure_(0), num_error_(0) {}
 
-    virtual void enter_suite(const TestSuite*) {}
-    virtual void leave_suite(const TestSuite*) {}
-    virtual void enter_test(const TestCase*) {}
-    virtual void leave_test(const TestCase*) {}
-    virtual void add_success(const TestCase*) { num_success_++; }
-    virtual void add_failure(const TestCase*, const Failure&) { num_failure_++; }
-    virtual void add_error(const TestCase*, const std::string&) { num_error_++; }
-    virtual void add_assertion(const TestCase*) {}
+    size_t num_success() const { return num_success_; }
+    size_t num_failure() const { return num_failure_; }
+    size_t num_error() const { return num_error_; }
 
-    int num_success() const { return num_success_; }
-    int num_failure() const { return num_failure_; }
-    int num_error() const { return num_error_; }
+    virtual void add_success(const jf::unittest::TestCase*) { num_success_++; }
+    virtual void add_failure(const jf::unittest::TestCase*, const jf::unittest::Failure&) { num_failure_++; }
+    virtual void add_error(const jf::unittest::TestCase*, const std::string& message) { num_error_++; }
+
 private:
     int num_success_;
     int num_failure_;
     int num_error_;
-};
-
-class SuiteTest_Legacy : public TestCase
-{
-public:
-    SuiteTest_Legacy() : TestCase("SuiteTest_Legacy") {}
-    virtual void run()
-    {
-        TestTestSuite s;
-        BootstrapTestResult_Legacy r;
-        s.run_internal(&r);
-        JFUNIT_ASSERT(r.num_success() == 2);
-        JFUNIT_ASSERT(r.num_failure() == 2);
-        JFUNIT_ASSERT(r.num_error() == 3);
-    }
-private:
-    class TestTestSuite : public TestSuite
-    {
-    public:
-        TestTestSuite() : TestSuite("TestTestSuite")
-        {
-            add_test(std::auto_ptr<Test>(new OkTest));
-            add_test(std::auto_ptr<Test>(new OkTest));
-            add_test(std::auto_ptr<Test>(new FailureTest));
-            add_test(std::auto_ptr<Test>(new FailureTest));
-            add_test(std::auto_ptr<Test>(new ErrorTest));
-            add_test(std::auto_ptr<Test>(new ErrorTest));
-            add_test(std::auto_ptr<Test>(new ErrorTest));
-        }
-    };
 };
 
 class SuiteTest_Walk : public TestCase
@@ -145,7 +111,7 @@ public:
             size_t tests_left_;
         };
 
-        class MyResult : public TestResult
+        class MyResult : public Result
         {
         public:
             MyResult() : num_success_(0), num_failure_(0), num_error_(0) {}
@@ -156,7 +122,6 @@ public:
             virtual void add_success(const TestCase*){ num_success_++; }
             virtual void add_failure(const TestCase*, const Failure&) { num_failure_++; }
             virtual void add_error(const TestCase*, const std::string& message) { num_error_++; }
-            virtual void add_assertion(const TestCase*) { assert(false); }
         private:
             size_t num_success_;
             size_t num_failure_;
@@ -167,9 +132,9 @@ public:
         TestTestSuite suite;
         MyVisitor visitor;
         MyResult result;        
-        DirectRunner runner(&result);
+        DirectRunner runner;
 
-        walk(&suite, &visitor, &runner);
+        walk(&suite, &visitor, &runner, &result);
         
         JFUNIT_ASSERT(result.num_success() == 2);
         JFUNIT_ASSERT(result.num_failure() == 2);
@@ -205,38 +170,32 @@ int main()
 {
     {
         OkTest t;
-        BootstrapTestResult_Legacy r;
-        t.run_internal(&r);
+        MyResult r;
+        DirectRunner().run_test(&t, &r);
         BOOTSTRAP_ASSERT(r.num_success() == 1);
         BOOTSTRAP_ASSERT(r.num_failure() == 0);
         BOOTSTRAP_ASSERT(r.num_error() == 0);
     }
     {
         FailureTest t;
-        BootstrapTestResult_Legacy r;
-        t.run_internal(&r);
+        MyResult r;
+        DirectRunner().run_test(&t, &r);
         BOOTSTRAP_ASSERT(r.num_success() == 0);
         BOOTSTRAP_ASSERT(r.num_failure() == 1);
         BOOTSTRAP_ASSERT(r.num_error() == 0);
     }
     {
         ErrorTest t;
-        BootstrapTestResult_Legacy r;
-        t.run_internal(&r);
+        MyResult r;
+        DirectRunner().run_test(&t, &r);
         BOOTSTRAP_ASSERT(r.num_success() == 0);
         BOOTSTRAP_ASSERT(r.num_failure() == 0);
         BOOTSTRAP_ASSERT(r.num_error() == 1);
     }
     {
-        SuiteTest_Legacy t;
-        BootstrapTestResult_Legacy r;
-        t.run_internal(&r);
-        BOOTSTRAP_ASSERT(r.num_success() == 1);
-    }
-    {
         SuiteTest_Walk t;
-        BootstrapTestResult_Legacy r;
-        t.run_internal(&r);
+        MyResult r;
+        DirectRunner().run_test(&t, &r);
         BOOTSTRAP_ASSERT(r.num_success() == 1);
     }
 
