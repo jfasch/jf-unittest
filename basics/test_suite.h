@@ -43,11 +43,6 @@ public:
 
     Test* find(const std::string& path);
 
-    // jjj
-    
-// public:
-//     virtual void run_internal(TestResult_Legacy*);
-
 private:
     Tests tests_;
 };

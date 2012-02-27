@@ -19,11 +19,13 @@
 
 h = [
     # stage 2
+    'stage2_suite.h',
     'assert_suite.h',
     'setup_teardown.h',
     'hierarchy_suite.h',
 
     # stage 3
+    'stage3_suite.h',
     'find_suite.h',
     'walk_suite.h',
     ]

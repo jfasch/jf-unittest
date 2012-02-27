@@ -94,10 +94,10 @@ namespace jf {
 namespace unittest {
 namespace tests {
 
-class AssertThrowsTest : public jf::unittest::TestCase
+class AssertThrows : public jf::unittest::TestCase
 {
 public:
-    AssertThrowsTest() : jf::unittest::TestCase("jf::unittest::tests::AssertThrowsTest") {}
+    AssertThrows() : jf::unittest::TestCase("AssertThrows") {}
     virtual void run()
     {
         {
@@ -121,10 +121,10 @@ public:
     }
 };
 
-AssertSuite::AssertSuite()
-: jf::unittest::TestSuite("jf::unittest::tests::AssertSuite")
+Assert::Assert()
+: jf::unittest::TestSuite("Assert")
 {
-    add_test(std::auto_ptr<Test>(new AssertThrowsTest));
+    add_test(std::auto_ptr<Test>(new AssertThrows));
 }
 
 }

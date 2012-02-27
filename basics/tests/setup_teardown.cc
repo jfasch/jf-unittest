@@ -76,7 +76,7 @@ namespace tests {
 class SetupTeardownSuccess : public jf::unittest::TestCase
 {
 public:
-    SetupTeardownSuccess() : jf::unittest::TestCase("jf::unittest::tests::SetupTeardownSuccess") {}
+    SetupTeardownSuccess() : jf::unittest::TestCase("SetupTeardownSuccess") {}
     virtual void run()
     {
         SuccessTest test;
@@ -97,7 +97,7 @@ private:
 class SetupTeardownSetupFailure : public jf::unittest::TestCase
 {
 public:
-    SetupTeardownSetupFailure() : jf::unittest::TestCase("jf::unittest::tests::SetupTeardownSetupFailure") {}
+    SetupTeardownSetupFailure() : jf::unittest::TestCase("SetupTeardownSetupFailure") {}
     virtual void run()
     {
         SetupFailureTest test;
@@ -126,7 +126,7 @@ private:
 class SetupTeardownSetupError : public jf::unittest::TestCase
 {
 public:
-    SetupTeardownSetupError() : jf::unittest::TestCase("jf::unittest::tests::SetupTeardownSetupError") {}
+    SetupTeardownSetupError() : jf::unittest::TestCase("SetupTeardownSetupError") {}
     virtual void run()
     {
         SetupErrorTest test;
@@ -155,7 +155,7 @@ private:
 class SetupTeardownRunFailure : public jf::unittest::TestCase
 {
 public:
-    SetupTeardownRunFailure() : jf::unittest::TestCase("jf::unittest::tests::SetupTeardownRunFailure") {}
+    SetupTeardownRunFailure() : jf::unittest::TestCase("SetupTeardownRunFailure") {}
     virtual void run()
     {
         RunFailureTest test;
@@ -184,7 +184,7 @@ private:
 class SetupTeardownRunError : public jf::unittest::TestCase
 {
 public:
-    SetupTeardownRunError() : jf::unittest::TestCase("jf::unittest::tests::SetupTeardownRunError") {}
+    SetupTeardownRunError() : jf::unittest::TestCase("SetupTeardownRunError") {}
     virtual void run()
     {
         RunErrorTest test;
@@ -213,7 +213,7 @@ private:
 class SetupTeardownTeardownFailure : public jf::unittest::TestCase
 {
 public:
-    SetupTeardownTeardownFailure() : jf::unittest::TestCase("jf::unittest::tests::SetupTeardownTeardownFailure") {}
+    SetupTeardownTeardownFailure() : jf::unittest::TestCase("SetupTeardownTeardownFailure") {}
     virtual void run()
     {
         TeardownFailureTest test;
@@ -242,7 +242,7 @@ private:
 class SetupTeardownTeardownError : public jf::unittest::TestCase
 {
 public:
-    SetupTeardownTeardownError() : jf::unittest::TestCase("jf::unittest::tests::SetupTeardownTeardownError") {}
+    SetupTeardownTeardownError() : jf::unittest::TestCase("SetupTeardownTeardownError") {}
     virtual void run()
     {
         TeardownErrorTest test;
@@ -268,8 +268,8 @@ private:
     };
 };
 
-SetupTeardownSuite::SetupTeardownSuite()
-: jf::unittest::TestSuite("jf::unittest::tests::SetupTeardownSuite")
+SetupTeardown::SetupTeardown()
+: jf::unittest::TestSuite("SetupTeardown")
 {
     add_test(std::auto_ptr<Test>(new SetupTeardownSuccess));
     add_test(std::auto_ptr<Test>(new SetupTeardownSetupFailure));

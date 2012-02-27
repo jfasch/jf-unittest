@@ -45,7 +45,7 @@ private:
 
 int main()
 {
-    jf::unittest::tests::Stage2Suite suite;
+    jf::unittest::tests::Stage2 suite;
     MyTestResult result;
     jf::unittest::DirectRunner runner;
 

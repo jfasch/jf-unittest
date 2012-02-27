@@ -35,7 +35,6 @@ h = [
 
 cc = [
     'test.cc',
-    'test_case.cc',
     'test_suite.cc',
     
     'direct_runner.cc',

@@ -1,6 +1,6 @@
 // -*- C++ -*-
 
-// Copyright (C) 2008-2011 Joerg Faschingbauer
+// Copyright (C) 2008-2012 Joerg Faschingbauer
 
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public License
@@ -17,7 +17,7 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 // USA
 
-#include <jf/unittest/tests/stage2_suite.h>
+#include "stage2_suite.h"
 
 #include "setup_teardown.h"
 #include "assert_suite.h"
@@ -28,13 +28,13 @@ namespace jf {
 namespace unittest {
 namespace tests {
 
-Stage2Suite::Stage2Suite()
-: TestSuite("jf::unittest::tests::Stage2Suite")
+Stage2::Stage2()
+: TestSuite("Stage2")
 {
-    add_test(std::auto_ptr<Test>(new SetupTeardownSuite));
-    add_test(std::auto_ptr<Test>(new AssertSuite));
-    add_test(std::auto_ptr<Test>(new HierarchySuite));
-    add_test(std::auto_ptr<Test>(new WalkSuite));
+    add_test(std::auto_ptr<Test>(new SetupTeardown));
+    add_test(std::auto_ptr<Test>(new Assert));
+    add_test(std::auto_ptr<Test>(new Hierarchy));
+    add_test(std::auto_ptr<Test>(new Walk));
 }
 
 }

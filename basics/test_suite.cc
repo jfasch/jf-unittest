@@ -48,17 +48,5 @@ Test* TestSuite::find(const std::string& path)
     return jf::unittest::find(this, path);
 }
 
-// jjj
-
-// void TestSuite::run_internal(TestResult_Legacy* result)
-// {
-//     // note that the test's run_internal() method catches all errors,
-//     // so it is safe to not wrap the call into try/catch.
-//     result->enter_suite(this);
-//     for (Tests::const_iterator i = tests_.begin(); i != tests_.end(); ++i)
-//         (*i)->run_internal(result);
-//     result->leave_suite(this);
-// }
-
 }
 }

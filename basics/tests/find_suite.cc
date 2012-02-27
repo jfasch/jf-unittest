@@ -137,8 +137,8 @@ namespace jf {
 namespace unittest {
 namespace tests {
 
-FindSuite::FindSuite()
-: jf::unittest::TestSuite("jf::unittest::tests::FindSuite")
+Find::Find()
+: jf::unittest::TestSuite("Find")
 {
     add_test(std::auto_ptr<Test>(new PathSearch));
 }

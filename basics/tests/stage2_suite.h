@@ -1,6 +1,6 @@
 // -*- C++ -*-
 
-// Copyright (C) 2008 Joerg Faschingbauer
+// Copyright (C) 2008-2012 Joerg Faschingbauer
 
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public License
@@ -26,10 +26,10 @@ namespace jf {
 namespace unittest {
 namespace tests {
 
-class Stage2Suite : public TestSuite
+class Stage2 : public TestSuite
 {
 public:
-    Stage2Suite();
+    Stage2();
 };
 
 }

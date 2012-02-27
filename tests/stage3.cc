@@ -32,8 +32,8 @@ using namespace jf::unittest::tests;
 int main()
 {
     TestSuite suite("Stage3");
-    suite.add_test(std::auto_ptr<Test>(new Stage2Suite));
-    suite.add_test(std::auto_ptr<Test>(new Stage3Suite));
+    suite.add_test(std::auto_ptr<Test>(new Stage2));
+    suite.add_test(std::auto_ptr<Test>(new Stage3));
 
     TreeWalk tree_walk(std::cout, true);
     return tree_walk.do_it(suite)? 0: 1;

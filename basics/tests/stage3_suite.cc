@@ -1,6 +1,6 @@
 // -*- C++ -*-
 
-// Copyright (C) 2011 Joerg Faschingbauer
+// Copyright (C) 2011-2012 Joerg Faschingbauer
 
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public License
@@ -17,7 +17,7 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 // USA
 
-#include <jf/unittest/tests/stage3_suite.h>
+#include "stage3_suite.h"
 
 #include "find_suite.h"
 #include "walk_suite.h"
@@ -26,11 +26,11 @@ namespace jf {
 namespace unittest {
 namespace tests {
 
-Stage3Suite::Stage3Suite()
-: TestSuite("jf::unittest::tests::Stage3Suite")
+Stage3::Stage3()
+: TestSuite("Stage3Suite")
 {
-    add_test(std::auto_ptr<Test>(new FindSuite));
-    add_test(std::auto_ptr<Test>(new WalkSuite));
+    add_test(std::auto_ptr<Test>(new Find));
+    add_test(std::auto_ptr<Test>(new Walk));
 }
 
 }

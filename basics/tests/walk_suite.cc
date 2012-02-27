@@ -86,10 +86,10 @@ private:
     Records records_;
 };
 
-class Walk : public TestCase
+class WalkTest : public TestCase
 {
 public:
-    Walk() : TestCase("Walk") {}
+    WalkTest() : TestCase("Walk") {}
 
     virtual void run()
     {
@@ -348,10 +348,10 @@ namespace jf {
 namespace unittest {
 namespace tests {
 
-WalkSuite::WalkSuite()
+Walk::Walk()
 : jf::unittest::TestSuite("Walk")
 {
-    add_test(std::auto_ptr<Test>(new Walk));
+    add_test(std::auto_ptr<Test>(new WalkTest));
     add_test(std::auto_ptr<Test>(new WalkNullRunner));
     add_test(std::auto_ptr<Test>(new WalkNullVisitor));
 }
