@@ -20,7 +20,7 @@
 #include "tree.h"
 
 #include <jf/unittest/walk.h>
-#include <jf/unittest/direct_runner.h>
+#include <jf/unittest/direct-runner.h>
 
 #include <iostream>
 #include <cassert>

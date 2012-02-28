@@ -1,6 +1,6 @@
 // -*- C++ -*-
 
-// Copyright (C) 2011-2012 Joerg Faschingbauer
+// Copyright (C) 2008-2012 Joerg Faschingbauer
 
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public License
@@ -17,22 +17,37 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 // USA
 
-#include "stage3_suite.h"
+#ifndef HAVE_JF_UNITTEST_SUITE_H
+#define HAVE_JF_UNITTEST_SUITE_H
 
-#include "find_suite.h"
-#include "walk_suite.h"
+#include "test.h"
+
+#include <vector>
+#include <memory>
 
 namespace jf {
 namespace unittest {
-namespace tests {
 
-Stage3::Stage3()
-: TestSuite("Stage3Suite")
+class TestSuite : public Test
 {
-    add_test(std::auto_ptr<Test>(new Find));
-    add_test(std::auto_ptr<Test>(new Walk));
-}
+public:
+    typedef std::vector<Test*> Tests;
+    
+public:
+    TestSuite() : Test() {}
+    TestSuite(const std::string& name) : Test(name) {}
+    virtual ~TestSuite();
+
+    void add_test(std::auto_ptr<Test>);
+    const Tests& tests() const { return tests_; }
+
+    Test* find(const std::string& path);
+
+private:
+    Tests tests_;
+};
 
 }
 }
-}
+
+#endif

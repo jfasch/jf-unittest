@@ -19,7 +19,7 @@
 
 #include "result.h"
 
-#include "test_suite.h"
+#include "suite.h"
 #include "find.h"
 
 #include <cassert>

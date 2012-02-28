@@ -18,8 +18,8 @@
 // USA
 
 #include <jf/unittest/tree.h>
-#include <jf/unittest/test_case.h>
-#include <jf/unittest/test_suite.h>
+#include <jf/unittest/case.h>
+#include <jf/unittest/suite.h>
 #include <jf/unittest/find.h>
 
 #include <iostream>

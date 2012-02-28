@@ -21,8 +21,8 @@ DIRECTORY(['tests'])
 
 h = [
     'test.h',
-    'test_case.h',
-    'test_suite.h',
+    'case.h',
+    'suite.h',
 
     'failure.h',
     'runner.h',
@@ -30,14 +30,14 @@ h = [
     'result.h',
     'walk.h',
     'find.h',
-    'direct_runner.h',
+    'direct-runner.h',
     ]
 
 cc = [
     'test.cc',
-    'test_suite.cc',
+    'suite.cc',
     
-    'direct_runner.cc',
+    'direct-runner.cc',
 
     'failure.cc',
     'find.cc',

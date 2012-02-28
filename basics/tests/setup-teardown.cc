@@ -17,10 +17,10 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 // USA
 
-#include "setup_teardown.h"
+#include "setup-teardown.h"
 
-#include <jf/unittest/test_case.h>
-#include <jf/unittest/direct_runner.h>
+#include <jf/unittest/case.h>
+#include <jf/unittest/direct-runner.h>
 
 namespace {
 

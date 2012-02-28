@@ -18,7 +18,7 @@
 // USA
 
 #include "find.h"
-#include "test_suite.h"
+#include "suite.h"
 
 #include <string.h>
 

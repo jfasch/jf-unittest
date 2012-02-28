@@ -20,7 +20,7 @@
 #ifndef HAVE_JF_UNITTEST_RUNNER_H
 #define HAVE_JF_UNITTEST_RUNNER_H
 
-#include "test_case.h"
+#include "case.h"
 #include "result.h"
 
 namespace jf {

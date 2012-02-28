@@ -17,19 +17,19 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 // USA
 
-#ifndef HAVE_JF_UNITTEST_TESTS_SETUP_TEARDOWN_H
-#define HAVE_JF_UNITTEST_TESTS_SETUP_TEARDOWN_H
+#ifndef HAVE_JF_UNITTEST_TESTS_ASSERT_SUITE_H
+#define HAVE_JF_UNITTEST_TESTS_ASSERT_SUITE_H
 
-#include <jf/unittest/test_suite.h>
+#include <jf/unittest/suite.h>
 
 namespace jf {
 namespace unittest {
 namespace tests {
 
-class SetupTeardown : public jf::unittest::TestSuite
+class Assert : public jf::unittest::TestSuite
 {
 public:
-    SetupTeardown();
+    Assert();
 };
 
 }

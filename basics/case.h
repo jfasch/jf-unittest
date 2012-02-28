@@ -17,8 +17,8 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 // USA
 
-#ifndef HAVE_JF_UNITTEST_TEST_CASE_H
-#define HAVE_JF_UNITTEST_TEST_CASE_H
+#ifndef HAVE_JF_UNITTEST_CASE_H
+#define HAVE_JF_UNITTEST_CASE_H
 
 #include "test.h"
 #include "failure.h"

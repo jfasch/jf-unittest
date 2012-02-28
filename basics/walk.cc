@@ -19,8 +19,8 @@
 
 #include "walk.h"
 
-#include "test_case.h"
-#include "test_suite.h"
+#include "case.h"
+#include "suite.h"
 
 #include <cassert>
 

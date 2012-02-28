@@ -17,11 +17,11 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 // USA
 
-// CONFIX:REQUIRE_H('jf/unittest/tests/stage2_suite.h', REQUIRED)
+// CONFIX:REQUIRE_H('jf/unittest/tests/stage2-suite.h', REQUIRED)
 // CONFIX:REQUIRE_H('jf/unittest/tree.h', REQUIRED)
 
-#include <jf/unittest/tests/stage2_suite.h>
-#include <jf/unittest/tests/stage3_suite.h>
+#include <jf/unittest/tests/stage2-suite.h>
+#include <jf/unittest/tests/stage3-suite.h>
 #include <jf/unittest/tree.h>
 
 #include <iostream>

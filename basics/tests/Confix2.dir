@@ -1,6 +1,6 @@
 # -*- python -*-
 
-# Copyright (C) 2008-2011 Joerg Faschingbauer
+# Copyright (C) 2008-2012 Joerg Faschingbauer
 
 # This library is free software; you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as
@@ -19,28 +19,28 @@
 
 h = [
     # stage 2
-    'stage2_suite.h',
-    'assert_suite.h',
-    'setup_teardown.h',
-    'hierarchy_suite.h',
+    'stage2-suite.h',
+    'assert-suite.h',
+    'setup-teardown.h',
+    'hierarchy-suite.h',
 
     # stage 3
-    'stage3_suite.h',
-    'find_suite.h',
-    'walk_suite.h',
+    'stage3-suite.h',
+    'find-suite.h',
+    'walk-suite.h',
     ]
 
 cc = [
     # stage 2
-    'stage2_suite.cc',
-    'assert_suite.cc',
-    'setup_teardown.cc',
-    'hierarchy_suite.cc',
+    'stage2-suite.cc',
+    'assert-suite.cc',
+    'setup-teardown.cc',
+    'hierarchy-suite.cc',
 
     # stage 3
-    'stage3_suite.cc',
-    'find_suite.cc',
-    'walk_suite.cc',
+    'stage3-suite.cc',
+    'find-suite.cc',
+    'walk-suite.cc',
     ]
 
 LIBRARY(members=[H(filename=f, install=['jf', 'unittest', 'tests']) for f in h] + [CXX(filename=f) for f in cc])

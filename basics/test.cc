@@ -18,7 +18,7 @@
 // USA
 
 #include "test.h"
-#include "test_suite.h"
+#include "suite.h"
 
 #include <cassert>
 

@@ -20,7 +20,7 @@
 #ifndef HAVE_JF_UNITTEST_TESTS_FIND_SUITE_H
 #define HAVE_JF_UNITTEST_TESTS_FIND_SUITE_H
 
-#include <jf/unittest/test_suite.h>
+#include <jf/unittest/suite.h>
 
 namespace jf {
 namespace unittest {

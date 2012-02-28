@@ -1,6 +1,6 @@
 // -*- C++ -*-
 
-// Copyright (C) 2008-2012 Joerg Faschingbauer
+// Copyright (C) 2011-2012 Joerg Faschingbauer
 
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public License
@@ -17,19 +17,19 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 // USA
 
-#ifndef HAVE_JF_UNITTEST_TESTS_STAGE2_SUITE_H
-#define HAVE_JF_UNITTEST_TESTS_STAGE2_SUITE_H
+#ifndef HAVE_JF_UNITTEST_TESTS_STAGE3_SUITE_H
+#define HAVE_JF_UNITTEST_TESTS_STAGE3_SUITE_H
 
-#include <jf/unittest/test_suite.h>
+#include <jf/unittest/suite.h>
 
 namespace jf {
 namespace unittest {
 namespace tests {
 
-class Stage2 : public TestSuite
+class Stage3 : public TestSuite
 {
 public:
-    Stage2();
+    Stage3();
 };
 
 }

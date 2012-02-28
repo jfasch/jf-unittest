@@ -17,23 +17,22 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 // USA
 
-#ifndef HAVE_JF_UNITTEST_TESTS_HIERARCHY_SUITE_H
-#define HAVE_JF_UNITTEST_TESTS_HIERARCHY_SUITE_H
+#include "stage3-suite.h"
 
-#include <jf/unittest/test_suite.h>
+#include "find-suite.h"
+#include "walk-suite.h"
 
 namespace jf {
 namespace unittest {
 namespace tests {
 
-class Hierarchy : public jf::unittest::TestSuite
+Stage3::Stage3()
+: TestSuite("Stage3Suite")
 {
-public:
-    Hierarchy();
-};
-
-}
-}
+    add_test(std::auto_ptr<Test>(new Find));
+    add_test(std::auto_ptr<Test>(new Walk));
 }
 
-#endif
+}
+}
+}

@@ -17,26 +17,22 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 // USA
 
-#include "stage2_suite.h"
+#ifndef HAVE_JF_UNITTEST_TESTS_STAGE2_SUITE_H
+#define HAVE_JF_UNITTEST_TESTS_STAGE2_SUITE_H
 
-#include "setup_teardown.h"
-#include "assert_suite.h"
-#include "hierarchy_suite.h"
-#include "walk_suite.h"
+#include <jf/unittest/suite.h>
 
 namespace jf {
 namespace unittest {
 namespace tests {
 
-Stage2::Stage2()
-: TestSuite("Stage2")
+class Stage2 : public TestSuite
 {
-    add_test(std::auto_ptr<Test>(new SetupTeardown));
-    add_test(std::auto_ptr<Test>(new Assert));
-    add_test(std::auto_ptr<Test>(new Hierarchy));
-    add_test(std::auto_ptr<Test>(new Walk));
-}
+public:
+    Stage2();
+};
 
 }
 }
 }
+#endif

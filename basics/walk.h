@@ -24,7 +24,7 @@
 #include "runner.h"
 #include "result.h"
 
-#include "test_suite.h"
+#include "suite.h"
 
 namespace jf {
 namespace unittest {

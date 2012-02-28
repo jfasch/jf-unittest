@@ -20,7 +20,7 @@
 #ifndef HAVE_JF_UNITTEST_FIND_H
 #define HAVE_JF_UNITTEST_FIND_H
 
-#include "test_suite.h"
+#include "suite.h"
 
 #include <string>
 

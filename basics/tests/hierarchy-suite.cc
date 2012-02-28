@@ -17,9 +17,9 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 // USA
 
-#include "hierarchy_suite.h"
+#include "hierarchy-suite.h"
 
-#include <jf/unittest/test_case.h>
+#include <jf/unittest/case.h>
 
 #include <cassert>
 
