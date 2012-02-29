@@ -21,6 +21,7 @@
 
 #include <jf/unittest/walk.h>
 #include <jf/unittest/direct-runner.h>
+#include <jf/unittest/fork-runner.h>
 
 #include <iostream>
 #include <cassert>
@@ -80,7 +81,8 @@ TreeWalk::TreeWalk(std::ostream& ostream, bool print_path)
 
 bool TreeWalk::do_it(Test& test)
 {
-    DirectRunner runner;
+    // DirectRunner runner;
+    ForkRunner runner;
     TestSuite* test_suite = dynamic_cast<TestSuite*>(&test);
     if (test_suite != NULL)
         walk(test_suite, this, &runner, this);

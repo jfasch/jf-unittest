@@ -19,6 +19,7 @@
 
 DIRECTORY(['include', 'jf', 'unittest'])
 DIRECTORY(['basics'])
+DIRECTORY(['fork'])
 DIRECTORY(['tree'])
 DIRECTORY(['tests'])
 

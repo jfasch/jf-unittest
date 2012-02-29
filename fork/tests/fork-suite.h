@@ -1,6 +1,6 @@
 // -*- C++ -*-
 
-// Copyright (C) 2011-2012 Joerg Faschingbauer
+// Copyright (C) 2012 Joerg Faschingbauer
 
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public License
@@ -17,20 +17,22 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 // USA
 
-#ifndef HAVE_JF_UNITTEST_DIRECT_RUNNER_H
-#define HAVE_JF_UNITTEST_DIRECT_RUNNER_H
+#ifndef HAVE_JF_UNITTEST_FORK_TESTS_FORK_SUITE_H
+#define HAVE_JF_UNITTEST_FORK_TESTS_FORK_SUITE_H
 
-#include "runner.h"
+#include <jf/unittest/suite.h>
 
 namespace jf {
 namespace unittest {
+namespace tests {
 
-class DirectRunner : public Runner
+class Fork : public jf::unittest::TestSuite
 {
 public:
-    virtual void run_test(TestCase*, Result*);
+    Fork();
 };
 
+}
 }
 }
 

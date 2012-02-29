@@ -1,6 +1,6 @@
 // -*- C++ -*-
 
-// Copyright (C) 2011-2012 Joerg Faschingbauer
+// Copyright (C) 2008-2012 Joerg Faschingbauer
 
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public License
@@ -17,19 +17,23 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 // USA
 
-#include "stage3-suite.h"
+#include "basics-stage2-suite.h"
 
-#include "find-suite.h"
+#include "setup-teardown.h"
+#include "assert-suite.h"
+#include "hierarchy-suite.h"
 #include "walk-suite.h"
 
 namespace jf {
 namespace unittest {
 namespace tests {
 
-Stage3::Stage3()
-: TestSuite("Stage3Suite")
+BasicsStage2::BasicsStage2()
+: TestSuite("BasicsStage2")
 {
-    add_test(std::auto_ptr<Test>(new Find));
+    add_test(std::auto_ptr<Test>(new SetupTeardown));
+    add_test(std::auto_ptr<Test>(new Assert));
+    add_test(std::auto_ptr<Test>(new Hierarchy));
     add_test(std::auto_ptr<Test>(new Walk));
 }
 

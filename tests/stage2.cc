@@ -17,7 +17,7 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 // USA
 
-#include <jf/unittest/tests/stage2-suite.h>
+#include <jf/unittest/tests/basics-stage2-suite.h>
 #include <jf/unittest/direct-runner.h>
 #include <jf/unittest/walk.h>
 #include <jf/unittest/result.h>
@@ -45,7 +45,7 @@ private:
 
 int main()
 {
-    jf::unittest::tests::Stage2 suite;
+    jf::unittest::tests::BasicsStage2 suite;
     MyTestResult result;
     jf::unittest::DirectRunner runner;
 

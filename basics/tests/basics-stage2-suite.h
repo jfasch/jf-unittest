@@ -17,27 +17,22 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 // USA
 
-// CONFIX:REQUIRE_H('jf/unittest/tests/basics-stage2-suite.h', REQUIRED)
-// CONFIX:REQUIRE_H('jf/unittest/tests/fork-suite.h', REQUIRED)
-// CONFIX:REQUIRE_H('jf/unittest/tree.h', REQUIRED)
+#ifndef HAVE_JF_UNITTEST_BASICS_TESTS_STAGE2_SUITE_H
+#define HAVE_JF_UNITTEST_BASICS_TESTS_STAGE2_SUITE_H
 
-#include <jf/unittest/tests/basics-stage2-suite.h>
-#include <jf/unittest/tests/basics-stage3-suite.h>
-#include <jf/unittest/tests/fork-suite.h>
-#include <jf/unittest/tree.h>
+#include <jf/unittest/suite.h>
 
-#include <iostream>
+namespace jf {
+namespace unittest {
+namespace tests {
 
-using namespace jf::unittest;
-using namespace jf::unittest::tests;
-
-int main()
+class BasicsStage2 : public TestSuite
 {
-    TestSuite suite("Stage3");
-    suite.add_test(std::auto_ptr<Test>(new BasicsStage2));
-    suite.add_test(std::auto_ptr<Test>(new BasicsStage3));
-    suite.add_test(std::auto_ptr<Test>(new Fork));
+public:
+    BasicsStage2();
+};
 
-    TreeWalk tree_walk(std::cout, true);
-    return tree_walk.do_it(suite)? 0: 1;
 }
+}
+}
+#endif
