@@ -91,6 +91,7 @@ bool TreeWalk::do_it(Test& test)
         assert(test_case!=NULL);
         runner.run_test(test_case, this);
     }
+    print_summary();
     return num_tests_run_ == num_success_;
 }
 
