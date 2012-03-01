@@ -38,6 +38,7 @@ int main()
     suite.add_test(std::auto_ptr<Test>(new BasicsStage3));
     suite.add_test(std::auto_ptr<Test>(new Fork));
 
-    TreeWalk tree_walk(std::cout, true);
+    TreeWalk tree_walk(std::cout);
+    tree_walk.use_fork(false).print_path(false);
     return tree_walk.do_it(suite)? 0: 1;
 }

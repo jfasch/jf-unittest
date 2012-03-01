@@ -34,11 +34,21 @@ class TreeWalk : private Result, private Visitor
 public:
     /** @brief Formats fancy tree output
         @param ostream where to write
-        @param print_path Instead of only the node name, print the
-                          entire path from the root of the tree -
-                          suitable for commandline path arguments.
     */
-    TreeWalk(std::ostream& ostream, bool print_path);
+    TreeWalk(std::ostream& ostream);
+
+    /** @brief Instead of only the node name, print the entire path
+        from the root of the tree - suitable for commandline path
+        arguments.
+    */
+    TreeWalk& print_path(bool);
+
+    /** @brief Run each test in a separate process
+
+        This way segfaults and the like show up as regular test
+        errors, rather than crashing the entire suite.
+     */
+    TreeWalk& use_fork(bool);
 
     bool do_it(Test&);
 
@@ -92,6 +102,7 @@ private:
 private:
     std::ostream& ostream_;
     bool print_path_;
+    bool use_fork_;
 
     SuiteStack suite_stack_;
 

@@ -73,6 +73,6 @@ int main(int argc, char** argv)
         }
     }
 
-    TreeWalk tree_walk(std::cout, print_path);
+    TreeWalk tree_walk(std::cout);
     return tree_walk.do_it(*run_test)? 0: 1;
 }

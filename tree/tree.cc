@@ -67,9 +67,10 @@ void TreeWalk::Report::print(std::ostream& o) const
     o << '\n';
 }
 
-TreeWalk::TreeWalk(std::ostream& ostream, bool print_path)
+TreeWalk::TreeWalk(std::ostream& ostream)
 : ostream_(ostream),
-  print_path_(print_path),
+  print_path_(false),
+  use_fork_(false),
   cur_failure(std::string(), std::string(), 0),
   p_cur_failure(NULL),
   p_cur_error(NULL),
@@ -79,17 +80,32 @@ TreeWalk::TreeWalk(std::ostream& ostream, bool print_path)
   num_failure_(0),
   num_error_(0) {}
 
+TreeWalk& TreeWalk::print_path(bool b)
+{
+    print_path_ = b;
+    return *this;
+}
+
+TreeWalk& TreeWalk::use_fork(bool b)
+{
+    use_fork_ = b;
+    return *this;
+}
+
 bool TreeWalk::do_it(Test& test)
 {
-    // DirectRunner runner;
-    ForkRunner runner;
+    std::auto_ptr<Runner> runner;
+    if (use_fork_)
+        runner.reset(new ForkRunner);
+    else
+        runner.reset(new DirectRunner);
     TestSuite* test_suite = dynamic_cast<TestSuite*>(&test);
     if (test_suite != NULL)
-        walk(test_suite, this, &runner, this);
+        walk(test_suite, this, runner.get(), this);
     else {
         TestCase* test_case = dynamic_cast<TestCase*>(&test);
         assert(test_case!=NULL);
-        runner.run_test(test_case, this);
+        runner->run_test(test_case, this);
     }
     print_summary();
     return num_tests_run_ == num_success_;
