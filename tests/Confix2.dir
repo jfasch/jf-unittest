@@ -28,9 +28,10 @@
 # sophisticated tests. (Reminds me of what I saw when I had a view
 # into the "Das U-Boot" bootloader.)
 
-EXECUTABLE(center=CXX('stage1.cc'),
-           exename='stage1',
-           what=EXECUTABLE_CHECK)
+EXECUTABLE(
+    center=CXX('stage1.cc'),
+    exename='stage1',
+    what=EXECUTABLE_CHECK)
 
 # STAGE 2
 # -------
@@ -43,9 +44,10 @@ EXECUTABLE(center=CXX('stage1.cc'),
 # setup/teardown, and that there are no TestResult implementations
 # used that use the enter/leave calls.
 
-EXECUTABLE(center=CXX('stage2.cc'),
-           exename='stage2',
-           what=EXECUTABLE_CHECK)
+EXECUTABLE(
+    center=CXX('stage2.cc'),
+    exename='stage2',
+    what=EXECUTABLE_CHECK)
 
 # STAGE 3
 # -------
@@ -53,6 +55,17 @@ EXECUTABLE(center=CXX('stage2.cc'),
 # Here we have fully tested the test framework, so we are free to test
 # everything we want.
 
-EXECUTABLE(center=CXX('stage3.cc'),
-           exename='stage3',
-           what=EXECUTABLE_CHECK)
+EXECUTABLE(
+    center=CXX('stage3.cc'),
+    exename='stage3',
+    what=EXECUTABLE_CHECK)
+
+# MISC
+# ----
+
+# additionally, we test the tree output 
+
+EXECUTABLE(
+    center=CXX('treetest.cc'),
+    exename='treetest',
+    what=EXECUTABLE_CHECK)

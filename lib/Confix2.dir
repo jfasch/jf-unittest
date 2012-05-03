@@ -1,6 +1,6 @@
 # -*- python -*-
 
-# Copyright (C) 2011-2012 Joerg Faschingbauer
+# Copyright (C) 2008-2012 Joerg Faschingbauer
 
 # This library is free software; you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as
@@ -17,6 +17,39 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 # USA
 
+DIRECTORY(['tests'])
 
-EXECUTABLE(center=CXX('treetest.cc'),
-           exename='treetest')
+h = [
+    'test.h',
+    'case.h',
+    'suite.h',
+
+    'failure.h',
+    'runner.h',
+    'visitor.h',
+    'result.h',
+    'walk.h',
+    'find.h',
+    'direct-runner.h',
+    'fork-runner.h',
+
+    'tree.h',
+    ]
+
+cc = [
+    'test.cc',
+    'suite.cc',
+    
+    'direct-runner.cc',
+    'fork-runner.cc',
+
+    'failure.cc',
+    'find.cc',
+    'walk.cc',
+
+    'tree.cc',
+    ]
+
+LIBRARY(
+    basename='jf-unittest',
+    members=[H(filename=f, install=['jf', 'unittest']) for f in h] + [CXX(filename=f) for f in cc])

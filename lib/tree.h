@@ -20,8 +20,8 @@
 #ifndef HAVE_JF_UNITTEST_TREE_WALK_H
 #define HAVE_JF_UNITTEST_TREE_WALK_H
 
-#include <jf/unittest/result.h>
-#include <jf/unittest/visitor.h>
+#include "result.h"
+#include "visitor.h"
 
 #include <deque>
 #include <vector>

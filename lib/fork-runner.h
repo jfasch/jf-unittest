@@ -20,7 +20,7 @@
 #ifndef HAVE_JF_UNITTEST_FORK_RUNNER_H
 #define HAVE_JF_UNITTEST_FORK_RUNNER_H
 
-#include <jf/unittest/runner.h>
+#include "runner.h"
 
 namespace jf {
 namespace unittest {

@@ -19,7 +19,7 @@
 
 #include "fork-runner.h"
 
-#include <jf/unittest/direct-runner.h>
+#include "direct-runner.h"
 
 #include <cstdio>
 #include <cassert>

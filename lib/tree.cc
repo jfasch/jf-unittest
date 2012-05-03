@@ -19,9 +19,9 @@
 
 #include "tree.h"
 
-#include <jf/unittest/walk.h>
-#include <jf/unittest/direct-runner.h>
-#include <jf/unittest/fork-runner.h>
+#include "walk.h"
+#include "direct-runner.h"
+#include "fork-runner.h"
 
 #include <iostream>
 #include <cassert>
