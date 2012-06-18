@@ -22,6 +22,8 @@
 #include <jf/unittest/case.h>
 #include <jf/unittest/direct-runner.h>
 
+#include <cassert>
+
 namespace {
 
 class MyTest : public jf::unittest::TestCase
@@ -60,6 +62,7 @@ public:
     virtual void add_success(const jf::unittest::TestCase*) { num_success_++; }
     virtual void add_failure(const jf::unittest::TestCase*, const jf::unittest::Failure&) { num_failure_++; }
     virtual void add_error(const jf::unittest::TestCase*, const std::string&) { num_error_++; }
+    virtual void add_additional_info(const jf::unittest::TestCase*, const std::string&) { assert(false); }
     
 private:
     int num_success_;

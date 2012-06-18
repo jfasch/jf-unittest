@@ -71,9 +71,10 @@ TreeWalk::TreeWalk(std::ostream& ostream)
 : ostream_(ostream),
   print_path_(false),
   use_fork_(false),
-  cur_failure(std::string(), std::string(), 0),
-  p_cur_failure(NULL),
-  p_cur_error(NULL),
+  print_pid_(false),
+  cur_failure_(std::string(), std::string(), 0),
+  p_cur_failure_(NULL),
+  p_cur_error_(NULL),
   num_suites_entered_(0),
   num_tests_run_(0),
   num_success_(0),
@@ -92,11 +93,17 @@ TreeWalk& TreeWalk::use_fork(bool b)
     return *this;
 }
 
+TreeWalk& TreeWalk::print_pid(bool b)
+{
+    print_pid_ = b;
+    return *this;
+}
+
 bool TreeWalk::do_it(Test& test)
 {
     std::auto_ptr<Runner> runner;
     if (use_fork_)
-        runner.reset(new ForkRunner);
+        runner.reset(new ForkRunner(print_pid_));
     else
         runner.reset(new DirectRunner);
     TestSuite* test_suite = dynamic_cast<TestSuite*>(&test);
@@ -142,14 +149,14 @@ void TreeWalk::enter_test(const TestCase* c)
 
 void TreeWalk::leave_test(const TestCase* c)
 {
-    if (p_cur_error) {
+    if (p_cur_error_) {
         num_error_++;
-        reports_.push_back(Report(c, *p_cur_error));
+        reports_.push_back(Report(c, *p_cur_error_));
         ostream_ << "error";
     }
-    else if (p_cur_failure) {
+    else if (p_cur_failure_) {
         num_failure_++;
-        reports_.push_back(Report(c, *p_cur_failure));
+        reports_.push_back(Report(c, *p_cur_failure_));
         ostream_ << "failed";
     }
     else {
@@ -157,23 +164,40 @@ void TreeWalk::leave_test(const TestCase* c)
         ostream_ << "ok";
     }
 
+    if (cur_additional_info_.size() > 0) {
+        ostream_ << " (";
+        for (std::vector<std::string>::const_iterator i=cur_additional_info_.begin();
+             i!=cur_additional_info_.end(); ++i) {
+            ostream_ << *i;
+            if (i+1 != cur_additional_info_.end())
+                ostream_ << ',';
+        }
+        ostream_ << ')';
+    }
+    
     ostream_ << '\n';
-    p_cur_failure = NULL;
-    p_cur_error = NULL;
+    p_cur_failure_ = NULL;
+    p_cur_error_ = NULL;
+    cur_additional_info_.clear();
 }
 
 void TreeWalk::add_success(const TestCase*) {}
 
 void TreeWalk::add_failure(const TestCase*, const Failure& f)
 {
-    cur_failure = f;
-    p_cur_failure = &cur_failure;
+    cur_failure_ = f;
+    p_cur_failure_ = &cur_failure_;
 }
 
 void TreeWalk::add_error(const TestCase*, const std::string& message)
 {
-    cur_error = message;
-    p_cur_error = &cur_error;
+    cur_error_ = message;
+    p_cur_error_ = &cur_error_;
+}
+
+void TreeWalk::add_additional_info(const TestCase*, const std::string& info)
+{
+    cur_additional_info_.push_back(info);
 }
 
 void TreeWalk::print_summary() const

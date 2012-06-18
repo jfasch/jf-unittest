@@ -28,7 +28,11 @@ namespace unittest {
 class ForkRunner : public Runner
 {
 public:
+    ForkRunner(bool print_pid=false);
     virtual void run_test(TestCase*, Result*);
+
+private:
+    bool print_pid_;
 };
 
 }

@@ -38,15 +38,18 @@ public:
     size_t num_success() const { return num_success_; }
     size_t num_error() const { return num_error_; }
     const std::vector<Failure>& failures() const { return failures_; }
+    const std::vector<std::string>& additional_info() const { return additional_info_; }
     
     virtual void add_success(const TestCase*) { num_success_++; }
     virtual void add_failure(const TestCase*, const Failure& f) { failures_.push_back(f); }
     virtual void add_error(const TestCase*, const std::string& message) { num_error_++; }
+    virtual void add_additional_info(const TestCase*, const std::string& info) { additional_info_.push_back(info); }
 
 private:
     size_t num_success_;
     size_t num_error_;
     std::vector<Failure> failures_;
+    std::vector<std::string> additional_info_;    
 };
 
 class ForkOkTest : public TestCase
@@ -119,6 +122,30 @@ public:
     }
 };
 
+class AdditionalInfoTest : public TestCase
+{
+public:
+    AdditionalInfoTest() : TestCase("AdditionalInfo") {}
+
+    virtual void run()
+    {
+        class OkTest : public TestCase
+        {
+        public:
+            OkTest() : TestCase("") {}
+            virtual void run() {}
+        };
+        
+        OkTest test;
+        ForkRunner runner;
+        MyTestResult result;
+        runner.run_test(&test, &result);
+
+        // additional_info contains one element, the PID.
+        JFUNIT_ASSERT(result.additional_info().size() == 1);
+    }
+};
+
 }
 
 namespace jf {
@@ -130,6 +157,7 @@ Fork::Fork()
 {
     add_test(std::auto_ptr<Test>(new ForkOkTest));
     add_test(std::auto_ptr<Test>(new ForkDontCrashTest));
+    add_test(std::auto_ptr<Test>(new AdditionalInfoTest));
 }
 
 }

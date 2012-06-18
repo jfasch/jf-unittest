@@ -41,6 +41,14 @@ static void usage(const char* argv0)
               << "       Print the path to each test as it runs.\n"
               << "       The printed paths are suitable for passing as\n"
               << "       commandline argument for subsequent test runs.\n"
+              << "  -f, --dont-use-fork\n"
+              << "       Do not use fork to encapsulate each test's\n"
+              << "       environment. Rather, run all tests in the same\n"
+              << "       process. A crash of one test will then terminate\n"
+              << "       the entire test run, making the results unavailable.\n"
+              << "  -i, --print-pid\n"
+              << "       Print the process ID of each test. This option has\n"
+              << "       no effect if fork is not used.\n"
               << "  -h, --help\n"
               << "       This message.\n"
         ;
@@ -51,16 +59,26 @@ int main(int argc, char** argv, std::auto_ptr<Test> test)
     struct option long_options[] = {
         { "help", no_argument, NULL, 'h' },
         { "print-path", no_argument, NULL, 'p' },
+        { "dont-use-fork", no_argument, NULL, 'f' },
+        { "print-pid", no_argument, NULL, 'i' },
 
         { 0, 0, 0, 0 }
     };
 
     bool print_path = false;
+    bool use_fork = true;
+    bool print_pid = false;
     char opt;
-    while ((opt = getopt_long(argc, argv, "ph", long_options, 0)) != -1) {
+    while ((opt = getopt_long(argc, argv, "pfih", long_options, 0)) != -1) {
         switch (opt) {
             case 'p':
                 print_path = true;
+                break;
+            case 'f':
+                use_fork = false;
+                break;
+            case 'i':
+                print_pid = true;
                 break;
             case 'h':
             default:
@@ -84,7 +102,7 @@ int main(int argc, char** argv, std::auto_ptr<Test> test)
         }
     }
     jf::unittest::TreeWalk tree_walk(std::cout);
-    tree_walk.print_path(print_path).use_fork(true);
+    tree_walk.print_path(print_path).print_pid(print_pid).use_fork(use_fork);
     if (tree_walk.do_it(*run_test))
         return 0;
     else

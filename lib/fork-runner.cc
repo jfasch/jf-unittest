@@ -23,6 +23,8 @@
 
 #include <cstdio>
 #include <cassert>
+#include <vector>
+#include <string>
 #include <string.h>
 #include <unistd.h>
 #include <errno.h>
@@ -46,6 +48,7 @@ public:
     const Failure& failure() const { return failure_; }
     bool has_error() const { return has_error_; }
     const std::string& error_message() const { return error_message_; }
+    const std::vector<std::string>& additional_info() const { return additional_info_; }
     
     virtual void add_success(
         const TestCase*)
@@ -70,6 +73,13 @@ public:
         error_message_ = message;
     }
 
+    virtual void add_additional_info(
+        const TestCase*,
+        const std::string& info)
+    {
+        additional_info_.push_back(info);
+    }
+
 private:
     bool success_;
 
@@ -78,6 +88,8 @@ private:
 
     bool has_error_;
     std::string error_message_;
+
+    std::vector<std::string> additional_info_;
 };
 
 static void write_bytes(int fd, const char* bytes, size_t num)
@@ -166,6 +178,10 @@ static std::string make_strerror(int err)
 namespace jf {
 namespace unittest {
 
+ForkRunner::ForkRunner(
+    bool print_pid)
+: print_pid_(print_pid) {}
+
 void ForkRunner::run_test(
     TestCase* test_case,
     Result* result)
@@ -198,6 +214,12 @@ void ForkRunner::run_test(
     }
     else { // parent
         ::close(channel[1]);
+
+        if (print_pid_) {
+            char tmp[20];
+            sprintf(tmp, "PID %d", pid);
+            result->add_additional_info(test_case, tmp);
+        }
 
         bool b;
         try {

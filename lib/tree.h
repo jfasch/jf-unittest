@@ -50,6 +50,12 @@ public:
      */
     TreeWalk& use_fork(bool);
 
+    /** @brief Print PID of each test's environment
+
+        If using fork, print the PID of each forked test instance.
+    */
+    TreeWalk& print_pid(bool);
+
     bool do_it(Test&);
 
 private:
@@ -66,6 +72,7 @@ private:
     virtual void add_success(const TestCase*);
     virtual void add_failure(const TestCase*, const Failure&);
     virtual void add_error(const TestCase*, const std::string& message);
+    virtual void add_additional_info(const TestCase*, const std::string& info);
     //@}
 
     void print_summary() const;
@@ -103,13 +110,15 @@ private:
     std::ostream& ostream_;
     bool print_path_;
     bool use_fork_;
+    bool print_pid_;
 
     SuiteStack suite_stack_;
 
-    Failure cur_failure;
-    const Failure* p_cur_failure;
-    std::string cur_error;
-    const std::string* p_cur_error;
+    Failure cur_failure_;
+    const Failure* p_cur_failure_;
+    std::string cur_error_;
+    const std::string* p_cur_error_;
+    std::vector<std::string> cur_additional_info_;
 
     Reports reports_;
 

@@ -34,6 +34,7 @@ public:
     virtual void add_success(const TestCase*) = 0;
     virtual void add_failure(const TestCase*, const Failure&) = 0;
     virtual void add_error(const TestCase*, const std::string& message) = 0;
+    virtual void add_additional_info(const TestCase*, const std::string& info) = 0;
 };
 
 }
