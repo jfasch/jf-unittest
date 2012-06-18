@@ -1,6 +1,6 @@
-// -*- mode: C++; c-basic-offset: 4 -*-
+// -*- C++ -*-
 
-// Copyright (C) 2011-2012 Joerg Faschingbauer
+// Copyright (C) 2012 Joerg Faschingbauer
 
 // This library is free software; you can redistribute it and/or
 // modify it under the terms of the GNU Lesser General Public License
@@ -17,27 +17,19 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307
 // USA
 
-#include <jf/unittest/suite.h>
-#include <jf/unittest/case.h>
-#include <jf/unittest/main.h>
+#ifndef HAVE_JF_UNITTEST_MAIN_H
+#define HAVE_JF_UNITTEST_MAIN_H
 
-using namespace jf::unittest;
-using namespace std;
+#include "test.h"
 
-namespace {
+#include <memory>
 
-class MyTest : public TestCase
-{
-public:
-    MyTest(const std::string& name) : TestCase(name) {}
-    virtual void run() {}
-};
+namespace jf {
+namespace unittest {
+
+int main(int argc, char** argv, std::auto_ptr<Test>);
 
 }
-
-int main(int argc, char** argv)
-{
-    TestSuite* suite = new TestSuite("suite");
-    suite->add_test(std::auto_ptr<Test>(new MyTest("test")));
-    return jf::unittest::main(argc, argv, std::auto_ptr<Test>(suite));
 }
+
+#endif

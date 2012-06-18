@@ -34,6 +34,7 @@ h = [
     'fork-runner.h',
 
     'tree.h',
+    'main.h',
     ]
 
 cc = [
@@ -48,6 +49,7 @@ cc = [
     'walk.cc',
 
     'tree.cc',
+    'main.cc',
     ]
 
 LIBRARY(
