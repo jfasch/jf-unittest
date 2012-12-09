@@ -137,7 +137,7 @@ public:
         };
         
         OkTest test;
-        ForkRunner runner;
+        ForkRunner runner(/*print_pid=*/true);
         MyTestResult result;
         runner.run_test(&test, &result);
 
