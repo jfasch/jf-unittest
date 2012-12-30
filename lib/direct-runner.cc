@@ -21,6 +21,9 @@
 
 #include <cstdio>
 
+#include <iostream>
+using namespace std;
+
 static void add_failure_description(
     std::string& msg,
     const jf::unittest::Failure& f)
@@ -49,17 +52,21 @@ void DirectRunner::run_test(
         setup_ok = true;
     }
     catch (const FailureException& e) {
-        std::string msg("setup: ");
+        // add both a failure (containing the entire cause and file,
+        // line) and an error (to indicate a "very hard" condition).
+        result->add_failure(test_case, e.failure());
+
+        std::string msg("setup error: ");
         add_failure_description(msg, e.failure());
         result->add_error(test_case, msg);
     }
     catch (const std::exception& e) {
-        std::string msg("setup: ");
+        std::string msg("setup error: ");
         msg += e.what();
         result->add_error(test_case, msg);
     }
     catch (...) {
-        result->add_error(test_case, "setup: \"...\" caught");
+        result->add_error(test_case, "setup error: \"...\" caught");
     }
 
     // only if setup went ok go on to execute the test code and

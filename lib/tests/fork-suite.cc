@@ -122,6 +122,29 @@ public:
     }
 };
 
+class ForkErrorTest : public TestCase
+{
+public:
+    ForkErrorTest() : TestCase("ForkError") {}
+
+    virtual void run()
+    {
+        class ErrorTest : public TestCase
+        {
+        public:
+            ErrorTest() : TestCase("") {}
+            virtual void run() { throw std::exception(); }
+        };
+        
+        ErrorTest test;
+        ForkRunner runner;
+        MyTestResult result;
+        runner.run_test(&test, &result);
+        
+        JFUNIT_ASSERT(result.num_error() == 1);
+    }
+};
+
 class AdditionalInfoTest : public TestCase
 {
 public:
@@ -146,6 +169,31 @@ public:
     }
 };
 
+class SetupFailureTest : public TestCase
+{
+public:
+    SetupFailureTest() : TestCase("SetupFailure") {}
+
+    virtual void run()
+    {
+        class SetupFails : public TestCase
+        {
+        public:
+            SetupFails() : TestCase("") {}
+            virtual void setup() { JFUNIT_FAIL(); }
+            virtual void run() {}
+        };
+        
+        SetupFails test;
+        ForkRunner runner(/*print_pid=*/true);
+        MyTestResult result;
+        runner.run_test(&test, &result);
+
+        JFUNIT_ASSERT(result.num_error() == 1);
+        JFUNIT_ASSERT(result.failures().size() == 1);
+    }
+};
+
 }
 
 namespace jf {
@@ -157,7 +205,9 @@ Fork::Fork()
 {
     add_test(std::auto_ptr<Test>(new ForkOkTest));
     add_test(std::auto_ptr<Test>(new ForkDontCrashTest));
+    add_test(std::auto_ptr<Test>(new ForkErrorTest));
     add_test(std::auto_ptr<Test>(new AdditionalInfoTest));
+    add_test(std::auto_ptr<Test>(new SetupFailureTest));
 }
 
 }

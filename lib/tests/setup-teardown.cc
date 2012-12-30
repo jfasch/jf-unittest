@@ -111,7 +111,10 @@ public:
         JFUNIT_ASSERT(!test.run_called());
         JFUNIT_ASSERT(!test.teardown_called());
         JFUNIT_ASSERT(result.num_success() == 0);
-        JFUNIT_ASSERT(result.num_failure() == 0);
+
+        // a setup failure is both a regular failure, as well as a
+        // more heavyweight error.
+        JFUNIT_ASSERT(result.num_failure() == 1);
         JFUNIT_ASSERT(result.num_error() == 1);
     }
 private:

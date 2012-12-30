@@ -48,6 +48,7 @@ class FailureException : public std::exception
 {
 public:
     FailureException(const jf::unittest::Failure& failure) : failure_(failure) {}
+    ~FailureException() throw() {}
     const jf::unittest::Failure& failure() const { return failure_; }
     /** Inherited from std::exception. Overloaded fatally since nobody
         should get a chance to call it. */

@@ -239,6 +239,7 @@ void ForkRunner::run_test(
             if (b) {
                 std::string msg;
                 read_string(channel[0], msg);
+                result->add_error(test_case, msg);
             }
             ::close(channel[0]);
         }
